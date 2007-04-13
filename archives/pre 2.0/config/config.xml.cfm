@@ -22,10 +22,11 @@
 		<Setting name="ConfigAutoReload"			value="false" />
 		<Setting name="ExceptionHandler"     		value="" />
 		<Setting name="HandlerCaching" 				value="false"/>
+		<Setting name="onInvalidEvent"				value="ehColdbox.dspFrameset" />
 	</Settings>
 	
 	<YourSettings>
-		<Setting name="Version" 				value="1.1.0"/>
+		<Setting name="Version" 				value="2.0.0"/>
 		<Setting name="BackupsPath"				value="backups" />
 		<Setting name="UpdateTempDir"			value="/coldbox/_tempinstall" />
 		<Setting name="InstallerDir"			value="model/installer" />
