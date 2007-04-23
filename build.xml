@@ -7,7 +7,7 @@
                    
      lmajano                                                                
      ====================================================================== -->
-<project name="dashboard.build" default="compile" basedir=".">
+<project name="dashboard.build" default="compile.checks" basedir=".">
     <description>
             Compile and Build the dashboard.
     </description>
@@ -82,8 +82,17 @@
 		<echo>Cleanup Complete.</echo>
 	</target>
 	
-	<!--CompileCheck-->
-	<target name="compile" depends="init">
+	<!---Compile checks only-->
+	<target name="compile.checks">
+		<antcall target="compile" />
+		<!-- Delete compileclasses destination -->
+		<delete includeemptydirs="true">
+			<fileset dir="${cfcompile.tmpClasses}" includes="**/*"/>
+		</delete>
+	</target>
+	
+	<!--Compiler-->
+	<target name="compile">
 		<echo>Starting to compile dashboard...</echo>
 		<java classname="coldfusion.tools.CommandLineInvoker" failonerror="true" fork="true">
 			<classpath>
@@ -99,13 +108,13 @@
 			<arg line=" -cfroot ${coldfusion.home} "/>
 			<arg line=" -webinf ${coldfusion.instancepath} "/>
 			<arg line=" -webroot ${webroot} "/>
-			<arg line=" ${build}" />
+			<arg line=" ${src}" />
 		</java>
 		<echo>Compilation checks complete.</echo>
 	</target>
 	
 	<!--Deploy-->
-	<target name="deploy" depends="compile">
+	<target name="deploy" depends="init,compile">
 		<echo>Starting to deploy dashboard...</echo>
 		<java classname="coldfusion.tools.CommandLineInvoker" failonerror="true" fork="true">
 			<classpath>
