@@ -7,7 +7,7 @@
                    
      lmajano                                                                
      ====================================================================== -->
-<project name="dashboard.build" default="deploy" basedir=".">
+<project name="dashboard.build" default="compile" basedir=".">
     <description>
             Compile and Build the dashboard.
     </description>
@@ -47,7 +47,7 @@
 		<!--Create the dist directory for distribution -->
 		<mkdir dir="${dist}"/>		
 		<!-- Copy the source to build directory without xml.cfm files. -->
-		<copy todir="${build}" verbose="true">
+		<copy todir="${build}">
 			<fileset dir="${src}">
 				<exclude name="**/*.xml.cfm"/>
 			</fileset>
