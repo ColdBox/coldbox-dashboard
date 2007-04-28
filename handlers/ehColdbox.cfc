@@ -24,7 +24,8 @@ This is the main event handler for the ColdBox dashboard.
 				MyService = getSetting("AppMapping") & ".model.dbservice";
 			
 			//Setup the Service
-			MyService = CreateObject("component",MyService).init();
+			dbService = CreateObject("component",MyService).init();
+			
 			
 			//place in cache
 			getColdboxOCM().set("dbservice",dbService);
