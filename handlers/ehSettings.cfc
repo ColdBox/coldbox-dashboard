@@ -158,40 +158,6 @@ This is the settings handler
 		<cfset setnextEvent("ehSettings.dspChangePassword")>
 	</cffunction>
 
-	<cffunction name="dspProxySettings" access="public" returntype="void" output="false">
-		<cfargument name="event" type="any" required="true">
-		<cfset var rc = event.getCollection()>
-		<cfset var settings = rc.dbservice.get("settings").getSettings()>
-		<cfset rc.proxyflag = settings["proxyflag"]>
-		<cfset rc.proxyserver = settings["proxyserver"]>
-		<cfset rc.proxyuser = settings["proxyuser"]>
-		<cfset rc.proxypassword = settings["proxypassword"]>
-		<cfset rc.proxyport = settings["proxyport"]>
-		<!--- EXIT HANDLERS: --->
-		<cfset rc.xehDoSave = "ehSettings.doChangeProxySettings">
-		<!--- Help --->
-		<cfset rc.help = renderView("settings/help/ProxySettings")>
-		<!--- Set the View --->
-		<cfset Event.setView("settings/vwProxySettings")>
-	</cffunction>
-
-	<cffunction name="doChangeProxySettings" access="public" returntype="void" output="false">
-		<cfargument name="event" type="any" required="true">
-		<cfset var rc = event.getCollection()>
-		<cfset var errors = false>
-		<cfset var rtnStruct = "">
-		<!--- Validate Passwords --->
-		<cfif len(trim(rc.proxyport)) neq 0 and not isnumeric(rc.proxyport)>
-			<cfset getPlugin("messagebox").setMessage("error", "The proxy port you filled out was not numeric. Please try again.")>
-		<cfelse>
-			<!--- Save the proxy settings --->
-			<cfset rc.dbservice.get("settings").changeProxySettings(rc.proxyflag,rc.proxyserver,rc.proxyuser, rc.proxypassword, rc.proxyport)>
-			<cfset getPlugin("messagebox").setMessage("info", "Your proxy settings have been saved successfully.")>
-		</cfif>
-		<!--- Move to new event --->
-		<cfset setnextEvent("ehSettings.dspProxySettings")>
-	</cffunction>
-
 	<cffunction name="dspCacheSettings" access="public" returntype="void" output="false">
 		<cfargument name="event" type="any" required="true">
 		<cfset var rc = event.getCollection()>

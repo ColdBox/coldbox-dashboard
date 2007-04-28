@@ -43,15 +43,13 @@
 	<form id="updateform" name="updateform" method="post" action="index.cfm?event=#Event.getValue("xehdoUpdate")#">
 	<input type="hidden" name="updatetype" id="updatetype" value="">
 
-	<input type="button" name="btn_update" value="Refresh" style="font-size:9px" onclick="doEvent('ehUpdater.dspUpdaterResults','content')"/>
-
+	<!--- <input type="button" name="btn_update" value="Refresh" style="font-size:9px" onclick="doEvent('ehUpdater.dspUpdaterResults','content')"/>
+ --->
 	<table width="100%" border="0" cellspacing="0" cellpadding="5" class="tablelisting">
 
 	  <tr>
-		<td class="sort"><strong>Application
-		  </th>
-		</strong>
-		<th width="95" style="text-align:center"><strong>Current Version</strong></th>
+		<th class="sort"><strong>Application</strong></th>
+		<th width="95" style="text-align:center"><strong>Your Version</strong></th>
 		<th width="95" style="text-align:center"><strong>Available Version</strong></th>
 		<th width="60" style="text-align:center"><strong>File Size</strong></th>
 		<th width="75" style="text-align:center"><strong>Commands</strong></th>
@@ -64,6 +62,8 @@
 		<td align="center" style="border-left:1px solid ##ddd">
 		<cfif rc.updateResults.coldboxavailableupdate>
 			#NumberFormat(rc.updateResults.ColdboxDistro.FileSize/1024)#kb
+		<cfelse>
+		<span class="redtext">---</span>
 		</cfif>
 		</td>
 		<td style="border-left:1px solid ##ddd" align="center">
@@ -84,6 +84,8 @@
 		<td align="center" style="border-left:1px solid ##ddd">
 		<cfif rc.updateResults.dashboardavailableupdate>
 			#NumberFormat(rc.updateResults.dashboardDistro.FileSize/1024)#kb
+		<cfelse>
+		<span class="redtext">---</span>
 		</cfif>
 		</td>
 
