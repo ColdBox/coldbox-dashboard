@@ -14,8 +14,18 @@ This is the main event handler for the ColdBox dashboard.
 	<cffunction name="onAppStart" access="public" returntype="void" output="false">
 		<cfargument name="Event" type="coldbox.system.beans.requestContext">
 		<cfscript>
-			var MyService = getSetting("AppMapping") & ".model.dbservice";
-			var dbService = CreateObject("component",MyService).init();
+			var MyService = "";
+			var dbService = "";
+			
+			//Setup My Service
+			if ( getSetting("AppMapping") eq "")
+				MyService = "model.dbservice";
+			else
+				MyService = getSetting("AppMapping") & ".model.dbservice";
+			
+			//Setup the Service
+			MyService = CreateObject("component",MyService).init();
+			
 			//place in cache
 			getColdboxOCM().set("dbservice",dbService);
 			getColdboxOCM().set("isBD",server.ColdFusion.ProductName neq "Coldfusion Server",0);
