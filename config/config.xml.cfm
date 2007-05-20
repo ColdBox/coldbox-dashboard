@@ -26,7 +26,7 @@
 	</Settings>
 	
 	<YourSettings>
-		<Setting name="Version" 				value="2.0.0"/>
+		<Setting name="Version" 				value="2.0.1"/>
 		<Setting name="TracSite"				value="http://ortus.svnrepository.com/coldbox/" />
 		<Setting name="OfficialSite"			value="http://www.coldboxframework.com" />
 		<Setting name="SchemaDocs" 				value="http://www.coldboxframework.com/documents/SchemaDocs/"/>
