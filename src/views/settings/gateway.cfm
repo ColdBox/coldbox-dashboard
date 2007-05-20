@@ -24,8 +24,10 @@ $(document).ready(function() {
 
 	<li><a href="javascript:doEvent('#Event.getValue("xehLogSettings")#', 'content', {})" onMouseOver="getHint('logfilesettings')" onMouseOut="resetHint()">Log File Settings</a></li>
 
+	<li><a href="javascript:doEvent('#Event.getValue("xehConventions")#', 'content', {})" onMouseOver="getHint('conventions')" onMouseOut="resetHint()">Framework Conventions</a></li>
+	
 	<li><a href="javascript:doEvent('#Event.getValue("xehPassword")#', 'content', {})" onMouseOver="getHint('passwordsettings')" onMouseOut="resetHint()">Change Dashboard Password</a></li>
-
+		
 </ul>
 
 </cfoutput>

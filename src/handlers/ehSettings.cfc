@@ -20,6 +20,7 @@ This is the settings handler
 		<cfset rc.xehSettings = "ehSettings.dspOverview">
 		<cfset rc.xehLogSettings = "ehSettings.dspLogSettings">
 		<cfset rc.xehGeneralSettings = "ehSettings.dspGeneralSettings">
+		<cfset rc.xehConventions = "ehSettings.dspConventions">
 		<cfset rc.xehPassword = "ehSettings.dspChangePassword">
 		<cfset rc.xehProxy = "ehSettings.dspProxySettings">
 		<cfset rc.xehCacheSettings = "ehSettings.dspCachesettings">
@@ -54,6 +55,42 @@ This is the settings handler
 		<cfset rc.help = renderView("settings/help/GeneralSettings")>
 		<!--- Set the View --->
 		<cfset Event.setView("settings/vwGeneralSettings")>
+	</cffunction>
+	
+	<cffunction name="dspConventions" access="public" returntype="void" output="false">
+		<cfargument name="event" type="any" required="true">
+		<cfset var rc = event.getCollection()>
+		<cfset rc.Conventions = rc.dbservice.get("fwsettings").getConventions()>
+		<!--- EXIT HANDLERS: --->
+		<cfset rc.xehDoSave = "ehSettings.doSaveConventions">
+		<!--- Help --->
+		<cfset rc.help = renderView("settings/help/conventions")>
+		<!--- Set the View --->
+		<cfset Event.setView("settings/vwConventions")>
+	</cffunction>
+	
+	<cffunction name="doSaveConventions" access="public" returntype="void" output="false">
+		<cfargument name="event" type="any" required="true">
+		<cfscript>
+			var rc = event.getCollection();
+			//var Get Bean
+			var oConventions = rc.dbservice.getBean("conventions");
+			//Populate bean with form data
+			getPlugin("beanFactory").populateBean(oConventions);
+			//Validate Bean.
+			if ( oConventions.validate() ){
+				//Save results
+				rc.dbService.get("fwsettings").saveConventions(oConventions);
+				//messagebox
+				getPlugin("messagebox").setMessage("warning", "Changes made sucessfully. Please note that once you reinitialize the framework IT WILL FAIL! Please make sure you change your conventions appropiately.");
+				//Relocate
+				setNextEvent("ehSettings.dspConventions");
+			}
+			else{
+				getPlugin("messagebox").setMessage("info","Please fill out all the values");
+				setNextEvent("ehSettings.dspConventions");
+			}			
+		</cfscript>		
 	</cffunction>
 
 	<cffunction name="doSaveGeneralSettings" access="public" returntype="void" output="false">

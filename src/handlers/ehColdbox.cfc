@@ -47,7 +47,7 @@ This is the main event handler for the ColdBox dashboard.
 		<!--- Inject dbservice to Eventon every request for usage --->
 		<cfset Event.setValue("dbService",getColdBoxOCM().get("dbservice"))>
 		<!--- Authorization --->
-		<cfif (not storage.exists("authorized") or storage.getvar("authorized") eq false) and Event.getValue("event") neq "ehSecurity.doLogin">
+		<cfif (not storage.exists("authorized") or storage.getvar("authorized") eq false) and Event.getCurrentEvent() neq "ehSecurity.doLogin">
 			<cfset Event.overrideEvent("ehSecurity.dspLogin")>
 		</cfif>
 	</cffunction>

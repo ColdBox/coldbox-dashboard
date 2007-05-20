@@ -13,6 +13,7 @@
         <rollover id="passwordsettings">Change your dashboard password, securely!!</rollover>
         <rollover id="proxysettings">Change your proxy settings, if needed.</rollover>
         <rollover id="cachesettings">Change the caching configuration parameters.</rollover>
+        <rollover id="conventions">Change the framework location conventions of key elements like handlers, config file, layouts and views.</rollover>
     </section>
      
     <section id="tools">

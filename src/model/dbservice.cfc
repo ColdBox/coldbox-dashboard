@@ -4,14 +4,32 @@
 	<cfset variables.instance = structnew()>
 
 	<cffunction name="init" access="public" returntype="dbservice" output="false">
-		<cfset instance.settings = CreateObject("component","settings").init()>
-		<cfset instance.fwsettings = CreateObject("component","fwsettings").init()>
+		<cfset instance.settings = CreateObject("component","services.settings").init()>
+		<cfset instance.fwsettings = CreateObject("component","services.fwsettings").init()>
 		<cfreturn this>
 	</cffunction>
 
 	<cffunction name="get" access="public" returntype="any" output="false">
 		<cfargument name="model" required="true" type="string" >
 		<cfreturn instance["#arguments.model#"]>
+	</cffunction>
+	
+	<cffunction name="getBean" access="public" returntype="any" output="false">
+		<cfargument name="bean" required="true" type="string" hint="the name of the bean to create.">
+		<cfscript>
+		var oBean = "";
+		
+		//Case
+		switch (arguments.bean){
+		
+			case "conventions":
+				oBean =  CreateObject("component","beans.conventionsBean").init();
+				break;
+		}
+		
+		//return bean
+		return oBean;
+		</cfscript>
 	</cffunction>
 
 	<cffunction name="sendbugreport" access="public" returntype="void" output="false">

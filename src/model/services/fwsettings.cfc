@@ -2,21 +2,49 @@
 
 <!------------------------------------------- CONSTRUCTOR ------------------------------------------->
 
-	<!--- Constructor --->
-	<cfset variables.instance = structnew()>
-	<cfset variables.instance.settingsFilePath = ExpandPath("/coldbox/system/config/settings.xml")>
-	<cfset variables.instance.qSettings = queryNew("")>
-	<cfset variables.instance.xmlObj = "">
-	
 	<cffunction name="init" access="public" returntype="fwsettings" output="false">
-		<cfset parseSettings()>
-		<cfreturn this>
+		<cfscript>
+			variables.instance = structnew();
+			variables.instance.settingsFilePath = ExpandPath("/coldbox/system/config/settings.xml");
+			variables.instance.qSettings = queryNew("");
+			variables.instance.Conventions = structnew();
+			variables.instance.xmlObj = "";
+			parseSettings();
+			return this;
+		</cfscript>
 	</cffunction>
 
 <!------------------------------------------- PUBLIC ------------------------------------------->
 	
 	<cffunction name="getSettings" access="public" returntype="query" output="false">
 		<cfreturn instance.qSettings>
+	</cffunction>
+	
+	<cffunction name="getConventions" access="public" output="false" returntype="struct" hint="Get Conventions">
+		<cfreturn instance.Conventions/>
+	</cffunction>
+	
+	<cffunction name="saveConventions" access="public" returntype="void" output="false">
+		<cfargument name="conventionBean" required="true" type="any">
+		<cfscript>
+			//save conventions
+			var xmlConventions = instance.xmlObj.xmlRoot.Conventions;
+			var key = "";
+			var Conventions = getConventions();
+			
+			//Save XML
+			xmlConventions[1].configLocation.xmlText = arguments.conventionBean.getConfigLocation();
+			xmlConventions[1].handlerLocation.xmlText = arguments.conventionBean.gethandlerLocation();
+			xmlConventions[1].layoutsLocation.xmlText = arguments.conventionBean.getlayoutsLocation();
+			xmlConventions[1].viewsLocation.xmlText = arguments.conventionBean.getviewsLocation();
+			
+			//Save structure
+			for ( key in Conventions ){
+				Conventions[key] = evaluate("arguments.conventionBean.get#key#()");
+			}
+			//save file.
+			saveSettings();
+		</cfscript>
 	</cffunction>
 	
 	<cffunction name="saveLogFileSettings" access="public" returntype="void" output="false">
@@ -110,12 +138,25 @@
 	<cffunction name="parseSettings" access="private" returntype="void" output="false">
 		<cfset var xmlString = "">
 		<cfset var xmlSettings = ArrayNew(1)>
+		<cfset var xmlConventions = ArrayNew(1)>
 		<cfset var x = 1>
-		<!--- Read File --->
-		<cffile action="read" file="#instance.settingsFilePath#" variable="xmlString">
+		
+		<cflock type="exclusive" name="fwSettingsOperation" timeout="120">
+			<!--- Read File --->
+			<cffile action="read" file="#instance.settingsFilePath#" variable="xmlString">
+		</cflock>
+		
 		<!--- Parse File --->
 		<cfset instance.xmlObj = XMLParse(trim(xmlString))>
+		<!--- Get XML NODES --->
 		<cfset xmlSettings = instance.xmlObj.xmlRoot.Settings.xmlChildren>
+		<cfset xmlConventions = instance.xmlObj.xmlRoot.Conventions>
+		
+		<!--- Create Conventions Struct --->
+		<cfset structInsert(getConventions(),"configLocation",xmlConventions[1].configLocation.xmlText)>
+		<cfset structInsert(getConventions(),"handlerLocation",xmlConventions[1].handlerLocation.xmlText)>
+		<cfset structInsert(getConventions(),"layoutsLocation",xmlConventions[1].layoutsLocation.xmlText)>
+		<cfset structInsert(getConventions(),"viewsLocation",xmlConventions[1].viewsLocation.xmlText)>
 		
 		<!--- Create Query --->
 		<cfscript>
@@ -130,7 +171,7 @@
 	<!--- ************************************************************* --->
 	
 	<cffunction name="saveSettings" access="private" returntype="void" output="false">
-		<cflock type="exclusive" name="settingsfile_udpate" timeout="120">
+		<cflock type="exclusive" name="fwSettingsOperation" timeout="120">
 			<cffile action="write" file="#instance.settingsFilePath#" output="#toString(instance.xmlObj)#">
 		</cflock>
 	</cffunction>
