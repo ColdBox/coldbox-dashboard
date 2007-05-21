@@ -21,7 +21,7 @@
 		<Setting name="HandlersIndexAutoReload"   	value="false" />
 		<Setting name="ConfigAutoReload"			value="false" />
 		<Setting name="ExceptionHandler"     		value="" />
-		<Setting name="HandlerCaching" 				value="true"/>
+		<Setting name="HandlerCaching" 				value="false"/>
 		<Setting name="onInvalidEvent"				value="ehColdbox.dspFrameset" />
 	</Settings>
 	

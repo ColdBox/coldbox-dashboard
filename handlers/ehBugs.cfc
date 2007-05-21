@@ -18,7 +18,7 @@ Bug handler
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehSubmitBug = "ehBugs.dspSubmitBug">
 		<!--- Set the Rollovers For This Section --->
-		<cfset rc.qRollovers = getPlugin("queryHelper").filterQuery(rc.dbservice.get("settings").getRollovers(),"pagesection","bugs")>
+		<cfset rc.qRollovers = getPlugin("queryHelper").filterQuery(rc.dbservice.getService("settings").getRollovers(),"pagesection","bugs")>
 		<!--- Set the View --->
 		<cfset Event.setView("bugs/gateway")>
 	</cffunction>

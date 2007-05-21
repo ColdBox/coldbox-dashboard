@@ -24,7 +24,7 @@ This is the main event handler for the ColdBox dashboard.
 				MyService = getSetting("AppMapping") & ".model.dbservice";
 			
 			//Setup the Service
-			dbService = CreateObject("component",MyService).init();
+			dbService = CreateObject("component",MyService).init(getController());
 			
 			
 			//place in cache
@@ -72,28 +72,11 @@ This is the main event handler for the ColdBox dashboard.
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehHome = "ehInfo.dspGateway">
 		<cfset rc.xehSettings = "ehSettings.dspGateway">
-		<cfset rc.xehTools = "ehColdbox.dspGateway">
+		<cfset rc.xehTools = "ehTools.dspGateway">
 		<cfset rc.xehUpdate = "ehUpdater.dspGateway">
 		<cfset rc.xehBugs = "ehBugs.dspGateway">
 		<!--- Set the View --->
 		<cfset Event.setView("tags/header")>
 	</cffunction>
-	
-	<!--- ************************************************************* --->
-	<!--- TOOLS SECTION 												--->
-	<!--- ************************************************************* --->
-	
-	<cffunction name="dspTools" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
-		<!--- EXIT HANDLERS: --->
-		<cfset rc.xehAppBuilder = "ehAppBuilder.dspAppBuilder">
-		<cfset rc.xehLogViewer = "ehLogViewer.dspLogViewer">
-		<cfset rc.xehCFCGenerator = "ehGenerator.dspcfcGenerator">
-		<!--- Set the Rollovers For This Section --->
-		<cfset rc.qRollovers = filterQuery(application.dbservice.get("settings").getRollovers(),"pagesection","tools")>
-		<!--- Set the View --->
-		<cfset Event.setView("vwTools")>
-	</cffunction>
-
-	
+		
 </cfcomponent>

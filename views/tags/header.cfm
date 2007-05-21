@@ -14,11 +14,11 @@
 			<a href="?event=#Event.getValue("xehSettings")#" target="mainframe" onmouseover="rollover('btn_settings')" onmouseout="rollout('btn_settings')"><img  src="images/icons/settings.gif" border="0" id="btn_settings" srcoff="images/icons/settings.gif" srcon="images/icons/settings_on.gif"><br>
 			Settings</a>
 		</div>
-		<!--- TOOLS
+		<!--- TOOLS--->
 		<div id="topbuttons" >
 			<a href="?event=#Event.getValue("xehTools")#" target="mainframe" onmouseover="rollover('btn_tools')" onmouseout="rollout('btn_tools')"><img  src="images/icons/tools.gif" border="0" id="btn_tools" srcoff="images/icons/tools.gif" srcon="images/icons/tools_on.gif"><br>
 			Tools</a>
-		</div>--->
+		</div>
 		<!--- BD/CFADMIN --->
 		<cfif not getColdboxOCM().get("isBD")>
 		<div id="topbuttons" >

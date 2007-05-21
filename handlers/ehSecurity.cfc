@@ -27,7 +27,7 @@ This is the security handler
 			<cfset getPlugin("messagebox").setMessage("error", "Please fill out the password field.")>
 			<cfset setNextEvent()>
 		</cfif>
-		<cfif getColdboxOCM().get("dbservice").get("settings").validatePassword(Event.getValue("password"))>
+		<cfif getColdboxOCM().get("dbservice").getService("settings").validatePassword(Event.getValue("password"))>
 			<!--- Validate user --->
 			<cfset getPlugin("sessionstorage").setVar("authorized",true)>
 			<cfset setNextEvent()>
