@@ -11,6 +11,15 @@
 		</cfscript>
 	</cffunction>
 	
+	<cffunction name="getMemento" access="public" output="false" returntype="struct" hint="Get Memento">
+		<cfreturn instance/>
+	</cffunction>
+	
+	<cffunction name="setMemento" access="public" output="false" returntype="void" hint="Set Memento">
+		<cfargument name="Memento" type="struct" required="true"/>
+		<cfset instance = arguments.Memento/>
+	</cffunction>
+	
 	<cffunction name="getConfigLocation" access="public" output="false" returntype="string">
 		<cfreturn instance.configLocation />
 	</cffunction>

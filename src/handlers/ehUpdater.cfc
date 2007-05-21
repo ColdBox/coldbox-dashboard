@@ -18,7 +18,7 @@ This is the updater handler
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehUpdater = "ehUpdater.dspUpdater">
 		<!--- Set the Rollovers For This Section --->
-		<cfset rc.qRollovers = getPlugin("queryHelper").filterQuery(rc.dbService.get("settings").getRollovers(),"pagesection","update")>
+		<cfset rc.qRollovers = getPlugin("queryHelper").filterQuery(rc.dbService.getService("settings").getRollovers(),"pagesection","update")>
 		<!--- Set the View --->
 		<cfset Event.setView("update/gateway")>
 	</cffunction>
@@ -31,7 +31,7 @@ This is the updater handler
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehCheck = "ehUpdater.docheckForUpdates">
 		<!--- Get distribution URL's --->
-		<cfset rc.qURLS = rc.dbservice.get("settings").getDistributionUrls()>
+		<cfset rc.qURLS = rc.dbservice.getService("settings").getDistributionUrls()>
 		<!--- Help --->
 		<cfset rc.help = renderView("update/help/Updater")>
 		<!--- Set the View --->

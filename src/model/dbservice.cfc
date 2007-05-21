@@ -1,21 +1,36 @@
-<cfcomponent output="false" displayname="dbservice" hint="I am the Dashboard Service.">
+<cfcomponent output="false" displayname="dbservice" hint="I am the Main Dashboard Service.">
 
-	<!--- Constructor --->
-	<cfset variables.instance = structnew()>
+<!------------------------------------------- CONSTRUCTOR ------------------------------------------->
 
 	<cffunction name="init" access="public" returntype="dbservice" output="false">
-		<cfset instance.settings = CreateObject("component","services.settings").init()>
-		<cfset instance.fwsettings = CreateObject("component","services.fwsettings").init()>
-		<cfreturn this>
+		<cfargument name="coldbox" required="true" type="any" hint="The coldbox controller">
+		<cfscript>
+			instance = structnew();
+			instance.coldbox = arguments.coldbox;
+			
+			//Create Services
+			instance.settings = CreateObject("component","services.settings").init();
+			instance.fwsettings = CreateObject("component","services.fwsettings").init();
+			instance.generator = CreateObject("component","services.generator").init(coldbox);
+			
+			//Set generator dependency
+			instance.generator.setapptemplatePath(expandPath('model/templates/apptemplate.zip'));
+			
+			//Bug Email address
+			setBugEmail('bugs@coldboxframework.com');
+			return this;
+		</cfscript>
 	</cffunction>
 
-	<cffunction name="get" access="public" returntype="any" output="false">
+<!------------------------------------------- PUBLIC ------------------------------------------->
+
+	<cffunction name="getService" access="public" returntype="any" output="false">
 		<cfargument name="model" required="true" type="string" >
 		<cfreturn instance["#arguments.model#"]>
 	</cffunction>
 	
-	<cffunction name="getBean" access="public" returntype="any" output="false">
-		<cfargument name="bean" required="true" type="string" hint="the name of the bean to create.">
+	<cffunction name="getBean" access="public" returntype="any" output="false" hint="The domain objects factory">
+		<cfargument name="bean" required="true" type="string" hint="the name of the domain objects to create.">
 		<cfscript>
 		var oBean = "";
 		
@@ -24,6 +39,9 @@
 		
 			case "conventions":
 				oBean =  CreateObject("component","beans.conventionsBean").init();
+				break;
+			case "generatorbean":
+				oBean =  CreateObject("component","beans.generatorBean").init();
 				break;
 		}
 		
@@ -64,11 +82,22 @@
 		</cfoutput>
 		</cfsavecontent>
 		<!--- Send the bug report --->
-		<cfmail to="bugs@coldboxframework.com"
+		<cfmail to="#getBugEmail#"
 				from="#arguments.requestCollection.email#"
 				subject="Bug Report">
 		#mybugreport#
 		</cfmail>
+	</cffunction>
+
+<!------------------------------------------- PRIVATE ------------------------------------------->
+
+	<cffunction name="getbugEmail" access="public" output="false" returntype="string" hint="Get bugEmail">
+		<cfreturn instance.bugEmail/>
+	</cffunction>
+	
+	<cffunction name="setbugEmail" access="public" output="false" returntype="void" hint="Set bugEmail">
+		<cfargument name="bugEmail" type="string" required="true"/>
+		<cfset instance.bugEmail = arguments.bugEmail/>
 	</cffunction>
 
 </cfcomponent>
