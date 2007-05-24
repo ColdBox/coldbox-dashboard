@@ -62,7 +62,21 @@
 		ConfigFileContents = replacenocase(ConfigFileContents,"@CONFIG_AUTO_RELOAD@",arguments.generatorBean.getconfigautoreload());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@BUG_EMAILS@",bugEmails);
 		ConfigFileContents = replacenocase(ConfigFileContents,"@DEV_URLS@",devURLS);
+		if ( arguments.generatorBean.getCustom_error_template() ){
+			ConfigFileContents = replacenocase(ConfigFileContents,"@CUSTOM_ERROR_TEMPLATE@","includes/generic_error.cfm");
+		}
+		else{
+			ConfigFileContents = replacenocase(ConfigFileContents,"@CUSTOM_ERROR_TEMPLATE@","");
+		}
+		if( arguments.generatorBean.getException_handler() ){
+			ConfigFileContents = replacenocase(ConfigFileContents,"@EXCEPTION_HANDLER@","ehMain.onException");
+		}
+		else{
+			ConfigFileContents = replacenocase(ConfigFileContents,"@EXCEPTION_HANDLER@","");
+		}
+		//Replace eclipse project tokens
 		EclipseProjectContents = replacenocase(EclipseProjectContents,"@APPNAME@",arguments.generatorBean.getAppName());
+
 		//ReWrite File
 		writeFile(ConfigFile,ConfigFileContents);
 		writeFile(EclipseFile,EclipseProjectContents);
