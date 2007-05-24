@@ -273,6 +273,9 @@ li{
 	font-size: 9px;
 	border-bottom: 1px solid #cccccc;
 }
+.tablelisting tr.even{
+	background-color: #EFF6FF;
+}
 .tablelisting tr:hover { background: #E8F2FE }
 .tablelisting th {
   text-align: left;

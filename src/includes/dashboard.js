@@ -234,7 +234,7 @@ function toggleLogsLocation(){
 }
 function addemail(){
 	var vemail = $("#bugemailadd").val();
-	var oBugEmails = document.getElementById('bugemails');
+	var oBugEmails = document.getElementById('select_bugemails');
 	var oldLength = oBugEmails.options.length;
 	
 	if ( vemail == "") alert("Please enter a valid email");
@@ -249,7 +249,7 @@ function addemail(){
 }
 
 function removeemail(){
-	var oBugEmails = document.getElementById('bugemails');
+	var oBugEmails = document.getElementById('select_bugemails');
 	var lgth = oBugEmails.options.length - 1;
 	var sel = oBugEmails.selectedIndex;
 	 
@@ -263,7 +263,7 @@ function removeemail(){
 
 function addDevURL(){
 	var vurl = $("#devurladd").val();
-	var odevurls = document.getElementById('devurls');
+	var odevurls = document.getElementById('select_devurls');
 	var oldLength = odevurls.options.length;
 	
 	if ( vurl == "") 
@@ -276,7 +276,7 @@ function addDevURL(){
 }
 
 function removeDevURL(){
-	var odevurls = document.getElementById('devurls');
+	var odevurls = document.getElementById('select_devurls');
 	var lgth = odevurls.options.length - 1;
 	var sel = odevurls.selectedIndex;
  
@@ -290,6 +290,9 @@ function removeDevURL(){
 
 function validateGeneration(vEvent){
 	var errors = false;
+	var i = 0;
+	
+	//Get required classes and test.
 	$(".required").each(function(i){
 		if ( this.value == '' ){
 			errors = true;
@@ -297,13 +300,29 @@ function validateGeneration(vEvent){
 	});
 	
 	if ( errors ){
-		alert("Please fill out all the necessary fields");
+		alert("Please fill out all the required fields");
 	}
 	else{
-		//select all of devurls
-		alert($("#devurls").val());
-		myForm = document.getElementById("updateform");
-		doFormEvent(vEvent,'content', myForm);
-	}
-}
+		//Confirm Generation
+		if ( confirm("Are you sure you wish to generate the application now?") ){
+			//Dev URLS
+			oDevurls = document.getElementById("select_devurls");
+			txtDevurls = $("#devurls");
+			oBugEmails = document.getElementById("select_bugemails");
+			txtBugEmails = $("#bugemails");
+			
+			//select all of devurls
+			for(i=0; i < oDevurls.options.length; i++){
+				txtDevurls.val(txtDevurls.val() + oDevurls.options[i].value + ",");
+			}
+			//Select all of bugEmails
+			for(i=0; i < oBugEmails.options.length; i++){
+				txtBugEmails.val(txtBugEmails.val() + oBugEmails.options[i].value + ",");
+			}
+	
+			//Generate Application
+			doFormEvent(vEvent,'content', document.updateform);
+		}//end confirm generation
+	}//end else no errors.
+}//end validateGeneration
 
