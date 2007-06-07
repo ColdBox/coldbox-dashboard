@@ -44,8 +44,7 @@
 	</BugTracerReports>
 	
 	<DevEnvironments>
-		<url>dev</url>
-		<url>lmajano</url>
+		<url>localhost</url>
 		<url>jfetmac</url>
 	</DevEnvironments>
 	

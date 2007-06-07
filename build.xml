@@ -50,6 +50,7 @@
 		<copy todir="${build}">
 			<fileset dir="${src}">
 				<exclude name="**/*.xml.cfm"/>
+				<exclude name="index.cfm" />
 			</fileset>
 		</copy>		
 		<echo>Build setup complete.</echo>		
@@ -68,6 +69,7 @@
 		<copy todir="${dist}">
 			<fileset dir="${src}">
 				<include name="**/*.xml.cfm"/>
+				<include name="index.cfm" />
 			</fileset>
 		</copy>
 	</target>
