@@ -6,7 +6,6 @@ $(document).ready(function() {
 });
 </script>
 
-<link rel="stylesheet" href="/coldbox/system/includes/cfcviewer.css" type="text/css" />
 #renderView("tags/rollovers")#
 
 <!--- Title Bar --->

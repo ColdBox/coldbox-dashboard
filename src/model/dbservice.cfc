@@ -7,15 +7,15 @@
 		<cfscript>
 			instance = structnew();
 			instance.coldbox = arguments.coldbox;
-			
+
 			//Create Services
-			instance.settings = CreateObject("component","services.settings").init();
-			instance.fwsettings = CreateObject("component","services.fwsettings").init();
+			instance.settings = CreateObject("component","services.settings").init(coldbox);
+			instance.fwsettings = CreateObject("component","services.fwsettings").init(coldbox);
 			instance.generator = CreateObject("component","services.generator").init(coldbox);
-			
+
 			//Set generator dependency
 			instance.generator.setapptemplatePath(expandPath('model/templates/apptemplate.zip'));
-			
+
 			//Bug Email address
 			setBugEmail('bugs@coldboxframework.com');
 			return this;
@@ -28,15 +28,15 @@
 		<cfargument name="model" required="true" type="string" >
 		<cfreturn instance["#arguments.model#"]>
 	</cffunction>
-	
+
 	<cffunction name="getBean" access="public" returntype="any" output="false" hint="The domain objects factory">
 		<cfargument name="bean" required="true" type="string" hint="the name of the domain objects to create.">
 		<cfscript>
 		var oBean = "";
-		
+
 		//Case
 		switch (arguments.bean){
-		
+
 			case "conventions":
 				oBean =  CreateObject("component","beans.conventionsBean").init();
 				break;
@@ -44,7 +44,7 @@
 				oBean =  CreateObject("component","beans.generatorBean").init();
 				break;
 		}
-		
+
 		//return bean
 		return oBean;
 		</cfscript>
@@ -94,7 +94,7 @@
 	<cffunction name="getbugEmail" access="public" output="false" returntype="string" hint="Get bugEmail">
 		<cfreturn instance.bugEmail/>
 	</cffunction>
-	
+
 	<cffunction name="setbugEmail" access="public" output="false" returntype="void" hint="Set bugEmail">
 		<cfargument name="bugEmail" type="string" required="true"/>
 		<cfset instance.bugEmail = arguments.bugEmail/>

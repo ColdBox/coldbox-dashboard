@@ -51,6 +51,9 @@ Informative handler.
 	<cffunction name="dspCFCDocs" access="public" returntype="void" output="false">
 		<cfargument name="Event" type="coldbox.system.beans.requestContext">
 		<cfset var rc = Event.getCollection()>
+		<cfset var cbloc = getSetting("coldbox_location")>
+		<cfset var cbloc2 = right(cbloc,len(cbloc)-1)>
+
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehCFCDocs = "ehInfo.dspCFCDocs">
 		<cfset rc.cfcViewer = getPlugin("cfcViewer")>
@@ -59,13 +62,13 @@ Informative handler.
 		<!---Logic --->
 		<cfset Event.paramValue("show", "")>
 		<cfif rc.show eq "plugins">
-			<cfset rc.cfcViewer.setup("/coldbox/system/plugins","coldbox/system/plugins")>
+			<cfset rc.cfcViewer.setup("#cbloc#/plugins","#cbloc2#/plugins")>
 		<cfelseif rc.show eq "beans">
-			<cfset rc.cfcViewer.setup("/coldbox/system/beans","coldbox/system/beans")>
+			<cfset rc.cfcViewer.setup("#cbloc#/beans","#cbloc2#/beans")>
 		<cfelseif rc.show eq "util">
-			<cfset rc.cfcViewer.setup("/coldbox/system/util","coldbox/system/util")>
+			<cfset rc.cfcViewer.setup("#cbloc#/util","#cbloc2#/util")>
 		<cfelse>
-			<cfset rc.cfcViewer.setup("/coldbox/system/","coldbox/system/")>
+			<cfset rc.cfcViewer.setup("#cbloc#/","#cbloc2#/")>
 		</cfif>
 		<!--- Set the View --->
 		<cfset Event.setView("home/vwCFCDocs")>

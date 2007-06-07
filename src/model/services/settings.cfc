@@ -15,6 +15,8 @@
 	<!--- ************************************************************* --->
 
 	<cffunction name="init" access="public" returntype="settings" output="false">
+		<cfargument name="coldbox" required="true" type="any" hint="The coldbox controller">
+		<cfset variables.instance.coldbox = arguments.coldbox>
 		<cfset parseSettings()>
 		<cfset parseRollovers()>
 		<cfreturn this>

@@ -5,6 +5,7 @@
 		<Setting name="AppName" 					value="ColdboxDashboard"/>
 		<Setting name="DebugMode"					value="false"/>
 		<Setting name="DebugPassword"				value="coldbox"/>
+		<Setting name="ReinitPassword" 				value="coldbox"/>
 		<Setting name="EnableDumpVar" 				value="false"/>
 		<Setting name="EnableColdfusionLogging" 	value="false"/>
 		<Setting name="EnableColdboxLogging" 		value="true"/>
@@ -21,15 +22,17 @@
 		<Setting name="HandlersIndexAutoReload"   	value="false" />
 		<Setting name="ConfigAutoReload"			value="false" />
 		<Setting name="ExceptionHandler"     		value="" />
-		<Setting name="HandlerCaching" 				value="false"/>
+		<Setting name="HandlerCaching" 				value="true"/>
 		<Setting name="onInvalidEvent"				value="ehColdbox.dspFrameset" />
 	</Settings>
 	
 	<YourSettings>
-		<Setting name="Version" 				value="2.1.0"/>
+		<Setting name="Version" 				value="2.2.0"/>
 		<Setting name="TracSite"				value="http://ortus.svnrepository.com/coldbox/" />
 		<Setting name="OfficialSite"			value="http://www.coldboxframework.com" />
 		<Setting name="SchemaDocs" 				value="http://www.coldboxframework.com/documents/SchemaDocs/"/>
+		<Setting name="Coldbox_Location" 		value="/coldbox/system"/>
+		<Setting name="ColdboxSamples_Location" value="/coldbox/samples"/>
 	</YourSettings>
 	
 	<!--Optional,if blank it will use the CFMX administrator settings.-->
@@ -47,9 +50,7 @@
 		<url>localhost</url>
 		<url>jfetmac</url>
 	</DevEnvironments>
-	
-	<WebServices/>
-	
+		
 	<Layouts>
 		<DefaultLayout>Layout.simple.cfm</DefaultLayout>
 		<Layout file="Layout.Login.cfm" name="login">
@@ -63,10 +64,5 @@
 			<View>update/gateway</View>
 		</Layout>
 	</Layouts>
-	
-	<i18N />
-	
-	
-	<Datasources />
 	
 </Config>
