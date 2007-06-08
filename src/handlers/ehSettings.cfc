@@ -7,9 +7,9 @@ Description		:
 This is the settings handler
 
 --->
-<cfcomponent name="ehSettings" extends="coldbox.system.eventhandler" output="false">
+<cfcomponent name="ehSettings" extends="baseHandler" output="false">
 
-<!--- ************************************************************* --->
+	<!--- ************************************************************* --->
 	<!--- SETTINGS SECTION 												--->
 	<!--- ************************************************************* --->
 
@@ -49,12 +49,32 @@ This is the settings handler
 		<cfset rc.DefaultFileCharacterSet = fwSettings["DefaultFileCharacterSet"]>
 		<cfset rc.ColdspringBeanFactory = fwSettings["ColdspringBeanFactory"]>
 		<cfset rc.MessageBoxStorage = fwSettings["MessageBoxStorage"]>
+		<cfset rc.EventName = fwSettings["EventName"]>
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehDoSave = "ehSettings.doSaveGeneralSettings">
 		<!--- Help --->
 		<cfset rc.help = renderView("settings/help/GeneralSettings")>
 		<!--- Set the View --->
 		<cfset Event.setView("settings/vwGeneralSettings")>
+	</cffunction>
+	
+	<cffunction name="doSaveGeneralSettings" access="public" returntype="void" output="false">
+		<cfargument name="event" type="any" required="true">
+		<cfset var rc = event.getCollection()>
+		<cfset var fwSettings = rc.dbservice.getService("fwsettings").getSettings()>
+		<cfset var setCharacterSet = fwSettings["DefaultFileCharacterSet"]>
+
+		<!--- Validate Coldspring --->
+		<cfif len(trim(rc.ColdspringBeanFactory)) eq 0 or len(Trim(rc.EventName)) eq 0>
+			<cfset getPlugin("messagebox").setMessage("error","Please enter all the required fields.")>
+			<cfset setNextEvent("ehSettings.dspGeneralSettings")>	
+		<cfelse>
+			<!--- Update the settings --->
+			<cfset rc.dbservice.getService("fwsettings").saveGeneralSettings(rc.DefaultFileCharacterSet,rc.MessageBoxStorage,rc.ColdspringBeanFactory,rc.EventName)>
+			<cfset getPlugin("messagebox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.")>
+			<!--- Relocate --->
+			<cfset setNextEvent("ehSettings.dspGeneralSettings","fwreinit=#getSetting('ReinitPassword')#")>
+		</cfif>
 	</cffunction>
 	
 	<cffunction name="dspConventions" access="public" returntype="void" output="false">
@@ -91,25 +111,6 @@ This is the settings handler
 				setNextEvent("ehSettings.dspConventions");
 			}			
 		</cfscript>		
-	</cffunction>
-
-	<cffunction name="doSaveGeneralSettings" access="public" returntype="void" output="false">
-		<cfargument name="event" type="any" required="true">
-		<cfset var rc = event.getCollection()>
-		<cfset var fwSettings = rc.dbservice.getService("fwsettings").getSettings()>
-		<cfset var setCharacterSet = fwSettings["DefaultFileCharacterSet"]>
-
-		<!--- Validate Coldspring --->
-		<cfif len(trim(ColdspringBeanFactory)) eq 0>
-			<cfset getPlugin("messagebox").setMessage("error","Please enter the coldspring bean factory path.")>
-			<cfset setNextEvent("ehSettings.dspGeneralSettings")>
-		<cfelse>
-			<!--- Update the settings --->
-			<cfset rc.dbservice.getService("fwsettings").saveGeneralSettings(rc.DefaultFileCharacterSet,rc.MessageBoxStorage,rc.ColdspringBeanFactory)>
-			<cfset getPlugin("messagebox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.")>
-			<!--- Relocate --->
-			<cfset setNextEvent("ehSettings.dspGeneralSettings","fwreinit=1")>
-		</cfif>
 	</cffunction>
 
 	<cffunction name="dspLogSettings" access="public" returntype="void" output="false">
@@ -155,7 +156,7 @@ This is the settings handler
 			<cfset rc.dbservice.getService("fwsettings").saveLogFileSettings(rc.LogFileEncoding,rc.LogFileBufferSize,rc.LogFileMaxSize, rc.DefaultLogDirectory)>
 			<cfset getPlugin("messagebox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.")>
 			<!--- Relocate --->
-			<cfset setNextEvent("ehSettings.dspLogSettings","fwreinit=1")>
+			<cfset setNextEvent("ehSettings.dspLogSettings","fwreinit=#getSetting('ReinitPassword')#")>
 		<cfelse>
 			<!--- Relocate --->
 			<cfset setNextEvent("ehSettings.dspLogSettings")>
@@ -241,7 +242,7 @@ This is the settings handler
 																	rc.CacheFreeMemoryPercentageThreshold)>
 			<cfset getPlugin("messagebox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.")>
 			<!--- Relocate --->
-			<cfset setNextEvent("ehSettings.dspCacheSettings","fwreinit=1")>
+			<cfset setNextEvent("ehSettings.dspCacheSettings","fwreinit=#getSetting('ReinitPassword')#")>
 		</cfif>
 	</cffunction>
 

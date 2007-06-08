@@ -7,14 +7,14 @@ Description		:
 Informative handler.
 
 --->
-<cfcomponent name="ehInfo" extends="coldbox.system.eventhandler" output="false">
+<cfcomponent name="ehInfo" extends="baseHandler" output="false">
 
 	<!--- ************************************************************* --->
 	<!--- HOME SECTION 													--->
 	<!--- ************************************************************* --->
 
 	<cffunction name="dspGateway" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfset var rc = Event.getCollection()>
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehSystemInfo = "ehInfo.dspSystemInfo">
@@ -27,7 +27,7 @@ Informative handler.
 	</cffunction>
 
 	<cffunction name="dspSystemInfo" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfset var rc = Event.getCollection()>
 		<!--- Check if install folder exists --->
 		<cfset rc.InstallFolderExits = directoryExists(ExpandPath("/coldbox/install"))>
@@ -40,7 +40,7 @@ Informative handler.
 	</cffunction>
 
 	<cffunction name="dspOnlineResources" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfset var rc = Event.getCollection()>
 		<!--- Help --->
 		<cfset rc.help = renderView("home/help/OnlineResources")>
@@ -49,7 +49,7 @@ Informative handler.
 	</cffunction>
 
 	<cffunction name="dspCFCDocs" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfset var rc = Event.getCollection()>
 		<cfset var cbloc = getSetting("coldbox_location")>
 		<cfset var cbloc2 = right(cbloc,len(cbloc)-1)>

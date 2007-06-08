@@ -6,14 +6,14 @@ Description		:
 This is the security handler
 
 --->
-<cfcomponent name="ehSecurity" extends="coldbox.system.eventhandler" output="false">
+<cfcomponent name="ehSecurity" extends="baseHandler" output="false">
 
 	<!--- ************************************************************* --->
 	<!--- LOGIN SECTION													--->
 	<!--- ************************************************************* --->
 	
 	<cffunction name="dspLogin" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<!--- EVENT HANDLERS: --->
 		<cfset Event.getCollection().xehLogin = "ehSecurity.doLogin">
 		<!--- Set the View --->
@@ -21,7 +21,7 @@ This is the security handler
 	</cffunction>
 	
 	<cffunction name="doLogin" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<!--- Do Login --->
 		<cfif len(trim(Event.getValue("password",""))) eq 0>
 			<cfset getPlugin("messagebox").setMessage("error", "Please fill out the password field.")>
@@ -38,7 +38,7 @@ This is the security handler
 	</cffunction>
 	
 	<cffunction name="doLogout" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfset getPlugin("sessionstorage").deleteVar("authorized")>
 		<cfset SetNextEvent("ehSecurity.dspLogin")>
 	</cffunction>

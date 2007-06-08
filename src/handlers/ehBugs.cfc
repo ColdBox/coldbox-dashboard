@@ -7,13 +7,13 @@ Description		:
 Bug handler
 
 --->
-<cfcomponent name="ehBugs" extends="coldbox.system.eventhandler" output="false">
+<cfcomponent name="ehBugs" extends="baseHandler" output="false">
 
 	<!--- ************************************************************* --->
 	<!--- SUBMIT BUG	 												--->
 	<!--- ************************************************************* --->
 	<cffunction name="dspGateway" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfset var rc = Event.getCollection()>
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehSubmitBug = "ehBugs.dspSubmitBug">
@@ -24,7 +24,7 @@ Bug handler
 	</cffunction>
 
 	<cffunction name="dspSubmitBug" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfset var rc = Event.getCollection()>
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehDoSave = "ehBugs.doSubmitBug">
@@ -35,7 +35,7 @@ Bug handler
 	</cffunction>
 
 	<cffunction name="doSubmitBug" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfset var rc = Event.getCollection()>
 		<!--- Validate --->
 		<cfif len(trim(rc.email)) eq 0 or len(trim(rc.bugreport)) eq 0 or len(trim(rc.name)) eq 0>

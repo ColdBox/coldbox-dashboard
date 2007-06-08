@@ -7,7 +7,7 @@ Description		:
 This is the updater handler
 
 --->
-<cfcomponent name="ehUpdater" extends="coldbox.system.eventhandler">
+<cfcomponent name="ehUpdater" extends="baseHandler">
 
 	<!--- ************************************************************* --->
 	<!--- UPDATE SECTION 												--->

@@ -7,17 +7,17 @@ Description		:
 This is the tools main handler.
 
 --->
-<cfcomponent name="ehTools" extends="coldbox.system.eventhandler" output="false">
+<cfcomponent name="ehTools" extends="baseHandler" output="false">
 
 	<!--- ************************************************************* --->
 	<!--- TOOLS SECTION 												--->
 	<!--- ************************************************************* --->
 	
 	<cffunction name="dspGateway" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfset var rc = event.getCollection()>
 		<!--- EXIT HANDLERS: --->
-		<cfset rc.xehGenerator = "tools.ehGenerator.dspGenerator">
+		<cfset rc.xehGenerator = "ehGenerator.dspGenerator">
 		<!--- Set the Rollovers For This Section --->
 		<cfset rc.qRollovers = getPlugin("queryHelper").filterQuery(rc.dbService.getService("settings").getRollovers(),"pagesection","tools")>
 		<!--- Set the View --->

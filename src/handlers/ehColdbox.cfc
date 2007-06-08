@@ -7,12 +7,12 @@ Description		:
 This is the main event handler for the ColdBox dashboard.
 
 --->
-<cfcomponent name="ehColdBox" extends="coldbox.system.eventhandler" output="false">
+<cfcomponent name="ehColdBox" extends="baseHandler" output="false">
 
 	<!--- ************************************************************* --->
 
 	<cffunction name="onAppStart" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfscript>
 			var MyService = "";
 			var dbService = "";
@@ -36,7 +36,7 @@ This is the main event handler for the ColdBox dashboard.
 	<!--- ************************************************************* --->
 
 	<cffunction name="onRequestStart" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfset var storage = getPlugin("sessionstorage")>
 		<!--- Check if the dbservice is set, else set it in cache --->
 		<cfif not getColdboxOCM().lookup("dbservice")>
@@ -57,7 +57,7 @@ This is the main event handler for the ColdBox dashboard.
 	<!--- ************************************************************* --->
 	
 	<cffunction name="dspFrameset" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfset var rc = Event.getCollection()>
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehHome = "ehInfo.dspGateway">
@@ -67,7 +67,7 @@ This is the main event handler for the ColdBox dashboard.
 	</cffunction>
 	
 	<cffunction name="dspHeader" access="public" returntype="void" output="false">
-		<cfargument name="Event" type="coldbox.system.beans.requestContext">
+		<cfargument name="Event" type="any">
 		<cfset var rc = Event.getCollection()>
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehHome = "ehInfo.dspGateway">

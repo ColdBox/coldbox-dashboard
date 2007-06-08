@@ -18,14 +18,6 @@
 
 <!------------------------------------------- PUBLIC ------------------------------------------->
 
-	<cffunction name="getSettings" access="public" returntype="query" output="false">
-		<cfreturn instance.qSettings>
-	</cffunction>
-
-	<cffunction name="getConventions" access="public" output="false" returntype="struct" hint="Get Conventions">
-		<cfreturn instance.Conventions/>
-	</cffunction>
-
 	<cffunction name="saveConventions" access="public" returntype="void" output="false">
 		<cfargument name="conventionBean" required="true" type="any">
 		<cfscript>
@@ -82,6 +74,7 @@
 		<cfargument name="DefaultFileCharacterSet"		required="true" type="string">
 		<cfargument name="MessageBoxStorage" 	        required="true" type="string">
 		<cfargument name="ColdspringBeanFactory" 	    required="true" type="string">
+		<cfargument name="EventName" 					required="true" type="string" />
 		<!--- ************************************************************* --->
 		<cfscript>
 		var x = 1;
@@ -95,6 +88,9 @@
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"ColdspringBeanFactory") eq 0){
 				settingArray[x].xmlAttributes.value = trim(arguments.ColdspringBeanFactory);
+			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"EventName") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.EventName);
 			}
 		}
 		saveSettings();
@@ -133,6 +129,8 @@
 		</cfscript>
 	</cffunction>
 
+<!------------------------------------------- ACCESSORS/MUTATORS ------------------------------------------->
+
 	<cffunction name="getcoldbox" access="public" output="false" returntype="any" hint="Get coldbox">
 		<cfreturn instance.coldbox/>
 	</cffunction>
@@ -142,6 +140,14 @@
 		<cfset instance.coldbox = arguments.coldbox/>
 	</cffunction>
 
+	<cffunction name="getSettings" access="public" returntype="query" output="false">
+		<cfreturn instance.qSettings>
+	</cffunction>
+
+	<cffunction name="getConventions" access="public" output="false" returntype="struct" hint="Get Conventions">
+		<cfreturn instance.Conventions/>
+	</cffunction>
+	
 <!------------------------------------------- PRIVATE ------------------------------------------->
 
 	<!--- ************************************************************* --->

@@ -6,6 +6,7 @@
 		<Setting name="DebugMode"					value="false"/>
 		<Setting name="DebugPassword"				value="coldbox"/>
 		<Setting name="ReinitPassword" 				value="coldbox"/>
+		<Setting name="EventName"					value="event" />
 		<Setting name="EnableDumpVar" 				value="false"/>
 		<Setting name="EnableColdfusionLogging" 	value="false"/>
 		<Setting name="EnableColdboxLogging" 		value="true"/>

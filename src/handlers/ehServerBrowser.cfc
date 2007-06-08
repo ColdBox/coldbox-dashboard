@@ -7,7 +7,7 @@ Description		:
 This is the File Browser Handler
 
 --->
-<cfcomponent name="ehServerBrowser" extends="coldbox.system.eventhandler" output="false">
+<cfcomponent name="ehServerBrowser" extends="baseHandler" output="false">
 	
 	<cffunction name="preHandler" access="public" returntype="void" output="false">
 		<cfargument name="Event" type="any" required="true">
@@ -22,8 +22,8 @@ This is the File Browser Handler
 		<cfset var oSession = getPlugin("sessionstorage")>
 		
 		<!--- EXIT HANDLERS: --->
-		<cfset rc.xehBrowser = "tools.ehServerBrowser.dspBrowser">
-		<cfset rc.xehNewFolder = "tools.ehServerBrowser.doNewFolder">
+		<cfset rc.xehBrowser = "ehServerBrowser.dspBrowser">
+		<cfset rc.xehNewFolder = "ehServerBrowser.doNewFolder">
 		
 		<cfif event.valueExists("callbackItem")>
 			<cfset oSession.setvar("callBackItem", event.getValue("callbackItem") )>
@@ -82,7 +82,7 @@ This is the File Browser Handler
 		</cfif>
 		
 		<!--- Set the next event --->
-		<cfset setNextEvent("tools.ehServerBrowser.dspBrowser","dir=#event.getValue("dir")#")>
+		<cfset setNextEvent("ehServerBrowser.dspBrowser","dir=#event.getValue("dir")#")>
 	</cffunction>
 	
 	<!--- ************************************************************* --->

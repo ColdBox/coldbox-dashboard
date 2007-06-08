@@ -37,11 +37,11 @@
 
 		//Tokenise the dev urls
 		for ( i = 1; i lte listlen(arguments.generatorBean.getDevurls()); i=i+1){
-			devURLS = devURLS & "<url>#listgetAt(arguments.generatorBean.getDevURLS(),i)#</url>#chr(13)#";
+			devURLS = devURLS & chr(9) & chr(9) &  "<url>#listgetAt(arguments.generatorBean.getDevURLS(),i)#</url>#chr(13)#";
 		}
 		//Tokenize the bug emails
 		for ( i = 1; i lte listlen(arguments.generatorBean.getbugemails()); i=i+1){
-			bugEmails = bugEmails & "<BugEmail>#listgetAt(arguments.generatorBean.getbugemails(),i)#</BugEmail>#chr(13)#";
+			bugEmails = bugEmails & chr(9) & chr(9) & "<BugEmail>#listgetAt(arguments.generatorBean.getbugemails(),i)#</BugEmail>#chr(13)#";
 		}
 
 		//Where is the config file
@@ -60,6 +60,7 @@
 		ConfigFileContents = replacenocase(ConfigFileContents,"@BUG_REPORTS@",arguments.generatorBean.getenablebugreports());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@HANDLER_AUTO_RELOAD@",arguments.generatorBean.gethandlersindexautoreload());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@CONFIG_AUTO_RELOAD@",arguments.generatorBean.getconfigautoreload());
+		ConfigFileContents = replacenocase(ConfigFileContents,"@EVENT_NAME@",arguments.generatorBean.geteventname());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@BUG_EMAILS@",bugEmails);
 		ConfigFileContents = replacenocase(ConfigFileContents,"@DEV_URLS@",devURLS);
 		if ( arguments.generatorBean.getCustom_error_template() ){
@@ -123,4 +124,5 @@
 		<!--- ************************************************************* --->
 		<cffile action="write" file="#arguments.FileToWrite#" output="#arguments.Contents#">
 	</cffunction>
+	
 </cfcomponent>

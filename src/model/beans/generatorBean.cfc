@@ -16,6 +16,7 @@
 		instance.bugemails = "";
 		instance.custom_error_template = false;
 		instance.exception_handler = false;
+		instance.eventname = "";
 		//return
 		return this;
 		</cfscript>
@@ -146,4 +147,14 @@
 		<cfargument name="exception_handler" type="boolean" required="true">
 		<cfset instance.exception_handler = arguments.exception_handler>
 	</cffunction>
+	
+	<cffunction name="geteventname" access="public" returntype="string" output="false">
+		<cfreturn instance.eventname>
+	</cffunction>
+	
+	<cffunction name="seteventname" access="public" returntype="void" output="false">
+		<cfargument name="eventname" type="string" required="true">
+		<cfset instance.eventname = arguments.eventname>
+	</cffunction>
+	
 </cfcomponent>
