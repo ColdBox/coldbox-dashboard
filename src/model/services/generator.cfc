@@ -25,15 +25,18 @@
 		var EclipseProjectContents = "";
 		var ConfigFile = "";
 		var EclipseFile = "";
+		var unitTest1 = "";
+		var unitTest1Contents = "";
+		var unitTest2 = "";
+		var unitTest2Contents = "";
 		var FS = getColdbox().getSetting("OSFileSeparator",true);
 		var devURLS = "";
 		var bugEmails = "";
 		var i = 1;
+		var expandedAppLocation = expandPath(arguments.generatorBean.getapplocation());
 
-		//Expand the Path of the appLocation
-		arguments.generatorBean.setAppLocation(expandPath(arguments.generatorBean.getapplocation()));
 		//First step is to unzip the template to the destination directory.
-		getColdbox().getPlugin("zip").extract(zipFilePath=getappTemplatePath(),extractPath=arguments.generatorBean.getapplocation(),overwriteFiles=true);
+		getColdbox().getPlugin("zip").extract(zipFilePath=getappTemplatePath(),extractPath=expandedAppLocation,overwriteFiles=true);
 
 		//Tokenise the dev urls
 		for ( i = 1; i lte listlen(arguments.generatorBean.getDevurls()); i=i+1){
@@ -44,12 +47,18 @@
 			bugEmails = bugEmails & chr(9) & chr(9) & "<BugEmail>#listgetAt(arguments.generatorBean.getbugemails(),i)#</BugEmail>#chr(13)#";
 		}
 
-		//Where is the config file
-		ConfigFile = arguments.generatorBean.getAppLocation() & "#fs#config#fs#config.xml.cfm";
-		EclipseFile = arguments.generatorBean.getAppLocation()&"#fs#.project";
+		//Where are the files to manipulate.
+		ConfigFile = expandedAppLocation & "#fs#config#fs#config.xml.cfm";
+		EclipseFile = expandedAppLocation & "#fs#.project";
+		unitTest1 = expandedAppLocation  & "#fs#handlers#fs#tests#fs#cases#fs#generalTest.cfc";
+		unitTest2 = expandedAppLocation  & "#fs#handlers#fs#tests#fs#cases#fs#mainTest.cfc";
+		
+		
 		//Read the templates
 		ConfigFileContents = readFile(ConfigFile);
 		EclipseProjectContents = readFile(EclipseFile);
+		unitTest1Contents = readFile(unitTest1);
+		unitTest2Contents = readFile(unitTest2);
 
 		//Replace Tokens.
 		ConfigFileContents = replacenocase(ConfigFileContents,"@APPNAME@",arguments.generatorBean.getAppName());
@@ -63,24 +72,44 @@
 		ConfigFileContents = replacenocase(ConfigFileContents,"@EVENT_NAME@",arguments.generatorBean.geteventname());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@BUG_EMAILS@",bugEmails);
 		ConfigFileContents = replacenocase(ConfigFileContents,"@DEV_URLS@",devURLS);
+		
+		//Default View
+		if( arguments.generatorBean.getDefaultView() ){
+			ConfigFileContents = replacenocase(ConfigFileContents, "@DEFAULT_VIEW@", "#chr(9)##chr(9)#<DefaultView>home.cfm</DefaultView>");
+		}
+		else{
+		
+			ConfigFileContents = replacenocase(ConfigFileContents, "@DEFAULT_VIEW@", "#chr(9)##chr(9)#<!--<DefaultView></DefaultView>-->");
+		}
+		
+		//Create Generic error Template
 		if ( arguments.generatorBean.getCustom_error_template() ){
 			ConfigFileContents = replacenocase(ConfigFileContents,"@CUSTOM_ERROR_TEMPLATE@","includes/generic_error.cfm");
 		}
 		else{
 			ConfigFileContents = replacenocase(ConfigFileContents,"@CUSTOM_ERROR_TEMPLATE@","");
+			removeFile(expandedAppLocation & "#fs#includes#fs#generic_error.cfm");
 		}
+		//Create Exception Handler
 		if( arguments.generatorBean.getException_handler() ){
-			ConfigFileContents = replacenocase(ConfigFileContents,"@EXCEPTION_HANDLER@","ehMain.onException");
+			ConfigFileContents = replacenocase(ConfigFileContents,"@EXCEPTION_HANDLER@","main.onException");
 		}
 		else{
 			ConfigFileContents = replacenocase(ConfigFileContents,"@EXCEPTION_HANDLER@","");
 		}
+		
 		//Replace eclipse project tokens
 		EclipseProjectContents = replacenocase(EclipseProjectContents,"@APPNAME@",arguments.generatorBean.getAppName());
-
+		
+		//Replace Unit Test Mappings
+		unitTest1Contents = replacenocase(unitTest1Contents,"@APP_MAPPING@",arguments.generatorBean.getAppLocation());
+		unitTest2Contents = replacenocase(unitTest2Contents,"@APP_MAPPING@",arguments.generatorBean.getAppLocation());
+		
 		//ReWrite File
 		writeFile(ConfigFile,ConfigFileContents);
 		writeFile(EclipseFile,EclipseProjectContents);
+		writeFile(unitTest1, unitTest1Contents);
+		writeFile(unitTest2, unitTest2Contents);
 		</cfscript>
 	</cffunction>
 
@@ -123,6 +152,13 @@
 		<cfargument name="Contents" 			type="String"	 	required="true"  hint="The string to write">
 		<!--- ************************************************************* --->
 		<cffile action="write" file="#arguments.FileToWrite#" output="#arguments.Contents#">
+	</cffunction>
+	
+	<cffunction name="removeFile" access="public" returntype="void" hint="Facade to remove a file" output="false" >
+		<!--- ************************************************************* --->
+		<cfargument name="FileToRemove" required="true" type="string" hint="File To Remove">
+		<!--- ************************************************************* --->
+		<cffile action="delete" file="#arguments.FileToRemove#">
 	</cffunction>
 	
 </cfcomponent>

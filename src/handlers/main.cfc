@@ -7,7 +7,7 @@ Description		:
 This is the main event handler for the ColdBox dashboard.
 
 --->
-<cfcomponent name="ehColdBox" extends="baseHandler" output="false">
+<cfcomponent name="main" extends="baseHandler" output="false">
 
 	<!--- ************************************************************* --->
 
@@ -26,10 +26,15 @@ This is the main event handler for the ColdBox dashboard.
 			//Setup the Service
 			dbService = CreateObject("component",MyService).init(getController());
 			
+			//place dashboard service factory in cache
+			getColdboxOCM().set("dbservice",dbService,0);
 			
-			//place in cache
-			getColdboxOCM().set("dbservice",dbService);
-			getColdboxOCM().set("isBD",server.ColdFusion.ProductName neq "Coldfusion Server",0);
+			if ( findnocase("bluedragon", server.ColdFusion.ProductName) )
+				getColdboxOCM().set("cfServer","bluedragon",0);
+			else if ( findnocase("railo", server.ColdFusion.ProductName) )
+				getColdboxOCM().set("cfServer","railo",0);
+			else if ( findnocase("Coldfusion Server", server.ColdFusion.ProductName) )
+				getColdboxOCM().set("cfServer","adobe",0);
 		</cfscript>
 	</cffunction>
 	
@@ -61,7 +66,7 @@ This is the main event handler for the ColdBox dashboard.
 		<cfset var rc = Event.getCollection()>
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehHome = "ehInfo.dspGateway">
-		<cfset rc.xehHeader = "ehColdbox.dspHeader">
+		<cfset rc.xehHeader = "main.dspHeader">
 		<!--- Set the View --->
 		<cfset Event.setView("vwFrameset",true)>
 	</cffunction>

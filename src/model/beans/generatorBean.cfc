@@ -17,6 +17,7 @@
 		instance.custom_error_template = false;
 		instance.exception_handler = false;
 		instance.eventname = "";
+		instance.defaultview = false;
 		//return
 		return this;
 		</cfscript>
@@ -157,4 +158,14 @@
 		<cfset instance.eventname = arguments.eventname>
 	</cffunction>
 	
+	<cffunction name="getdefaultView" access="public" output="false" returntype="string" hint="Get defaultView">
+		<cfreturn instance.defaultView/>
+	</cffunction>
+	
+	<cffunction name="setdefaultView" access="public" output="false" returntype="void" hint="Set defaultView">
+		<cfargument name="defaultView" type="string" required="true"/>
+		<cfset instance.defaultView = arguments.defaultView/>
+	</cffunction>
+
+
 </cfcomponent>
