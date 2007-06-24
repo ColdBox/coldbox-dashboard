@@ -36,7 +36,7 @@
 	<property name="coldfusion.compiler.classpath"  value="${coldfusion.compiler.libpath}/updates,${coldfusion.compiler.libpath}"/>
 	
 	<!--Destination of dist at export -->
-	<property name="dir.export" 						value="/Users/lmajano/Documents/MyDocs/My Programs/exports/coldbox/dashboard" />
+	<property name="dir.export" 					value="/Users/lmajano/Documents/MyDocs/My Programs/exports/coldbox/dashboard" />
 		
 	<!-- Init -->
 	<target name="init">		
@@ -51,6 +51,7 @@
 			<fileset dir="${src}">
 				<exclude name="**/*.xml.cfm"/>
 				<exclude name="index.cfm" />
+				<exclude name="handlers/baseHandler.cfc" />
 			</fileset>
 		</copy>		
 		<echo>Build setup complete.</echo>		
@@ -70,6 +71,7 @@
 			<fileset dir="${src}">
 				<include name="**/*.xml.cfm"/>
 				<include name="index.cfm" />
+				<include name="handlers/baseHandler.cfc" />
 			</fileset>
 		</copy>
 	</target>
