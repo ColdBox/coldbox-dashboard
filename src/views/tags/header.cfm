@@ -19,20 +19,21 @@
 			<a href="?event=#Event.getValue("xehTools")#" target="mainframe" onmouseover="rollover('btn_tools')" onmouseout="rollout('btn_tools')"><img  src="images/icons/tools.gif" border="0" id="btn_tools" srcoff="images/icons/tools.gif" srcon="images/icons/tools_on.gif"><br>
 			Tools</a>
 		</div>
+		
 		<!--- CFADMIN --->
 		<cfif getColdboxOCM().get("cfserver") eq "adobe">
 		<div id="topbuttons" >
-			<a href="#getSetting("admin.adobe")#" target="_blank" onmouseover="rollover('btn_cfadmin')" onmouseout="rollout('btn_cfadmin')"><img  src="images/icons/cfadmin.gif" border="0" id="btn_cfadmin" srcoff="images/icons/cfadmin.gif" srcon="images/icons/cfadmin_on.gif"><br>
+			<a href="#getSetting("AdobeAdmin")#" target="_blank" onmouseover="rollover('btn_cfadmin')" onmouseout="rollout('btn_cfadmin')"><img  src="images/icons/cfadmin.gif" border="0" id="btn_cfadmin" srcoff="images/icons/cfadmin.gif" srcon="images/icons/cfadmin_on.gif"><br>
 			CF Admin</a>
 		</div>
 		<cfelseif getColdboxOCM().get("cfServer") eq "bluedragon">
 		<div id="topbuttons" >
-			<a href="#getSetting("admin.bluedragon")#" target="mainframe" onmouseover="rollover('btn_bd')" onmouseout="rollout('btn_bd')"><img  src="images/icons/bluedragon.gif" border="0" id="btn_bd" srcoff="images/icons/bluedragon.gif" srcon="images/icons/bluedragon_on.gif"><br>
+			<a href="#getSetting("BlueDragonAdmin")#" target="mainframe" onmouseover="rollover('btn_bd')" onmouseout="rollout('btn_bd')"><img  src="images/icons/bluedragon.gif" border="0" id="btn_bd" srcoff="images/icons/bluedragon.gif" srcon="images/icons/bluedragon_on.gif"><br>
 			BlueDragon</a>
 		</div>
 		<cfelseif getColdboxOCM().get("cfServer") eq "railo">
 		<div id="topbuttons" >
-			<a href="#getSetting("admin.railo")#" target="mainframe" onmouseover="rollover('btn_bd')" onmouseout="rollout('btn_bd')"><img  src="images/icons/railo_27.gif" border="0" id="btn_bd" srcoff="images/icons/railo_27.gif" srcon="images/icons/railo_on.gif"><br>
+			<a href="#getSetting("RailoAdmin")#" target="mainframe" onmouseover="rollover('btn_bd')" onmouseout="rollout('btn_bd')"><img  src="images/icons/railo_27.gif" border="0" id="btn_bd" srcoff="images/icons/railo_27.gif" srcon="images/icons/railo_on.gif"><br>
 			Admin</a>
 		</div>
 		</cfif>

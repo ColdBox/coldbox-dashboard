@@ -34,9 +34,9 @@
 		<Setting name="SchemaDocs" 				value="http://www.coldboxframework.com/documents/SchemaDocs/"/>
 		<Setting name="Coldbox_Location" 		value="/coldbox/system"/>
 		<Setting name="ColdboxSamples_Location" value="/coldbox/samples"/>
-		<Setting name="admin.adobe"	 			value="/CFIDE/administrator/login.cfm"/>
-		<Setting name="admin.bluedragon" 		value="/bluedragon"/>
-		<Setting name="admin.railo" 			value="/railo-context/admin/index.cfm"/>
+		<Setting name="AdobeAdmin" 				value="/CFIDE/administrator/login.cfm"/>
+		<Setting name="BlueDragonAdmin" 		value="/bluedragon"/>
+		<Setting name="RailoAdmin" 				value="/railo-context/admin/index.cfm"/>
 	</YourSettings>
 	
 	<!--Optional,if blank it will use the CFMX administrator settings.-->

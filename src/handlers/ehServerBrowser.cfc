@@ -57,7 +57,7 @@ This is the File Browser Handler
 		</cfif>
 		
 		<!--- Get Dir Listing --->
-		<cfdirectory action="list" directory="#expandPath(rc.currentRoot)#" name="rc.qryDir" sort="asc">
+		<cfdirectory action="list" directory="#expandPath(rc.currentRoot)#" name="rc.qryDir" sort="name">
 		
 		<!--- Sort --->
 		<cfset rc.qryDir = getPlugin("queryHelper").sortQuery(rc.qryDir,"Type,Name")>

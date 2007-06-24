@@ -26,8 +26,8 @@
 		  <cfloop query="qURLS">
             <tr <cfif currentrow mod 2 eq 0>bgcolor="##f5f5f5"</cfif>>
               <td valign="top">
-				<label><input name="distribution_site" type="radio" value="#url#" <cfif currentrow eq 1>checked="true"</cfif> />
-	    #url#</label></td>
+				<label><input name="distribution_site" type="radio" value="#qURLS.url#" <cfif currentrow eq 1>checked="true"</cfif> />
+	    #qURLS.url#</label></td>
             </tr>
 		   </cfloop>
         </table>

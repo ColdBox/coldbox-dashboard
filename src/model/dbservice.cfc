@@ -82,7 +82,7 @@
 		</cfoutput>
 		</cfsavecontent>
 		<!--- Send the bug report --->
-		<cfmail to="#getBugEmail#"
+		<cfmail to="#getBugEmail()#"
 				from="#arguments.requestCollection.email#"
 				subject="Bug Report">
 		#mybugreport#
