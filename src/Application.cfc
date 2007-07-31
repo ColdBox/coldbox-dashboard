@@ -1,1 +1,1 @@
-<cfcomponent><cfset this.name = hash("ColdboxDashboard")> <cfset this.sessionManagement = true><cfset this.sessionTimeout = createTimeSpan(0,2,0,0)><cfset this.setClientCookies = true>		</cfcomponent>
+<cfcomponent><cfset this.name = "coldboxDashboard_#right(hash(GetCurrentTemplatePath()),50)#"> <cfset this.sessionManagement = true><cfset this.sessionTimeout = createTimeSpan(0,2,0,0)><cfset this.setClientCookies = true>		</cfcomponent>

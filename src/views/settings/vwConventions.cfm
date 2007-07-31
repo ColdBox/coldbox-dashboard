@@ -33,7 +33,7 @@
 	     	<strong>Config Location</strong>
 	     	</td>
 	     	<td>
-	     	<input type="text" name="configLocation" value="#rc.Conventions.configLocation#" size="30">
+	     	<input type="text" name="configLocation" value="#rc.Conventions.configLocation#" size="50">
 	     	</td>
 	     </tr>
 	

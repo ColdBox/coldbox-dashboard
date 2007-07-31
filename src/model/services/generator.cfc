@@ -48,7 +48,7 @@
 		}
 
 		//Where are the files to manipulate.
-		ConfigFile = expandedAppLocation & "#fs#config#fs#config.xml.cfm";
+		ConfigFile = expandedAppLocation & "#fs#config#fs#coldbox.xml.cfm";
 		EclipseFile = expandedAppLocation & "#fs#.project";
 		unitTest1 = expandedAppLocation  & "#fs#handlers#fs#tests#fs#cases#fs#generalTest.cfc";
 		unitTest2 = expandedAppLocation  & "#fs#handlers#fs#tests#fs#cases#fs#mainTest.cfc";

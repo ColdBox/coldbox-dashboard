@@ -74,6 +74,7 @@
 		<cfargument name="DefaultFileCharacterSet"		required="true" type="string">
 		<cfargument name="MessageBoxStorage" 	        required="true" type="string">
 		<cfargument name="ColdspringBeanFactory" 	    required="true" type="string">
+		<cfargument name="LightwireBeanFactory" 	    required="true" type="string">
 		<cfargument name="EventName" 					required="true" type="string" />
 		<!--- ************************************************************* --->
 		<cfscript>
@@ -88,6 +89,9 @@
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"ColdspringBeanFactory") eq 0){
 				settingArray[x].xmlAttributes.value = trim(arguments.ColdspringBeanFactory);
+			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"LightWireBeanFactory") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.LightWireBeanFactory);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"EventName") eq 0){
 				settingArray[x].xmlAttributes.value = trim(arguments.EventName);
