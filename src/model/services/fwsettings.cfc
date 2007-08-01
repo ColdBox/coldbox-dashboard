@@ -44,8 +44,8 @@
 	<cffunction name="saveLogFileSettings" access="public" returntype="void" output="false">
 		<!--- ************************************************************* --->
 		<cfargument name="LogFileEncoding" 		required="true" type="string">
-		<cfargument name="LogFileBufferSize" 	required="true" type="string">
 		<cfargument name="LogFileMaxSize" 		required="true" type="string">
+		<cfargument name="LogFileMaxArchives" 	required="true" type="string">
 		<cfargument name="DefaultLogDirectory"  required="true" type="string">
 		<!--- ************************************************************* --->
 		<cfscript>
@@ -58,8 +58,8 @@
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"LogFileEncoding") eq 0){
 				settingArray[x].xmlAttributes.value = trim(arguments.logFileEncoding);
 			}
-			if ( Comparenocase(settingArray[x].xmlAttributes.name,"LogFileBufferSize") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.LogFileBufferSize);
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"LogFileMaxArchives") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.LogFileMaxArchives);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"LogFileMaxSize") eq 0){
 				settingArray[x].xmlAttributes.value = trim(arguments.LogFileMaxSize);

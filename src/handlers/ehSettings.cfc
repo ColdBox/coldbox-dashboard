@@ -125,8 +125,8 @@ This is the settings handler
 		<cfset var fwSettings = rc.dbservice.getService("fwsettings").getSettings()>
 		<cfset rc.LogFileEncoding = fwSettings["LogFileEncoding"]>
 		<cfset rc.AvailableLogFileEncodings = fwSettings["AvailableLogFileEncodings"]>
-		<cfset rc.LogFileBufferSize = fwSettings["LogFileBufferSize"]>
 		<cfset rc.LogFileMaxSize = fwSettings["LogFileMaxSize"]>
+		<cfset rc.LogFileMaxArchives = fwSettings["LogFileMaxArchives"]>
 		<cfset rc.DefaultLogDirectory = fwSettings["DefaultLogDirectory"]>
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehDoSave = "ehSettings.doSaveLogFileSettings">
@@ -146,20 +146,20 @@ This is the settings handler
 			<cfset getPlugin("messagebox").setMessage("error","Please make sure you fill out all the values.")>
 			<cfset errors = true>
 		</cfif>
-		<!--- Validate Buffer --->
-		<cfif not isNumeric(rc.LogFileBufferSize) or rc.LogFileBufferSize gt 64000 or rc.LogFileBufferSize lt 8000>
-			<cfset getPlugin("messagebox").setMessage("error","The Log File Buffer Size you sent in is not numeric or you choose a number not betwee 8000-64000 bytes. Please try again")>
-			<cfset errors = true>
-		</cfif>
 		<!--- ValidateMax Size ---->
 		<cfif not isNumeric(rc.LogFileMaxSize)>
 			<cfset getPlugin("messagebox").setMessage("error","The Log File Max Size you sent in is not numeric. Please try again")>
 			<cfset errors = true>
 		</cfif>
+		<!--- LogFileMaxArchives Size ---->
+		<cfif not isNumeric(rc.LogFileMaxArchives) or rc.LogFileMaxArchives lte 0>
+			<cfset getPlugin("messagebox").setMessage("error","The Log File Max Archives you sent in is not numeric or valid. Please try again")>
+			<cfset errors = true>
+		</cfif>
 		<!--- Check for Errors --->
 		<cfif not errors>
 			<!--- Update the settings --->
-			<cfset rc.dbservice.getService("fwsettings").saveLogFileSettings(rc.LogFileEncoding,rc.LogFileBufferSize,rc.LogFileMaxSize, rc.DefaultLogDirectory)>
+			<cfset rc.dbservice.getService("fwsettings").saveLogFileSettings(rc.LogFileEncoding,rc.LogFileMaxSize,rc.LogFileMaxArchives,rc.DefaultLogDirectory)>
 			<cfset getPlugin("messagebox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.")>
 			<!--- Relocate --->
 			<cfset setNextEvent("ehSettings.dspLogSettings","fwreinit=#getSetting('ReinitPassword')#")>
