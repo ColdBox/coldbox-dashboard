@@ -142,7 +142,7 @@ This is the settings handler
 		<cfset var fwSettings = rc.dbservice.getService("fwsettings").getSettings()>
 		<cfset var errors = false>
 		<!--- Validate blanks --->
-		<cfif len(trim(rc.DefaultLogDirectory)) eq 0 or len(trim(rc.LogFileEncoding)) eq 0 or len(trim(rc.LogFileBufferSize)) eq 0 or len(trim(rc.LogFileMaxSize)) eq 0>
+		<cfif len(trim(rc.DefaultLogDirectory)) eq 0 or len(trim(rc.LogFileEncoding)) eq 0 or len(trim(rc.LogFileMaxArchives)) eq 0 or len(trim(rc.LogFileMaxSize)) eq 0>
 			<cfset getPlugin("messagebox").setMessage("error","Please make sure you fill out all the values.")>
 			<cfset errors = true>
 		</cfif>
