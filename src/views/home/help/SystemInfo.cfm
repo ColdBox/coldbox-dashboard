@@ -10,8 +10,7 @@ settings, change your dashboard password, and change your auto-update proxy sett
 </p>
 
 <p>
-The Tools sections includes an Application Skeleton Generator, Brian Rinaldi's CFC Generator and the ColdBox Log Viewer
-application.
+The Tools sections includes an Application Skeleton Generator and much more.
 </p>
 
 <p>
