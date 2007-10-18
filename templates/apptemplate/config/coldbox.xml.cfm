@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:noNamespaceSchemaLocation="http://www.coldboxframework.com/schema/config_2.0.3.xsd">
+	xsi:noNamespaceSchemaLocation="http://www.coldboxframework.com/schema/config_2.5.0.xsd">
 	<Settings>
 		<!--The name of your application.-->
 		<Setting name="AppName"						value="@APPNAME@"/>
@@ -28,6 +28,10 @@
 		<Setting name="RequestEndHandler" 			value="main.onRequestEnd"/>
 		<!--Event Handler to run at the start of an application, leave blank if not used. Emulates the Application.cfc onApplicationStart method	-->
 		<Setting name="ApplicationStartHandler" 	value="main.onAppInit"/>
+		<!--Event Handler to run at the start of a session, leave blank if not used.-->
+		<Setting name="SessionStartHandler" 		value="main.onSessionStart"/>
+		<!--Event Handler to run at the end of a session, leave blank if not used.-->
+		<Setting name="SessionEndHandler" 			value="main.onSessionEnd"/>
 		<!--The Email address from which all outgoing framework emails will be sent. -->
 		<Setting name="OwnerEmail" 					value="@OWNER_EMAIL@" />
 		<!-- Enable Bug Reports to be emailed out, set to true by default if left blank -->
@@ -41,7 +45,7 @@
 		<!--Full path from the application's root to your custom error page, else leave blank. -->
 		<Setting name="CustomErrorTemplate"			value="@CUSTOM_ERROR_TEMPLATE@" />
 		<!--Messagebox Style (css) class name to use. Look at the messagebox.cfm in the includes directory-->
-		<Setting name="MessageboxStyleClass"		value="" />
+		<Setting name="MessageboxStyleOverride"		value="false" />
 		<!--Flag to Auto reload the internal handlers directory listing. False for production. -->
 		<Setting name="HandlersIndexAutoReload"   	value="@HANDLER_AUTO_RELOAD@" />
 		<!--Flag to auto reload the config.xml settings. False for production. -->
@@ -56,6 +60,8 @@
 		<Setting name="IOCDefinitionFile"			value="" />
 		<!--IOC Object Caching, true/false. For ColdBox to cache your IoC beans-->
 		<Setting name="IOCObjectCaching"			value="false" />
+		<!--Request Context Decorator, leave blank if not using. Full instantiation path -->
+		<Setting name="RequestContextDecorator" 	value=""/>
 	</Settings>
 
 	<!--Your Settings can go here, if not needed, use <YourSettings />. You can use these for anything you like.
@@ -123,6 +129,18 @@
 		<MaxObjects>0</MaxObjects>
 		<FreeMemoryPercentageThreshold>0</FreeMemoryPercentageThreshold>
 	</Cache>
+	-->
+	
+	<!-- Interceptor Declarations 
+	<Interceptors>
+		<CustomInterceptionPoints>comma-delimited list</CustomInterceptionPoints>
+		<Interceptor class="full class name">
+			<Property name="myProp">value</Property>
+			<Property name="myArray">[1,2,3]</Property>
+			<Property name="myStruct">{ key1:1, key2=2 }</Property>
+		</Inteceptor>
+		<Interceptor class="no property" />
+	</Interceptors>
 	-->
 	
 </Config>

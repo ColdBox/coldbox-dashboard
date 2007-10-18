@@ -12,7 +12,7 @@ Description :
 		<cfscript>
 		//Setup ColdBox Mappings For this Test
 		setAppMapping("@APP_MAPPING@");
-		setConfigMapping(ExpandPath(instance.AppMapping & "/config/config.xml.cfm"));
+		setConfigMapping(ExpandPath(instance.AppMapping & "/config/coldbox.xml.cfm"));
 		
 		//Call the super setup method to setup the app.
 		super.setup();
@@ -63,7 +63,35 @@ Description :
 			
 		</cfscript>
 	</cffunction>
-
+	
+	<cffunction name="testSessionStart" access="public" returntype="void" output="false">
+		<cfscript>
+		var event = "";
+		
+		//Place any variables on the form or URL scope to test the handler.
+		//FORM.name = "luis"
+		event = execute("main.onSessionStart");
+			
+		//Do your asserts below
+			
+		</cfscript>
+	</cffunction>
+	
+	<cffunction name="testSessionEnd" access="public" returntype="void" output="false">
+		<cfscript>
+		var event = "";
+		var sessionReference = "";
+		
+		//Place a fake session structure here, it mimics what the handler receives
+		FORM.sessionReference = structnew();
+		
+		event = execute("main.onSessionEnd");
+			
+		//Do your asserts below
+			
+		</cfscript>
+	</cffunction>
+	
 	<cffunction name="testonException" access="public" returntype="void" output="false">
 		<cfscript>
 		//You need to create an exception bean first and place it on the request context FIRST as a setup.
