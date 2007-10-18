@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:noNamespaceSchemaLocation="http://www.coldboxframework.com/schema/config_2.0.2.xsd">
+	xsi:noNamespaceSchemaLocation="http://www.coldboxframework.com/schema/config_2.5.0.xsd">
 	<Settings>
 		<Setting name="AppName" 					value="ColdboxDashboard"/>
 		<Setting name="DebugMode"					value="false"/>
@@ -15,16 +15,19 @@
 		<Setting name="RequestStartHandler" 		value="main.onRequestStart"/>
 		<Setting name="RequestEndHandler" 			value=""/>
 		<Setting name="ApplicationStartHandler" 	value="main.onAppStart"/>
+		<Setting name="SessionStartHandler"			value="">
+		<Setting name="SessionEndHandler"			value="">
 		<Setting name="OwnerEmail" 					value="myemail@email.com"/>
 		<Setting name="EnableBugReports" 			value="false"/>
 		<Setting name="UDFLibraryFile" 				value="" />		
 		<Setting name="CustomErrorTemplate"			value="" />
-		<Setting name="MessageboxStyleClass"	    value="" />
+		<Setting name="MessageboxStyleOverride"	    value="false" />
 		<Setting name="HandlersIndexAutoReload"   	value="false" />
 		<Setting name="ConfigAutoReload"			value="false" />
 		<Setting name="ExceptionHandler"     		value="" />
 		<Setting name="HandlerCaching" 				value="true"/>
 		<Setting name="onInvalidEvent"				value="main.dspFrameset" />
+		<Setting name="RequestContextDecorator"		value="" />
 	</Settings>
 	
 	<YourSettings>
