@@ -30,11 +30,11 @@ This is the main event handler for the ColdBox dashboard.
 			getColdboxOCM().set("dbservice",dbService,0);
 			
 			if ( findnocase("bluedragon", server.ColdFusion.ProductName) )
-				getColdboxOCM().set("cfServer","bluedragon",0);
+				getColdboxOCM().set("cfserver","bluedragon",0);
 			else if ( findnocase("railo", server.ColdFusion.ProductName) )
-				getColdboxOCM().set("cfServer","railo",0);
+				getColdboxOCM().set("cfserver","railo",0);
 			else if ( findnocase("Coldfusion Server", server.ColdFusion.ProductName) )
-				getColdboxOCM().set("cfServer","adobe",0);
+				getColdboxOCM().set("cfserver","adobe",0);
 		</cfscript>
 	</cffunction>
 	

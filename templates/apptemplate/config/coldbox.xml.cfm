@@ -54,6 +54,8 @@
 		<Setting name="MyPluginsLocation"   		value="" />
 		<!--Flag to cache handlers. Default if left blank is true. -->
 		<Setting name="HandlerCaching" 				value="false"/>
+		<!--Flag to cache events if metadata declared. Default is true -->
+		<Setting name="EventCaching" 				value="false"/>
 		<!--IOC Framework if Used, else leave blank-->
 		<Setting name="IOCFramework"				value="" />
 		<!--IOC Definition File Path, relative or absolute -->
@@ -62,6 +64,8 @@
 		<Setting name="IOCObjectCaching"			value="false" />
 		<!--Request Context Decorator, leave blank if not using. Full instantiation path -->
 		<Setting name="RequestContextDecorator" 	value=""/>
+		<!--Flag if the proxy returns the entire request collection or what the event handlers return, default is false -->
+		<Setting name="ProxyReturnCollection" 		value="false"/>
 	</Settings>
 
 	<!--Your Settings can go here, if not needed, use <YourSettings />. You can use these for anything you like.

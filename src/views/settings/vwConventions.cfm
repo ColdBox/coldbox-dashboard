@@ -45,7 +45,7 @@
 	     	<input type="text" name="handlerLocation" value="#rc.Conventions.handlerLocation#" size="30">
 			</td>
 	     </tr>
-	
+	     
 	     <tr>
 	     	<td align="right" width="40%" style="border-right:1px solid ##ddd">
 	     	<strong>Layouts Location</strong>
@@ -61,6 +61,15 @@
 	     	</td>
 	     	<td>
 	     	<input type="text" name="viewsLocation" value="#rc.Conventions.viewslocation#" size="30">
+			</td>
+	     </tr>
+	     
+	     <tr>
+	     	<td align="right" width="40%" style="border-right:1px solid ##ddd">
+	     	<strong>Plugins Location</strong>
+	     	</td>
+	     	<td>
+	     	<input type="text" name="pluginsLocation" value="#rc.Conventions.pluginsLocation#" size="30">
 			</td>
 	     </tr>
      

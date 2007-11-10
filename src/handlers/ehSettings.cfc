@@ -86,11 +86,12 @@ This is the settings handler
 	<cffunction name="dspConventions" access="public" returntype="void" output="false">
 		<cfargument name="event" type="any" required="true">
 		<cfset var rc = event.getCollection()>
-		<cfset rc.Conventions = rc.dbservice.getService("fwsettings").getConventions()>
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehDoSave = "ehSettings.doSaveConventions">
-		<!--- Help --->
+		
+		<cfset rc.Conventions = rc.dbservice.getService("fwsettings").getConventions()>
 		<cfset rc.help = renderView("settings/help/conventions")>
+				
 		<!--- Set the View --->
 		<cfset Event.setView("settings/vwConventions")>
 	</cffunction>

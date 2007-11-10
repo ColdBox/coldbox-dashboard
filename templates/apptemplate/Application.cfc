@@ -17,11 +17,14 @@ Description :
 <cfprocessingdirective suppresswhitespace="true">
 	
 	<!--- APPLICATION CFC PROPERTIES --->
-	<cfset this.name =  hash(getCurrentTemplatePath())>
+	<cfset this.name = hash(getCurrentTemplatePath())> 
 	<cfset this.sessionManagement = true>
 	<cfset this.sessionTimeout = createTimeSpan(0,0,30,0)>
 	<cfset this.setClientCookies = true>
 	
+	<!--- COLDBOX STATIC PROPERTY, DO NOT CHANGE UNLESS THIS IS NOT THE ROOT OF YOUR COLDBOX APP --->
+	<cfset COLDBOX_APP_ROOT_PATH = getDirectoryFromPath(getCurrentTemplatePath())>
+
 	<!--- COLDBOX PROPERTIES --->
 	<cfset COLDBOX_CONFIG_FILE = "">
 	
@@ -40,14 +43,16 @@ Description :
 		<cfargument name="targetPage" type="string" required="true" />
 		<!--- ************************************************************* --->
 		<cfsetting enablecfoutputonly="yes">
+
+		<!--- Reload Checks --->
+		<cfset reloadChecks()>
 		
 		<!--- Process A ColdBox Request Only --->
 		<cfif findNoCase('index.cfm', listLast(arguments.targetPage, '/'))>
 			<cfset processColdBoxRequest()>
 		</cfif>
-		
+			
 		<!--- WHATEVER YOU WANT BELOW --->
-		
 		<cfsetting enablecfoutputonly="no">
 		<cfreturn true>
 	</cffunction>
@@ -61,8 +66,7 @@ Description :
 	</cffunction>
 	
 	<!--- on Session Start --->
-	<cffunction name="onSessionStart" returnType="void" output="false">
-		<!--- DO NOT MODIFY THE FOLLOWING --->
+	<cffunction name="onSessionStart" returnType="void" output="false">			
 		<cfset super.onSessionStart()>
 		<!--- WHATEVER YOU WANT BELOW --->
 	</cffunction>
@@ -73,10 +77,9 @@ Description :
 		<cfargument name="sessionScope" type="struct" required="true">
 		<cfargument name="appScope" 	type="struct" required="false">
 		<!--- ************************************************************* --->
-		<!--- DO NOT MODIFY THE FOLLOWING --->
-		<cfset super.onSessionEnd(arguments=argumentCollection)>
+		<cfset super.onSessionEnd(argumentCollection=arguments)>
 		<!--- WHATEVER YOU WANT BELOW --->
 	</cffunction>
-
+	
 </cfprocessingdirective>
 </cfcomponent>

@@ -7,6 +7,7 @@
 		instance.handlerLocation = "";
 		instance.layoutsLocation = "";
 		instance.viewsLocation = "";
+		instance.pluginsLocation = "";
 		return this;
 		</cfscript>
 	</cffunction>
@@ -54,6 +55,15 @@
 	<cffunction name="setViewsLocation" access="public" output="false" returntype="void">
 		<cfargument name="viewsLocation" type="string" required="true" />
 		<cfset instance.viewsLocation = arguments.viewsLocation />
+	</cffunction>
+	
+	<cffunction name="getpluginsLocation" access="public" output="false" returntype="string" hint="Get pluginsLocation">
+		<cfreturn instance.pluginsLocation/>
+	</cffunction>
+	
+	<cffunction name="setpluginsLocation" access="public" output="false" returntype="void" hint="Set pluginsLocation">
+		<cfargument name="pluginsLocation" type="string" required="true"/>
+		<cfset instance.pluginsLocation = arguments.pluginsLocation/>
 	</cffunction>
 	
 	<cffunction name="validate" access="public" returntype="boolean" hint="Validates its contents." output="false" >

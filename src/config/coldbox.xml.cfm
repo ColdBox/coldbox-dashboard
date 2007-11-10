@@ -15,8 +15,8 @@
 		<Setting name="RequestStartHandler" 		value="main.onRequestStart"/>
 		<Setting name="RequestEndHandler" 			value=""/>
 		<Setting name="ApplicationStartHandler" 	value="main.onAppStart"/>
-		<Setting name="SessionStartHandler"			value="">
-		<Setting name="SessionEndHandler"			value="">
+		<Setting name="SessionStartHandler"			value="" />
+		<Setting name="SessionEndHandler"			value="" />
 		<Setting name="OwnerEmail" 					value="myemail@email.com"/>
 		<Setting name="EnableBugReports" 			value="false"/>
 		<Setting name="UDFLibraryFile" 				value="" />		
@@ -25,13 +25,12 @@
 		<Setting name="HandlersIndexAutoReload"   	value="false" />
 		<Setting name="ConfigAutoReload"			value="false" />
 		<Setting name="ExceptionHandler"     		value="" />
-		<Setting name="HandlerCaching" 				value="true"/>
+		<Setting name="HandlerCaching" 				value="false"/>
 		<Setting name="onInvalidEvent"				value="main.dspFrameset" />
-		<Setting name="RequestContextDecorator"		value="" />
 	</Settings>
 	
 	<YourSettings>
-		<Setting name="Version" 				value="2.2.1"/>
+		<Setting name="Version" 				value="2.2.2"/>
 		<Setting name="TracSite"				value="http://ortus.svnrepository.com/coldbox/" />
 		<Setting name="OfficialSite"			value="http://www.coldboxframework.com" />
 		<Setting name="SchemaDocs" 				value="http://www.coldboxframework.com/documents/SchemaDocs/"/>

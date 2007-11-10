@@ -31,7 +31,8 @@
 			xmlConventions[1].handlerLocation.xmlText = arguments.conventionBean.gethandlerLocation();
 			xmlConventions[1].layoutsLocation.xmlText = arguments.conventionBean.getlayoutsLocation();
 			xmlConventions[1].viewsLocation.xmlText = arguments.conventionBean.getviewsLocation();
-
+			xmlConventions[1].pluginsLocation.xmlText = arguments.conventionBean.getpluginsLocation();
+			
 			//Save structure
 			for ( key in Conventions ){
 				Conventions[key] = evaluate("arguments.conventionBean.get#key#()");
@@ -178,7 +179,8 @@
 		<cfset structInsert(getConventions(),"handlerLocation",xmlConventions[1].handlerLocation.xmlText)>
 		<cfset structInsert(getConventions(),"layoutsLocation",xmlConventions[1].layoutsLocation.xmlText)>
 		<cfset structInsert(getConventions(),"viewsLocation",xmlConventions[1].viewsLocation.xmlText)>
-
+		<cfset structInsert(getConventions(),"pluginsLocation",xmlConventions[1].pluginsLocation.xmlText)>
+		
 		<!--- Create Query --->
 		<cfscript>
 			QueryAddRow(instance.qSettings,1);
