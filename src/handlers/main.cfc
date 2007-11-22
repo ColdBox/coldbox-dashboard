@@ -43,14 +43,18 @@ This is the main event handler for the ColdBox dashboard.
 	<cffunction name="onRequestStart" access="public" returntype="void" output="false">
 		<cfargument name="Event" type="any">
 		<cfset var storage = getPlugin("sessionstorage")>
+		
 		<!--- Check if the dbservice is set, else set it in cache --->
 		<cfif not getColdboxOCM().lookup("dbservice")>
 			<cfset onAppStart()>
 		</cfif>
+		
 		<!--- GLOBAL EXIT HANDLERS: --->
 		<cfset Event.setValue("xehLogout","ehSecurity.doLogout")>
+		
 		<!--- Inject dbservice to Eventon every request for usage --->
 		<cfset Event.setValue("dbService",getColdBoxOCM().get("dbservice"))>
+		
 		<!--- Authorization --->
 		<cfif (not storage.exists("authorized") or storage.getvar("authorized") eq false) and Event.getCurrentEvent() neq "ehSecurity.doLogin">
 			<cfset Event.overrideEvent("ehSecurity.dspLogin")>

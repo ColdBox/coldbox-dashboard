@@ -13,18 +13,12 @@
 		<Setting name="ColdboxLogsLocation" 		value="logs"/>
 		<Setting name="DefaultEvent" 				value="main.dspFrameset"/>
 		<Setting name="RequestStartHandler" 		value="main.onRequestStart"/>
-		<Setting name="RequestEndHandler" 			value=""/>
 		<Setting name="ApplicationStartHandler" 	value="main.onAppStart"/>
-		<Setting name="SessionStartHandler"			value="" />
-		<Setting name="SessionEndHandler"			value="" />
 		<Setting name="OwnerEmail" 					value="myemail@email.com"/>
 		<Setting name="EnableBugReports" 			value="false"/>
-		<Setting name="UDFLibraryFile" 				value="" />		
-		<Setting name="CustomErrorTemplate"			value="" />
 		<Setting name="MessageboxStyleOverride"	    value="false" />
 		<Setting name="HandlersIndexAutoReload"   	value="false" />
 		<Setting name="ConfigAutoReload"			value="false" />
-		<Setting name="ExceptionHandler"     		value="" />
 		<Setting name="HandlerCaching" 				value="false"/>
 		<Setting name="onInvalidEvent"				value="main.dspFrameset" />
 	</Settings>
@@ -70,5 +64,12 @@
 			<View>update/gateway</View>
 		</Layout>
 	</Layouts>
+	
+	<Interceptors>
+		<!-- config file is relative to app root -->
+		<Interceptor class="coldbox.system.interceptors.ses">
+			<Property name="configFile">config/routes.cfm</Property>
+		</Interceptor>
+	</Interceptors>
 	
 </Config>

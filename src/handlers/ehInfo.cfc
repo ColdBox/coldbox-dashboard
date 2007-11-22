@@ -39,7 +39,7 @@ Informative handler.
 		<cfset Event.setView("home/vwSystemInfo")>
 	</cffunction>
 
-	<cffunction name="dspOnlineResources" access="public" returntype="void" output="false">
+	<cffunction name="dspOnlineResources" access="public" returntype="void" output="false" cache="true" cacheTimeout="10">
 		<cfargument name="Event" type="any">
 		<cfset var rc = Event.getCollection()>
 		<!--- Help --->
@@ -48,7 +48,7 @@ Informative handler.
 		<cfset Event.setView("home/vwOnlineResources")>
 	</cffunction>
 
-	<cffunction name="dspCFCDocs" access="public" returntype="void" output="false">
+	<cffunction name="dspCFCDocs" access="public" returntype="void" output="false" cache="true" cacheTimeout="10">
 		<cfargument name="Event" type="any">
 		<cfset var rc = Event.getCollection()>
 		<cfset var cbloc = getSetting("coldbox_location")>

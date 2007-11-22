@@ -42,8 +42,20 @@
 	     	(In Minutes)
 			</td>
 	     </tr>
-
+	     
 	     <tr>
+	     	<td align="right" width="40%" style="border-right:1px solid ##ddd">
+	     	<strong>Use Last Access Timeout</strong>
+	     	</td>
+	     	<td>
+	     		<select name="CacheUseLastAccessTimeouts" id="CacheUseLastAccessTimeouts">
+	     			<option value="true" <cfif rc.CacheUseLastAccessTimeouts>selected="selected"</cfif>>true</option>
+	     			<option value="false" <cfif not rc.CacheUseLastAccessTimeouts>selected="selected"</cfif>>false</option>	     			
+	     		</select>
+			</td>
+	     </tr>
+
+	     <tr bgcolor="##f5f5f5">
 	     	<td align="right" width="40%" style="border-right:1px solid ##ddd">
 	     	<strong>Cache Reaping Frequency</strong>
 	     	</td>
@@ -53,7 +65,7 @@
 			</td>
 	     </tr>
 	     
-	     <tr bgcolor="##f5f5f5">
+	     <tr >
 	     	<td align="right" width="40%" style="border-right:1px solid ##ddd">
 	     	<strong>Maximum Objects In Cache</strong>
 	     	</td>
@@ -63,13 +75,25 @@
 			</td>
 	     </tr>
 	     
-	     <tr>
+	     <tr bgcolor="##f5f5f5">
 	     	<td align="right" width="40%" style="border-right:1px solid ##ddd">
 	     	<strong>JVM Free Memory Percentage Threshold</strong>
 	     	</td>
 	     	<td>
 	     	<input type="text" name="CacheFreeMemoryPercentageThreshold" value="#Event.getValue("CacheFreeMemoryPercentageThreshold")#" size="6" maxlength="2">
 	     	(0 = Unlimited)
+			</td>
+	     </tr>
+	     
+	     <tr>
+	     	<td align="right" width="40%" style="border-right:1px solid ##ddd">
+	     	<strong>Eviction Policy</strong>
+	     	</td>
+	     	<td>
+	     		<select name="CacheEvictionPolicy" id="CacheEvictionPolicy">
+	     			<option value="LFU" <cfif rc.CacheEvictionPolicy eq "LFU">selected="selected"</cfif>>LFU</option>
+	     			<option value="LRU" <cfif rc.CacheEvictionPolicy eq "LRU">selected="selected"</cfif>>LRU</option>	     			
+	     		</select>
 			</td>
 	     </tr>
 	     

@@ -125,18 +125,21 @@
 	-->
 	<Datasources />
 	
-	<!--ColdBox Object Caching Settings Overrides the Framework-wide settings 
+	<!--ColdBox Object Caching Settings Overrides the Framework-wide settings -->
 	<Cache>
-		<ObjectDefaultTimeout>20</ObjectDefaultTimeout>
-		<ObjectDefaultLastAccessTimeout>5</ObjectDefaultLastAccessTimeout>
-		<ReapFrequency>1</ReapFrequency>
-		<MaxObjects>0</MaxObjects>
-		<FreeMemoryPercentageThreshold>0</FreeMemoryPercentageThreshold>
+		<ObjectDefaultTimeout>45</ObjectDefaultTimeout>
+		<ObjectDefaultLastAccessTimeout>15</ObjectDefaultLastAccessTimeout>
+		<UseLastAccessTimeouts>true</UseLastAccessTimeouts>
+		<ReapFrequency>3</ReapFrequency>
+		<MaxObjects>100</MaxObjects>
+		<FreeMemoryPercentageThreshold>5</FreeMemoryPercentageThreshold>
+		<!-- LFU/LRU -->
+		<EvictionPolicy>LFU</EvictionPolicy>
 	</Cache>
-	-->
+	
 	
 	<!-- Interceptor Declarations 
-	<Interceptors>
+	<Interceptors throwOnInvalidStates="true">
 		<CustomInterceptionPoints>comma-delimited list</CustomInterceptionPoints>
 		<Interceptor class="full class name">
 			<Property name="myProp">value</Property>
@@ -146,5 +149,11 @@
 		<Interceptor class="no property" />
 	</Interceptors>
 	-->
+	<Interceptors>
+		<!-- config file is relative to app root -->
+		<Interceptor class="coldbox.system.interceptors.ses">
+			<Property name="configFile">config/routes.cfm</Property>
+		</Interceptor>
+	</Interceptors>
 	
 </Config>
