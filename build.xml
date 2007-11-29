@@ -13,27 +13,33 @@
     </description>
 
 	<!-- set global properties for this build -->
-	<property name="src" 							location="src"/>
-	<property name="build" 							location="build"/>
-	<property name="dist"  							location="dist"/>
-	<property name="webroot"						location="/Users/lmajano/Documents/MyDevelopment/" />
-	<property name="cfcompile.path" 				location="/Applications/JRun4/servers/cfusion/cfusion-ear/cfusion-war/WEB-INF/cfusion/bin"/>
-	<property name="cfcompile.tmpClasses"  			location="/Applications/JRun4/servers/cfusion/cfusion-ear/cfusion-war/WEB-INF/cfclasses/" />
-	<property name="cfuser"		    				value="cfusion" />
+	<property name="src" 							value="src"/>
+	<property name="build" 							value="build"/>
+	<property name="dist.cf7"  						value="dist/cf7"/>
+	<property name="dist.cf8"  						value="dist/cf8"/>
+		
 	
-	<!--Compiler Properties-->
+	<!--Engine Properties-->
 	<property name="jrun.path" 						value="/Applications/JRun4" />
-	<property name="coldfusion.home"				value="${jrun.path}/servers/cfusion/cfusion-ear/cfusion-war/WEB-INF/cfusion" />
-	<property name="coldfusion.instancepath"    	value="${jrun.path}/servers/cfusion/cfusion-ear/cfusion-war/WEB-INF" />
+	<property name="cf7.path" 						value="${jrun.path}/servers/cf7" />
+	<property name="cf8.path" 						value="${jrun.path}/servers/cfusion" />
+	<property name="webroot"						value="/Users/lmajano/Documents/MyDevelopment/" />
+	<property name="cfuser"		    				value="cfusion" />
+		
+	<!-- Temp Build Classes -->
+	<property name="cfcompile.tmpClasses"  			value="cfusion-ear/cfusion-war/WEB-INF/cfclasses/" />
 	
 	<!--Jar Files used for compiling-->
 	<property name="jrun.jar" 					 	value="${jrun.path}/lib/jrun.jar"/>
-	<property name="coldfusion.bootstrap.jar"   	value="${coldfusion.instancepath}/lib/cfmx_bootstrap.jar"/>
-	<property name="coldfusion.cfx.jar"		    	value="${coldfusion.instancepath}/lib/cfx.jar"/>
+	<property name="coldfusion.bootstrap.jar"   	value="cfusion-ear/cfusion-war/WEB-INF/lib/cfmx_bootstrap.jar"/>
+	<property name="coldfusion.cfx.jar"		    	value="cfusion-ear/cfusion-war/WEB-INF/lib/cfx.jar"/>
+	
+	<!-- CF Paths -->		
+	<property name="coldfusion.home"				value="cfusion-ear/cfusion-war/WEB-INF/cfusion" />
+	<property name="coldfusion.instancepath"    	value="cfusion-ear/cfusion-war/WEB-INF" />
 	
 	<!--Compiler Arguments-->
-	<property name="coldfusion.compiler.libpath"  	value="${coldfusion.home}/lib"/>
-	<property name="coldfusion.compiler.classpath"  value="${coldfusion.compiler.libpath}/updates,${coldfusion.compiler.libpath}"/>
+	<property name="coldfusion.compiler.libpath"  	value="cfusion-ear/cfusion-war/WEB-INF/cfusion/lib"/>
 	
 	<!--Destination of dist at export -->
 	<property name="dir.cf8.export" 				value="/Users/lmajano/Documents/MyDocs/My Programs/exports/coldbox/dashboard/cf8" />
@@ -42,13 +48,10 @@
 	
 	<!-- Init -->
 	<target name="init">		
-		<!-- Create the time stamp -->
 		<tstamp/>		
-		<!-- Create the build directory structure used to compile -->
 		<mkdir dir="${build}"/>		
-		<!--Create the dist directory for distribution -->
-		<mkdir dir="${dist}"/>		
-		<!-- Copy the source to build directory without xml.cfm files. -->
+		<mkdir dir="${dist.cf7}"/>	
+		<mkdir dir="${dist.cf8}"/>
 		<copy todir="${build}">
 			<fileset dir="${src}">
 				<exclude name="**/*.xml.cfm"/>
@@ -62,15 +65,26 @@
 	
 	<!--Deploy to export -->
 	<target name="deploy.to.export" depends="deploy">
-		<move todir="${dir.export}">
-			<fileset dir="${dist}" />
+		<move todir="${dir.cf7.export}">
+			<fileset dir="${dist.cf7}" />
+		</move>
+		<move todir="${dir.cf8.export}">
+			<fileset dir="${dist.cf8}" />
 		</move>
 	</target>
 	
 	<!--Move XML Files-->
 	<target name="movexmlfiles">
 		<echo>Deploying *.xml.cfm files to distribution.</echo>
-		<copy todir="${dist}">
+		<copy todir="${dist.cf7}">
+			<fileset dir="${src}">
+				<include name="**/*.xml.cfm"/>
+				<include name="index.cfm" />
+				<include name="Application.cfc" />
+				<include name="handlers/baseHandler.cfc" />
+			</fileset>
+		</copy>
+		<copy todir="${dist.cf8}">
 			<fileset dir="${src}">
 				<include name="**/*.xml.cfm"/>
 				<include name="index.cfm" />
@@ -84,37 +98,56 @@
 	<target name="cleanup">
 		<!-- Delete compileclasses destination -->
 		<delete includeemptydirs="true">
-			<fileset dir="${cfcompile.tmpClasses}" includes="**/*"/>
-		</delete>		
+			<fileset dir="${cf7.path}/${cfcompile.tmpClasses}" includes="**/*"/>
+		</delete>
+		<delete includeemptydirs="true">
+			<fileset dir="${cf8.path}/${cfcompile.tmpClasses}" includes="**/*"/>
+		</delete>
 		<delete dir="${build}" />
 		<echo>Cleanup Complete.</echo>
 	</target>
 	
 	<!---Compile checks only-->
-	<target name="compile.checks">
-		<antcall target="compile" />
-		<!-- Delete compileclasses destination -->
-		<delete includeemptydirs="true">
-			<fileset dir="${cfcompile.tmpClasses}" includes="**/*"/>
-		</delete>
+	<target name="compile.checks" depends="compile.cf7,compile.cf8">
+		<antcall target="cleanup" />
 	</target>
 	
 	<!--Compiler-->
-	<target name="compile">
+	<target name="compile.cf7">
 		<echo>Starting to compile dashboard...</echo>
 		<java classname="coldfusion.tools.CommandLineInvoker" failonerror="true" fork="true">
 			<classpath>
 				<pathelement location="${jrun.jar}"/>
-				<pathelement location="${coldfusion.bootstrap.jar}"/>
-				<pathelement location="${coldfusion.cfx.jar}"/>
+				<pathelement location="${cf7.path}/${coldfusion.bootstrap.jar}"/>
+				<pathelement location="${cf7.path}/${coldfusion.cfx.jar}"/>
 			</classpath>
 			
-			<sysproperty key=" coldfusion.classPath" value="${coldfusion.compiler.classpath}"/>
-			<sysproperty key=" coldfusion.libPath"   value="${coldfusion.compiler.libpath}"/>
+			<sysproperty key=" coldfusion.classPath" value="${cf7.path}/${coldfusion.compiler.libpath},${cf7.path}/${coldfusion.compiler.libpath}/updates"/>
+			<sysproperty key=" coldfusion.libPath"   value="${cf7.path}/${coldfusion.compiler.libpath}"/>
 			
 			<arg line=" Compiler "/>
-			<arg line=" -cfroot ${coldfusion.home} "/>
-			<arg line=" -webinf ${coldfusion.instancepath} "/>
+			<arg line=" -cfroot ${cf7.path}/${coldfusion.home} "/>
+			<arg line=" -webinf ${cf7.path}/${coldfusion.instancepath} "/>
+			<arg line=" -webroot ${webroot} "/>
+			<arg line=" ${src}" />
+		</java>
+		<echo>Compilation checks complete.</echo>
+	</target>
+	<target name="compile.cf8">
+		<echo>Starting to compile dashboard...</echo>
+		<java classname="coldfusion.tools.CommandLineInvoker" failonerror="true" fork="true">
+			<classpath>
+				<pathelement location="${jrun.jar}"/>
+				<pathelement location="${cf8.path}/${coldfusion.bootstrap.jar}"/>
+				<pathelement location="${cf8.path}/${coldfusion.cfx.jar}"/>
+			</classpath>
+			
+			<sysproperty key=" coldfusion.classPath" value="${cf8.path}/${coldfusion.compiler.libpath},${cf8.path}/${coldfusion.compiler.libpath}/updates"/>
+			<sysproperty key=" coldfusion.libPath"   value="${cf8.path}/${coldfusion.compiler.libpath}"/>
+			
+			<arg line=" Compiler "/>
+			<arg line=" -cfroot ${cf8.path}/${coldfusion.home} "/>
+			<arg line=" -webinf ${cf8.path}/${coldfusion.instancepath} "/>
 			<arg line=" -webroot ${webroot} "/>
 			<arg line=" ${src}" />
 		</java>
@@ -122,25 +155,46 @@
 	</target>
 	
 	<!--Deploy-->
-	<target name="deploy" depends="init,compile">
-		<echo>Starting to deploy dashboard...</echo>
+	<target name="deploy" depends="init">
+		<echo>Starting to deploy dashboard for cf7...</echo>
+		<!--cf7 deploy -->
 		<java classname="coldfusion.tools.CommandLineInvoker" failonerror="true" fork="true">
 			<classpath>
 				<pathelement location="${jrun.jar}"/>
-				<pathelement location="${coldfusion.bootstrap.jar}"/>
-				<pathelement location="${coldfusion.cfx.jar}"/>
+				<pathelement location="${cf7.path}/${coldfusion.bootstrap.jar}"/>
+				<pathelement location="${cf7.path}/${coldfusion.cfx.jar}"/>
 			</classpath>
 			
-			<sysproperty key=" coldfusion.classPath" value="${coldfusion.compiler.classpath}"/>
-			<sysproperty key=" coldfusion.libPath"   value="${coldfusion.compiler.libpath}"/>
+			<sysproperty key=" coldfusion.classPath" value="${cf7.path}/${coldfusion.compiler.libpath},${cf7.path}/${coldfusion.compiler.libpath}/updates"/>
+			<sysproperty key=" coldfusion.libPath"   value="${cf7.path}/${coldfusion.compiler.libpath}"/>
 			
 			<arg line=" Compiler "/>
 			<arg line=" -deploy" />
-			<arg line=" -webinf ${coldfusion.instancepath} "/>
+			<arg line=" -webinf ${cf7.path}/${coldfusion.instancepath} "/>
 			<arg line=" -webroot ${webroot} "/>
-			<arg line=" -cfroot ${coldfusion.home} "/>
+			<arg line=" -cfroot ${cf7.path}/${coldfusion.home} "/>
 			<arg line=" -srcdir ${build}" />
-			<arg line=" -deploydir ${dist}" />
+			<arg line=" -deploydir ${dist.cf7}" />
+		</java>
+		
+		<!--cf8 deploy -->
+		<java classname="coldfusion.tools.CommandLineInvoker" failonerror="true" fork="true">
+			<classpath>
+				<pathelement location="${jrun.jar}"/>
+				<pathelement location="${cf8.path}/${coldfusion.bootstrap.jar}"/>
+				<pathelement location="${cf8.path}/${coldfusion.cfx.jar}"/>
+			</classpath>
+			
+			<sysproperty key=" coldfusion.classPath" value="${cf8.path}/${coldfusion.compiler.libpath},${cf8.path}/${coldfusion.compiler.libpath}/updates"/>
+			<sysproperty key=" coldfusion.libPath"   value="${cf8.path}/${coldfusion.compiler.libpath}"/>
+			
+			<arg line=" Compiler "/>
+			<arg line=" -deploy" />
+			<arg line=" -webinf ${cf8.path}/${coldfusion.instancepath} "/>
+			<arg line=" -webroot ${webroot} "/>
+			<arg line=" -cfroot ${cf8.path}/${coldfusion.home} "/>
+			<arg line=" -srcdir ${build}" />
+			<arg line=" -deploydir ${dist.cf8}" />
 		</java>
 		
 		<!--Move xml Files-->
