@@ -40,12 +40,12 @@ Bug handler
 		<!--- Validate --->
 		<cfif len(trim(rc.email)) eq 0 or len(trim(rc.bugreport)) eq 0 or len(trim(rc.name)) eq 0>
 			<cfset getPlugin("messagebox").setMessage("warning", "Please fill out all the mandatory fields.")>
-		<cfelseif not getPlugin("fileUtilities").isEmail(rc.email) >
+		<cfelseif not getPlugin("Utilities").isEmail(rc.email) >
 			<cfset getPlugin("messagebox").setMessage("warning","The email you entered is not a valid email address.")>
 		<cfelse>
 			<cftry>
 				<!--- Send report --->
-				<cfset rc.dbservice.sendBugReport(rc,getSettingStructure(true),getPlugin("fileutilities").getOSName())>
+				<cfset rc.dbservice.sendBugReport(rc,getSettingStructure(true),getPlugin("Utilities").getOSName())>
 				<cfset getPlugin("messagebox").setMessage("info", "You have successfully sent your bug report to the ColdBox bug email address.")>
 				<cfcatch type="any">
 					<cfset getPlugin("logger").logError("Error sending bug report.", cfcatch)>
