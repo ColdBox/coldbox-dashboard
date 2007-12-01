@@ -71,6 +71,8 @@
 		<move todir="${dir.cf8.export}">
 			<fileset dir="${dist.cf8}" />
 		</move>
+		<delete dir="${build}" />
+		<echo>Cleanup Complete.</echo>
 	</target>
 	
 	<!--Move XML Files-->
