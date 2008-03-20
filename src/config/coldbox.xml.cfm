@@ -65,6 +65,16 @@
 		</Layout>
 	</Layouts>
 	
+	<Cache>
+		<ObjectDefaultTimeout>45</ObjectDefaultTimeout>
+		<ObjectDefaultLastAccessTimeout>15</ObjectDefaultLastAccessTimeout>
+		<UseLastAccessTimeouts>true</UseLastAccessTimeouts>
+		<ReapFrequency>1</ReapFrequency>
+		<MaxObjects>50</MaxObjects>
+		<FreeMemoryPercentageThreshold>3</FreeMemoryPercentageThreshold>
+		<EvictionPolicy>LRU</EvictionPolicy>
+	</Cache>
+	
 	<Interceptors>
 		<!-- config file is relative to app root -->
 		<Interceptor class="coldbox.system.interceptors.ses">

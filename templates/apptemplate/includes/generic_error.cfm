@@ -24,10 +24,6 @@
 		<td valign="top">#exceptionBean.getExtendedInfo()#</td>
 	</tr>
 	<tr>
-		<td valign="top"><strong>Message</strong></td>
-		<td valign="top">#exceptionBean.getMessage()#</td>
-	</tr>
-	<tr>
 		<td valign="top"><strong>Tag Context</strong></td>
 		<td valign="top">
 	       <cfset variables.tagCtxArr = exceptionBean.getTagContext() />
