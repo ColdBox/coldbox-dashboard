@@ -8,7 +8,15 @@ This is the tools main handler.
 
 --->
 <cfcomponent name="ehTools" extends="baseHandler" output="false">
-
+	
+	<!--- preHandler --->
+	<cffunction name="preHandler" access="public" returntype="void" output="false" hint="">
+		<cfargument name="Event" type="any" required="yes">
+	    <cfif not findnocase("gateway",event.getCurrentEvent())>
+	    	<cfset event.setLayout("Layout.Ajax")>
+	    </cfif> 
+	</cffunction>
+	
 	<!--- ************************************************************* --->
 	<!--- TOOLS SECTION 												--->
 	<!--- ************************************************************* --->

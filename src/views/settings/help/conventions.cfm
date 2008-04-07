@@ -1,8 +1,9 @@
-<h3>Conventions</h3>
+<h3>ColdBox Conventions</h3>
 <p>
-Please be very careful when changing these settings as your applications WILL FAIL!! Only do this if you really want to change the conventions. If you do this then you will have to rename the folders or files you changed here and in your application.
-
-THIS DASHBOARD WILL BECOME INOPERABLE UNTIL YOU RENAME THE CONVENTIONS AS YOU NAMED THEM.
+Please be very careful when changing these settings as your applications WILL FAIL!! Only do this if you really want to 
+change the framework-wide conventions. If you do this then you will have to rename the folders of existing applications
+that use framework-wide conventions. You can also override conventions locally on a per application basis. Please
+see the online help on how to do this.
 
 <h3>config location</h3>
 <p>
@@ -22,4 +23,10 @@ The location of where your layouts will reside in the root of your application. 
 <h3>views location</h3>
 <p>
 The location of where your views will reside in the root of your application. The default is: <strong>views</strong>
+</p>
+
+
+<h3>default event action</h3>
+<p>
+This is the default action to try to execute when no action is defined via a SES route or event url.
 </p>

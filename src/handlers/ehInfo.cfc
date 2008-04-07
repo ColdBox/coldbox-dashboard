@@ -8,6 +8,14 @@ Informative handler.
 
 --->
 <cfcomponent name="ehInfo" extends="baseHandler" output="false">
+	
+	<!--- preHandler --->
+	<cffunction name="preHandler" access="public" returntype="void" output="false" hint="">
+		<cfargument name="Event" type="any" required="yes">
+	    <cfif not findnocase("gateway",event.getCurrentEvent())>
+	    	<cfset event.setLayout("Layout.Ajax")>
+	    </cfif> 
+	</cffunction>
 
 	<!--- ************************************************************* --->
 	<!--- HOME SECTION 													--->
@@ -51,25 +59,22 @@ Informative handler.
 	<cffunction name="dspCFCDocs" access="public" returntype="void" output="false" cache="true" cacheTimeout="10">
 		<cfargument name="Event" type="any">
 		<cfset var rc = Event.getCollection()>
-		<cfset var cbloc = getSetting("coldbox_location")>
-		<cfset var cbloc2 = right(cbloc,len(cbloc)-1)>
+		<cfset var dirpath = getSetting("coldbox_location")>
 
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehCFCDocs = "ehInfo.dspCFCDocs">
 		<cfset rc.cfcViewer = getPlugin("cfcViewer")>
+		
 		<!---Help --->
 		<cfset rc.help = renderView("home/help/CFCDocs")>
+		
 		<!---Logic --->
 		<cfset Event.paramValue("show", "")>
-		<cfif rc.show eq "plugins">
-			<cfset rc.cfcViewer.setup("#cbloc#/plugins","#cbloc2#/plugins")>
-		<cfelseif rc.show eq "beans">
-			<cfset rc.cfcViewer.setup("#cbloc#/beans","#cbloc2#/beans")>
-		<cfelseif rc.show eq "util">
-			<cfset rc.cfcViewer.setup("#cbloc#/util","#cbloc2#/util")>
-		<cfelse>
-			<cfset rc.cfcViewer.setup("#cbloc#/","#cbloc2#/")>
-		</cfif>
+		<!--- Setup the cfc viewer --->		
+		<cfset rc.cfcViewer.setup(dirpath="#dirpath#/",
+								  cfcpath="#dirpath#/",
+								  jsLink="doEvent('ehInfo.dspCFCDocs&@package@', 'content', {})")>
+		
 		<!--- Set the View --->
 		<cfset Event.setView("home/vwCFCDocs")>
 	</cffunction>

@@ -5,7 +5,7 @@
     </settings>
 
     <distribution_urls>
-        <url>http://www.coldboxframework.com/distribution/updatews.cfc?wsdl</url>
+        <url>http://www.coldboxframework.com/distribution/updatews.cfc?wsdl</url>        
         <url>http://localhost/applications/coldbox/distribution/updatews.cfc?wsdl</url>
     </distribution_urls>
 

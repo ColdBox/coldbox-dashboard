@@ -1,16 +1,20 @@
 <cfcomponent output="false" displayname="fwsettings" hint="I am the Dashboard Framework Settings model.">
 
 <!------------------------------------------- CONSTRUCTOR ------------------------------------------->
+	
+	<cfscript>
+		variables.instance = structnew();
+	</cfscript>
 
 	<cffunction name="init" access="public" returntype="fwsettings" output="false">
 		<cfargument name="coldbox" required="true" type="any" hint="The coldbox controller">
 		<cfscript>
-			variables.instance = structnew();
-			variables.instance.coldbox = arguments.coldbox;
-			variables.instance.settingsFilePath = ExpandPath("#getColdbox().getSetting("coldbox_location")#/config/settings.xml");
-			variables.instance.qSettings = queryNew("");
-			variables.instance.Conventions = structnew();
-			variables.instance.xmlObj = "";
+			instance.coldbox = arguments.coldbox;
+			instance.settingsFilePath = ExpandPath("#getColdbox().getSetting("coldbox_location")#/config/settings.xml");
+			instance.qSettings = queryNew("");
+			instance.Conventions = structnew();
+			instance.xmlObj = "";
+			/* parse coldbox settings. */
 			parseSettings();
 			return this;
 		</cfscript>
@@ -18,6 +22,7 @@
 
 <!------------------------------------------- PUBLIC ------------------------------------------->
 
+	<!--- Save Conventions --->
 	<cffunction name="saveConventions" access="public" returntype="void" output="false">
 		<cfargument name="conventionBean" required="true" type="any">
 		<cfscript>
@@ -25,117 +30,106 @@
 			var xmlConventions = instance.xmlObj.xmlRoot.Conventions;
 			var key = "";
 			var Conventions = getConventions();
-
-			//Save XML
-			xmlConventions[1].configLocation.xmlText = arguments.conventionBean.getConfigLocation();
-			xmlConventions[1].handlerLocation.xmlText = arguments.conventionBean.gethandlerLocation();
-			xmlConventions[1].layoutsLocation.xmlText = arguments.conventionBean.getlayoutsLocation();
-			xmlConventions[1].viewsLocation.xmlText = arguments.conventionBean.getviewsLocation();
-			xmlConventions[1].pluginsLocation.xmlText = arguments.conventionBean.getpluginsLocation();
+			var thisConvention = "";
+			var conventionsMemento = arguments.conventionBean.getMemento();
 			
-			//Save structure
-			for ( key in Conventions ){
-				Conventions[key] = evaluate("arguments.conventionBean.get#key#()");
+			//Save XML
+			for( x=1; x lte ArrayLen(xmlConventions.xmlChildren); x=x+1){
+				thisConvention = conventionsMemento[xmlConventions.xmlChildren[x].xmlName];
+				xmlConventions.xmlChildren[x].xmltext = thisConvention;
+				Conventions[xmlConventions.xmlChildren[x].xmlName] = thisConvention;
 			}
+			
 			//save file.
 			saveSettings();
 		</cfscript>
 	</cffunction>
 
+	<!--- Save Log File Settings --->
 	<cffunction name="saveLogFileSettings" access="public" returntype="void" output="false">
 		<!--- ************************************************************* --->
-		<cfargument name="LogFileEncoding" 		required="true" type="string">
-		<cfargument name="LogFileMaxSize" 		required="true" type="string">
-		<cfargument name="LogFileMaxArchives" 	required="true" type="string">
-		<cfargument name="DefaultLogDirectory"  required="true" type="string">
+		<cfargument name="rc" required="true" type="struct" hint="The request collection">
 		<!--- ************************************************************* --->
 		<cfscript>
 		var x = 1;
 		var settingArray = instance.xmlObj.xmlRoot.settings.xmlChildren;
 		for (x=1; x lte ArrayLen(settingArray); x=x+1){
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"DefaultLogDirectory") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.DefaultLogDirectory);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.DefaultLogDirectory);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"LogFileEncoding") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.logFileEncoding);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.logFileEncoding);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"LogFileMaxArchives") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.LogFileMaxArchives);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.LogFileMaxArchives);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"LogFileMaxSize") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.LogFileMaxSize);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.LogFileMaxSize);
 			}
 		}
 		saveSettings();
 		</cfscript>
 	</cffunction>
 
+	<!--- General Settings --->
 	<cffunction name="saveGeneralSettings" access="public" returntype="void" output="false">
 		<!--- ************************************************************* --->
-		<cfargument name="DefaultFileCharacterSet"		required="true" type="string">
-		<cfargument name="MessageBoxStorage" 	        required="true" type="string">
-		<cfargument name="ColdspringBeanFactory" 	    required="true" type="string">
-		<cfargument name="LightwireBeanFactory" 	    required="true" type="string">
-		<cfargument name="EventName" 					required="true" type="string" />
+		<cfargument name="rc" required="true" type="struct" hint="The request collection">
 		<!--- ************************************************************* --->
 		<cfscript>
 		var x = 1;
 		var settingArray = instance.xmlObj.xmlRoot.settings.xmlChildren;
 		for (x=1; x lte ArrayLen(settingArray); x=x+1){
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"DefaultFileCharacterSet") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.DefaultFileCharacterSet);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.DefaultFileCharacterSet);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"MessageBoxStorage") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.MessageBoxStorage);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.MessageBoxStorage);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"ColdspringBeanFactory") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.ColdspringBeanFactory);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.ColdspringBeanFactory);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"LightWireBeanFactory") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.LightWireBeanFactory);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.LightWireBeanFactory);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"EventName") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.EventName);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.EventName);
 			}
 		}
+		/* Persist settings. */
 		saveSettings();
 		</cfscript>
 	</cffunction>
 
+	<!--- Save Cache Settings --->
 	<cffunction name="saveCacheSettings" access="public" returntype="void" output="false">
 		<!--- ************************************************************* --->
-		<cfargument name="CacheObjectDefaultTimeout"			required="true" type="string">
-		<cfargument name="CacheObjectDefaultLastAccessTimeout" 	required="true" type="string">
-		<cfargument name="CacheReapFrequency" 	    			required="true" type="string">
-		<cfargument name="CacheMaxObjects" 	    				required="true" type="string">
-		<cfargument name="CacheFreeMemoryPercentageThreshold"	required="true" type="string">
-		<cfargument name="CacheUseLastAccessTimeouts" 	    	required="true" type="string">
-		<cfargument name="CacheEvictionPolicy"					required="true" type="string">
+		<cfargument name="rc" required="true" type="struct" hint="The request collection">
 		<!--- ************************************************************* --->
 		<cfscript>
 		var x = 1;
 		var settingArray = instance.xmlObj.xmlRoot.settings.xmlChildren;
 		for (x=1; x lte ArrayLen(settingArray); x=x+1){
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"CacheObjectDefaultTimeout") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.CacheObjectDefaultTimeout);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.CacheObjectDefaultTimeout);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"CacheObjectDefaultLastAccessTimeout") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.CacheObjectDefaultLastAccessTimeout);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.CacheObjectDefaultLastAccessTimeout);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"CacheReapFrequency") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.CacheReapFrequency);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.CacheReapFrequency);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"CacheMaxObjects") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.CacheMaxObjects);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.CacheMaxObjects);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"CacheFreeMemoryPercentageThreshold") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.CacheFreeMemoryPercentageThreshold);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.CacheFreeMemoryPercentageThreshold);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"CacheUseLastAccessTimeouts") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.CacheUseLastAccessTimeouts);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.CacheUseLastAccessTimeouts);
 			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"CacheEvictionPolicy") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.CacheEvictionPolicy);
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.CacheEvictionPolicy);
 			}
 		}
 		saveSettings();
@@ -144,34 +138,35 @@
 
 <!------------------------------------------- ACCESSORS/MUTATORS ------------------------------------------->
 
+	<!--- ColdBox Controller --->
 	<cffunction name="getcoldbox" access="public" output="false" returntype="any" hint="Get coldbox">
 		<cfreturn instance.coldbox/>
 	</cffunction>
-
 	<cffunction name="setcoldbox" access="public" output="false" returntype="void" hint="Set coldbox">
 		<cfargument name="coldbox" type="any" required="true"/>
 		<cfset instance.coldbox = arguments.coldbox/>
 	</cffunction>
 
-	<cffunction name="getSettings" access="public" returntype="query" output="false">
+	<!--- Get settings Query --->
+	<cffunction name="getSettings" access="public" returntype="query" output="false" hint="Get coldbox settings">
 		<cfreturn instance.qSettings>
 	</cffunction>
-
+	
+	<!--- Get Conventions structure --->
 	<cffunction name="getConventions" access="public" output="false" returntype="struct" hint="Get Conventions">
 		<cfreturn instance.Conventions/>
 	</cffunction>
 	
 <!------------------------------------------- PRIVATE ------------------------------------------->
 
-	<!--- ************************************************************* --->
-
+	<!--- Parse the coldbox settings --->
 	<cffunction name="parseSettings" access="private" returntype="void" output="false">
 		<cfset var xmlString = "">
 		<cfset var xmlSettings = ArrayNew(1)>
 		<cfset var xmlConventions = ArrayNew(1)>
 		<cfset var x = 1>
 
-		<cflock type="exclusive" name="fwSettingsOperation" timeout="120">
+		<cflock type="exclusive" name="fwSettingsOperation" timeout="15" throwontimeout="true">
 			<!--- Read File --->
 			<cffile action="read" file="#instance.settingsFilePath#" variable="xmlString">
 		</cflock>
@@ -181,32 +176,38 @@
 		<!--- Get XML NODES --->
 		<cfset xmlSettings = instance.xmlObj.xmlRoot.Settings.xmlChildren>
 		<cfset xmlConventions = instance.xmlObj.xmlRoot.Conventions>
-
-		<!--- Create Conventions Struct --->
-		<cfset structInsert(getConventions(),"configLocation",xmlConventions[1].configLocation.xmlText)>
-		<cfset structInsert(getConventions(),"handlerLocation",xmlConventions[1].handlerLocation.xmlText)>
-		<cfset structInsert(getConventions(),"layoutsLocation",xmlConventions[1].layoutsLocation.xmlText)>
-		<cfset structInsert(getConventions(),"viewsLocation",xmlConventions[1].viewsLocation.xmlText)>
-		<cfset structInsert(getConventions(),"pluginsLocation",xmlConventions[1].pluginsLocation.xmlText)>
 		
-		<!--- Create Query --->
+		<!--- Loop Over Conventions and create structure --->	
+		<cfloop from="1" to="#arrayLen(xmlConventions.xmlChildren)#" index="x">
+			<cfset structInsert(getConventions(),trim(xmlConventions.xmlChildren[x].xmlName),trim(xmlConventions.xmlChildren[x].xmlText))>
+		</cfloop>
+		
+		<!--- Create Query of settings --->
 		<cfscript>
 			QueryAddRow(instance.qSettings,1);
 			for (x=1; x lte ArrayLen(xmlSettings); x=x+1){
 				QueryAddColumn(instance.qSettings, trim(xmlSettings[x].xmlAttributes.name), "varchar" , ArrayNew(1));
 				QuerySetCell(instance.qSettings, trim(xmlSettings[x].xmlAttributes.name), trim(xmlSettings[x].xmlAttributes.value),1);
 			}
-		</cfscript>
+		</cfscript>		
 	</cffunction>
 
-	<!--- ************************************************************* --->
-
+	<!--- Save settings back to storage --->
 	<cffunction name="saveSettings" access="private" returntype="void" output="false">
-		<cflock type="exclusive" name="fwSettingsOperation" timeout="120">
+		<cflock type="exclusive" name="fwSettingsOperation" timeout="15" throwontimeout="true">
 			<cffile action="write" file="#instance.settingsFilePath#" output="#toString(instance.xmlObj)#">
 		</cflock>
 	</cffunction>
-
-	<!--- ************************************************************* --->
+	
+	<!--- Dump facade --->
+	<cffunction name="dump" access="private" hint="Facade for cfmx dump" returntype="void">
+		<cfargument name="var" required="yes" type="any">
+		<cfdump var="#var#">
+	</cffunction>
+	
+	<!--- Abort Facade --->
+	<cffunction name="abort" access="private" hint="Facade for cfabort" returntype="void" output="false">
+		<cfabort>
+	</cffunction>
 
 </cfcomponent>

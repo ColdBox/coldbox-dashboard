@@ -29,20 +29,7 @@ Help tips will be shown here. Just rollover certain areas or links and you will 
 </div>
 
 <div style="margin-top:20px" align="center">
-	<cfif not findnocase("mozilla",cgi.USER_AGENT)>
-	<script type="text/javascript"><!--
-	google_ad_client = "pub-0884459722343463";
-	google_ad_width = 180;
-	google_ad_height = 60;
-	google_ad_format = "180x60_as_rimg";
-	google_cpa_choice = "CAAQyaj8zwEaCHCwEVHI2RYsKMu293MwAA";
-	google_ad_channel = "7677680936";
-	//-->
-	</script>
-	<script type="text/javascript" src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
-	</script>
-	</cfif>
-
+	<!--- Donate --->
 	<form action="https://www.paypal.com/cgi-bin/webscr" method="post" id="paypal_form" name="paypal_form" target="_blank">
 	<input type="hidden" name="cmd" value="_s-xclick">
 	<a class="action" href="javascript:document.paypal_form.submit()" title="Donate Now!">
@@ -54,7 +41,7 @@ Help tips will be shown here. Just rollover certain areas or links and you will 
 	</form>
 	<br/>
 	
-	<!--- Ads --->
+	<!--- S:ADS --->
 	<cfif randrange(1,100) mod 2 eq 0>
 	<a href="http://www.tkqlhce.com/32100tenkem1429246B1325A85A6" target="_top" onmouseover="window.status='http://www.skype.com';return true;" onmouseout="window.status=' ';return true;">
 <img src="http://www.tqlkg.com/l4117wquiom7A8F8ACH798BGEBGC" alt="" border="0"/></a>
@@ -83,6 +70,7 @@ Help tips will be shown here. Just rollover certain areas or links and you will 
 	<a href="http://www.anrdoezrs.net/qr114iqzwqyDGELEGINDFEHKHGFG" target="_top" onmouseover="window.status='http://www.sandals.com';return true;" onmouseout="window.status=' ';return true;">
 <img src="http://www.ftjcfx.com/f6102nswkqo9CAHACEJ9BADGDCBC" alt="Sandals All-Inclusive Resorts" border="0"/></a>
 	</cfif>
+	<!--- E:ADS --->
 	
 </div>
 </CFOUTPUT>

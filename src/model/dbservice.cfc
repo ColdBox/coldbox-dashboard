@@ -24,11 +24,13 @@
 
 <!------------------------------------------- PUBLIC ------------------------------------------->
 
+	<!--- Get a Service --->
 	<cffunction name="getService" access="public" returntype="any" output="false">
 		<cfargument name="model" required="true" type="string" >
 		<cfreturn instance["#arguments.model#"]>
 	</cffunction>
 
+	<!--- Get a Bean --->
 	<cffunction name="getBean" access="public" returntype="any" output="false" hint="The domain objects factory">
 		<cfargument name="bean" required="true" type="string" hint="the name of the domain objects to create.">
 		<cfscript>
@@ -50,6 +52,7 @@
 		</cfscript>
 	</cffunction>
 
+	<!--- Send a Bug Report --->
 	<cffunction name="sendbugreport" access="public" returntype="void" output="false">
 		<cfargument name="requestCollection" required="true" type="any" >
 		<cfargument name="fwSettings"		 required="true" type="any">
@@ -91,10 +94,10 @@
 
 <!------------------------------------------- PRIVATE ------------------------------------------->
 
+	<!--- The Bug Email --->
 	<cffunction name="getbugEmail" access="public" output="false" returntype="string" hint="Get bugEmail">
 		<cfreturn instance.bugEmail/>
 	</cffunction>
-
 	<cffunction name="setbugEmail" access="public" output="false" returntype="void" hint="Set bugEmail">
 		<cfargument name="bugEmail" type="string" required="true"/>
 		<cfset instance.bugEmail = arguments.bugEmail/>

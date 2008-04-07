@@ -3,29 +3,33 @@
 <!------------------------------------------- CONSTRUCTOR ------------------------------------------->
 
 	<!--- Constructor --->
-	<cfset variables.instance = structnew()>
-	<cfset variables.instance.hashAlg = "SHA-384">
-	<cfset variables.instance.settingsFilePath = ExpandPath("config/settings.xml.cfm")>
-	<cfset variables.instance.rolloversFilePath = ExpandPath("config/rollovers.xml")>
-	<cfset variables.instance.qSettings = queryNew("")>
-	<cfset variables.instance.qDistributionURLS = queryNew("url", "varchar")>
-	<cfset variables.instance.qRollovers = queryNew("pagesection,rolloverid, text","varchar,varchar,varchar")>
-	<cfset variables.instance.xmlObj = "">
-
-	<!--- ************************************************************* --->
-
+	<cfscript>
+		variables.instance = structnew();
+	</cfscript>
+	
 	<cffunction name="init" access="public" returntype="settings" output="false">
 		<cfargument name="coldbox" required="true" type="any" hint="The coldbox controller">
-		<cfset variables.instance.coldbox = arguments.coldbox>
-		<cfset parseSettings()>
-		<cfset parseRollovers()>
-		<cfreturn this>
+		<cfscript>
+			instance.coldbox = arguments.coldbox;
+			/* Prepare Instance */
+			instance.hashAlg = "SHA-384";
+			instance.settingsFilePath = ExpandPath("config/settings.xml.cfm");
+			instance.rolloversFilePath = ExpandPath("config/rollovers.xml");
+			instance.qSettings = queryNew("");
+			instance.qDistributionURLS = queryNew("url", "varchar");
+			instance.qRollovers = queryNew("pagesection,rolloverid, text","varchar,varchar,varchar");
+			instance.xmlObj = "";
+			/* Parse */
+			parseSettings();
+			parseRollovers();
+			
+			return this;			
+		</cfscript>
 	</cffunction>
-
-	<!--- ************************************************************* --->
-
+	
 <!------------------------------------------- PUBLIC ------------------------------------------->
 
+	<!--- Change Password --->
 	<cffunction name="changePassword" access="public" returntype="struct" output="false">
 		<!--- ************************************************************* --->
 		<cfargument name="oldpassword"  type="string" required="true">
@@ -34,8 +38,12 @@
 		<!--- ************************************************************* --->
 		<cfset var rtnStruct = structnew()>
 		<cfset var x = 1>
+		
+		<!--- Prepare return --->
 		<cfset rtnStruct.results = false>
 		<cfset rtnStruct.message = "">
+		
+		<!--- Validate Password --->
 		<cfif not validatePassword(arguments.oldpassword)>
 			<cfset rtnStruct.message = "Old password is invalid.">
 		<cfelseif compare(arguments.newpassword, arguments.newpassword2) neq 0>
@@ -54,8 +62,7 @@
 		<cfreturn rtnStruct>
 	</cffunction>
 
-	<!--- ************************************************************* --->
-
+	<!--- Validate a password --->
 	<cffunction name="validatePassword" access="public" returntype="boolean" output="false">
 		<!--- ************************************************************* --->
 		<cfargument name="password" required="true" type="string">
@@ -73,49 +80,49 @@
 		</cfif>
 	</cffunction>
 
-	<!--- ************************************************************* --->
-
-	<!--- ************************************************************* --->
-
+	<!--- Get All Rollovers --->
 	<cffunction name="getRollovers" access="public" returntype="query" output="false">
 		<cfreturn instance.qRollovers>
 	</cffunction>
 
-	<!--- ************************************************************* --->
-
+	<!--- Get All Settings --->
 	<cffunction name="getSettings" access="public" returntype="query" output="false">
 		<cfreturn instance.qSettings>
 	</cffunction>
-
-	<!--- ************************************************************* --->
-
+	
+	<!--- Get Distro URLS --->
 	<cffunction name="getDistributionUrls" access="public" returntype="query" output="false">
 		<cfreturn instance.qDistributionURLS>
 	</cffunction>
 
 <!------------------------------------------- PRIVATE ------------------------------------------->
 
-	<!--- ************************************************************* --->
-
+	<!--- Parse my Settings --->
 	<cffunction name="parseSettings" access="private" returntype="void" output="false">
 		<cfset var xmlString = "">
 		<cfset var settingsArray = ArrayNew(1)>
 		<cfset var urlArray = ArrayNew(1)>
 		<cfset var x = 1>
+		
 		<!--- Read File --->
 		<cffile action="read" file="#instance.settingsFilePath#" variable="xmlString">
+		
 		<cfscript>
 			//Parse File
 			instance.xmlObj = XMLParse(trim(xmlString));
+			
 			//Create Query of Settings
 			settingsArray = instance.xmlObj.xmlRoot.settings.XMLChildren;
-			QueryAddRow(instance.qSettings,1);
+			/* Populate Settings */
 			for (x=1; x lte ArrayLen(settingsArray); x=x+1){
+				QueryAddRow(instance.qSettings,1);
 				QueryAddColumn(instance.qSettings, trim(settingsArray[x].xmlName), trim(settingsArray[x].xmlAttributes["type"]) , ArrayNew(1));
 				QuerySetCell(instance.qSettings, trim(settingsArray[x].xmlName), trim(settingsArray[x].xmlText),1);
 			}
+			
 			//Root of DisURL's
 			urlArray = instance.xmlObj.xmlRoot.distribution_urls.XMLChildren;
+			/* Add Distro URL's */
 			for (x=1; x lte ArrayLen(urlArray);x=x+1){
 				//Create Query of Distribution URL's
 				QueryAddRow(instance.qDistributionURLS, 1);
@@ -124,15 +131,13 @@
 		</cfscript>
 	</cffunction>
 
-	<!--- ************************************************************* --->
-
-	<cffunction name="saveSettings" access="private" returntype="void" output="false">
+	<!--- Save our settings --->
+	<cffunction name="saveSettings" access="private" returntype="void" output="false" hint="Saves the settings back to the storage">
 		<!--- Save the File --->
 		<cffile action="write" file="#instance.settingsFilePath#" output="#toString(instance.xmlObj)#">
 	</cffunction>
 
-	<!--- ************************************************************* --->
-
+	<!--- Parse Rollovers --->
 	<cffunction name="parseRollovers" access="private" returntype="void" output="false">
 		<cfset var xmlString = "">
 		<cfset var xmlChildren = ArrayNew(1)>
@@ -156,7 +161,5 @@
 			}
 		</cfscript>
 	</cffunction>
-
-	<!--- ************************************************************* --->
 
 </cfcomponent>

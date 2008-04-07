@@ -9,6 +9,14 @@ This is the updater handler
 --->
 <cfcomponent name="ehUpdater" extends="baseHandler">
 
+	<!--- preHandler --->
+	<cffunction name="preHandler" access="public" returntype="void" output="false" hint="">
+		<cfargument name="Event" type="any" required="yes">
+	    <cfif not findnocase("gateway",event.getCurrentEvent())>
+	    	<cfset event.setLayout("Layout.Ajax")>
+	    </cfif> 
+	</cffunction>
+	
 	<!--- ************************************************************* --->
 	<!--- UPDATE SECTION 												--->
 	<!--- ************************************************************* --->

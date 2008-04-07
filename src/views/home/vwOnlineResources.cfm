@@ -31,7 +31,7 @@
           <tr bgcolor="##f5f5f5">
             <td align="right" valign="top"><strong>Official FAQ:</strong></td>
             <td valign="middle" style="border-left:1px solid ##ddd">
-				<a class="action silver" href="#getSetting("TracSite")#/trac.cgi/wiki/cbFAQ">
+				<a class="action silver" href="#getSetting("TracSite")#trac.cgi/wiki/cbFAQ">
 					<span>Open</span>
 				</a>
 			</td>
@@ -56,14 +56,6 @@
             <td align="right" valign="top"><strong>Official Website:</strong></td>
             <td valign="middle" style="border-left:1px solid ##ddd">
 				<a class="action silver" href="#getSetting("OfficialSite")#">
-					<span>Open</span>
-				</a>
-			</td>
-          </tr>
-		   <tr bgcolor="##f5f5f5">
-            <td align="right" valign="top"><strong>Author Website:</strong></td>
-            <td valign="middle" style="border-left:1px solid ##ddd">
-				<a class="action silver" href="#getSetting("AuthorWebsite",true)#">
 					<span>Open</span>
 				</a>
 			</td>

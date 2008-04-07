@@ -16,7 +16,6 @@
 
 	<p>
 		Below you can fill out the framework conventions for the key pieces in a ColdBox Application. <br />
-		<strong>IMPORTANT: IF YOU CHANGE THESE SETTINGS, YOUR APPLICATION(S) WILL FAIL UNTIL YOU RENAME THE DIRECTORIES AND FILES AS YOU DID BELOW</strong>
 	</p>
 	
 	<br />
@@ -70,6 +69,15 @@
 	     	</td>
 	     	<td>
 	     	<input type="text" name="pluginsLocation" value="#rc.Conventions.pluginsLocation#" size="30">
+			</td>
+	     </tr>
+	     
+	     <tr>
+	     	<td align="right" width="40%" style="border-right:1px solid ##ddd">
+	     	<strong>Default Event Action</strong>
+	     	</td>
+	     	<td>
+	     	<input type="text" name="eventAction" value="#rc.Conventions.eventAction#" size="30">
 			</td>
 	     </tr>
      

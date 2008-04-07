@@ -10,18 +10,11 @@
 	</div>
 
 	<div class="contentboxes">
-	This is your current ColdBox Framework CFC Documentation. Use the dropdown below to choose the documentation type:<br><br>
+	This is your current ColdBox Framework CFC Documentation.<br><br>
 
-	<DIV align="right">
-	<Strong>Documentation Type:</Strong>
-	<select name="show" id="show" onChange="doEvent('#Event.getValue("xehCFCDocs")#', 'content', {show:this.value})" style="width:100px">
-	 <option value="core" <cfif Event.getValue("show") eq "core">selected</cfif>>Core</option>
-	 <option value="plugins" <cfif Event.getValue("show") eq "plugins">selected</cfif>>Plugins</option>
-	 <option value="beans" <cfif Event.getValue("show") eq "beans">selected</cfif>>Beans</option>
-	 <option value="util" <cfif Event.getValue("show") eq "util">selected</cfif>>Util</option>
-	</select>
-	</div>
-	#Event.getValue("cfcViewer").render()#
+	<!--- Render Simple CFC Viewer API --->
+	#Event.getValue("cfcViewer").renderit()#
+	
 	</div>
 
 </div>

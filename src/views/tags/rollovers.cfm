@@ -1,9 +1,8 @@
 <cfoutput>
-<cfset qRollovers = Event.getValue("qRollovers")>
 <cfsavecontent variable="rollovers">
 <script language="javascript">
 function getHint( vid ){
-	<cfloop query="qRollovers">
+	<cfloop query="rc.qRollovers">
 	if ( vid == '#rolloverid#' ){ 
 		$("##sidemenu_help").html('#JSStringFormat(text)#');
 	}

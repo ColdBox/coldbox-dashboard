@@ -28,7 +28,7 @@
 	     	<strong>Object Default Timeout</strong>
 	     	</td>
 	     	<td>
-	     	<input type="text" name="CacheObjectDefaultTimeout" value="#Event.getValue("CacheObjectDefaultTimeout")#" size="6" maxlength="3">
+	     	<input type="text" name="CacheObjectDefaultTimeout" value="#rc.fwSettings.CacheObjectDefaultTimeout#" size="6" maxlength="3">
 	     	(In Minutes)
 	     	</td>
 	     </tr>
@@ -38,7 +38,7 @@
 	     	<strong>Object Last Access Timeout</strong>
 	     	</td>
 	     	<td>
-	     	<input type="text" name="CacheObjectDefaultLastAccessTimeout" value="#Event.getValue("CacheObjectDefaultLastAccessTimeout")#" size="6" maxlength="3">
+	     	<input type="text" name="CacheObjectDefaultLastAccessTimeout" value="#rc.fwSettings.CacheObjectDefaultLastAccessTimeout#" size="6" maxlength="3">
 	     	(In Minutes)
 			</td>
 	     </tr>
@@ -49,8 +49,8 @@
 	     	</td>
 	     	<td>
 	     		<select name="CacheUseLastAccessTimeouts" id="CacheUseLastAccessTimeouts">
-	     			<option value="true" <cfif rc.CacheUseLastAccessTimeouts>selected="selected"</cfif>>true</option>
-	     			<option value="false" <cfif not rc.CacheUseLastAccessTimeouts>selected="selected"</cfif>>false</option>	     			
+	     			<option value="true" <cfif rc.fwSettings.CacheUseLastAccessTimeouts>selected="selected"</cfif>>true</option>
+	     			<option value="false" <cfif not rc.fwSettings.CacheUseLastAccessTimeouts>selected="selected"</cfif>>false</option>	     			
 	     		</select>
 			</td>
 	     </tr>
@@ -60,7 +60,7 @@
 	     	<strong>Cache Reaping Frequency</strong>
 	     	</td>
 	     	<td>
-	     	<input type="text" name="CacheReapFrequency" value="#Event.getValue("CacheReapFrequency")#" size="6" maxlength="2">
+	     	<input type="text" name="CacheReapFrequency" value="#rc.fwSettings.CacheReapFrequency#" size="6" maxlength="2">
 	     	(In Minutes)
 			</td>
 	     </tr>
@@ -70,7 +70,7 @@
 	     	<strong>Maximum Objects In Cache</strong>
 	     	</td>
 	     	<td>
-	     	<input type="text" name="CacheMaxObjects" value="#Event.getValue("CacheMaxObjects")#" size="6" maxlength="4">
+	     	<input type="text" name="CacheMaxObjects" value="#rc.fwSettings.CacheMaxObjects#" size="6" maxlength="4">
 	     	(0 = Unlimited)
 			</td>
 	     </tr>
@@ -80,7 +80,7 @@
 	     	<strong>JVM Free Memory Percentage Threshold</strong>
 	     	</td>
 	     	<td>
-	     	<input type="text" name="CacheFreeMemoryPercentageThreshold" value="#Event.getValue("CacheFreeMemoryPercentageThreshold")#" size="6" maxlength="2">
+	     	<input type="text" name="CacheFreeMemoryPercentageThreshold" value="#rc.fwSettings.CacheFreeMemoryPercentageThreshold#" size="6" maxlength="2">
 	     	(0 = Unlimited)
 			</td>
 	     </tr>
@@ -91,8 +91,8 @@
 	     	</td>
 	     	<td>
 	     		<select name="CacheEvictionPolicy" id="CacheEvictionPolicy">
-	     			<option value="LFU" <cfif rc.CacheEvictionPolicy eq "LFU">selected="selected"</cfif>>LFU</option>
-	     			<option value="LRU" <cfif rc.CacheEvictionPolicy eq "LRU">selected="selected"</cfif>>LRU</option>	     			
+	     			<option value="LFU" <cfif rc.fwSettings.CacheEvictionPolicy eq "LFU">selected="selected"</cfif>>LFU</option>
+	     			<option value="LRU" <cfif rc.fwSettings.CacheEvictionPolicy eq "LRU">selected="selected"</cfif>>LRU</option>	     			
 	     		</select>
 			</td>
 	     </tr>

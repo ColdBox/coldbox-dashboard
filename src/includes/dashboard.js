@@ -103,9 +103,9 @@ function doEventNOUI(e, targetID, params, methodType, onComplete){
 
 function blockui(){
 	//BlockUI
-	$.extend($.blockUI.defaults.overlayCSS, { backgroundColor: '#000000'});
-	$.blockUI.defaults.pageMessage = "<h3>Please wait...</h3>";
-	$.blockUI( { backgroundColor: '#000000', color: '#fff', border:'1px outset #eaeaea'} );
+	$.blockUI.defaults.overlayCSS, { backgroundColor: '#000000'};
+	$.blockUI.defaults.message = "<h3>Loading...</h3>";
+	$.blockUI( {css: { backgroundColor: '#000000', color: '#fff', border:'1px solid #eaeaea'} } );
 }
 function h_onComplete(){
 	try{ parent.topframe.loff();}
