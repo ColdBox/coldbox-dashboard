@@ -135,7 +135,7 @@
 	-->
 	<Datasources />
 	
-	<!--ColdBox Object Caching Settings Overrides the Framework-wide settings -->
+	<!--ColdBox Object Caching Settings Overrides the Framework-wide settings 
 	<Cache>
 		<ObjectDefaultTimeout>45</ObjectDefaultTimeout>
 		<ObjectDefaultLastAccessTimeout>15</ObjectDefaultLastAccessTimeout>
@@ -145,7 +145,7 @@
 		<FreeMemoryPercentageThreshold>3</FreeMemoryPercentageThreshold>
 		<EvictionPolicy>LRU</EvictionPolicy>
 	</Cache>
-	
+	-->
 	
 	<!-- Interceptor Declarations 
 	<Interceptors throwOnInvalidStates="true">
