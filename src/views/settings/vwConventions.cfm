@@ -72,7 +72,7 @@
 			</td>
 	     </tr>
 	     
-	     <tr>
+	     <tr bgcolor="##f5f5f5">
 	     	<td align="right" width="40%" style="border-right:1px solid ##ddd">
 	     	<strong>Default Event Action</strong>
 	     	</td>

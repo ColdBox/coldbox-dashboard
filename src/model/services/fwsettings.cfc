@@ -95,6 +95,9 @@
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"EventName") eq 0){
 				settingArray[x].xmlAttributes.value = trim(arguments.rc.EventName);
 			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"FlashURLPersistScope") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.FlashURLPersistScope);
+			}			
 		}
 		/* Persist settings. */
 		saveSettings();
