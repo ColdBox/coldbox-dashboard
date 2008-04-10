@@ -61,7 +61,7 @@
 		<input type="hidden" name="ie" value="ISO-8859-1"></input>
 		<input type="hidden" name="oe" value="ISO-8859-1"></input>
 		<input type="hidden" name="safe" value="active"></input>
-		<input type="hidden" name="cof" value="GALT:##008000;GL:1;DIV:##336699;VLC:663399;AH:center;BGC:FFFFFF;LBGC:000000;ALC:0000FF;LC:0000FF;T:000000;GFNT:0000FF;GIMP:0000FF;LH:50;LW:217;L:http://www.coldboxframework.com/images/homepage_r2_c2.jpg;S:http://www.coldboxframework.com;FORID:1"></input>
+		<input type="hidden" name="cof" value="GALT:##008000;GL:1;DIV:##336699;VLC:663399;AH:center;BGC:FFFFFF;LBGC:000000;ALC:0000FF;LC:0000FF;T:000000;GFNT:0000FF;GIMP:0000FF;S:http://www.coldboxframework.com;FORID:1"></input>
 		<input type="hidden" name="hl" value="en"></input>
 		
 		
