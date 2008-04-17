@@ -6,9 +6,9 @@ Description :
 	Unit test for the ehMain Handler.
 
 ----------------------------------------------------------------------->
-<cfcomponent name="mainTest" extends="coldbox.system.extras.baseTest" output="false">
+<cfcomponent name="mainTest" extends="coldbox.system.extras.testing.baseTest" output="false">
 
-	<cffunction name="setUp" returntype="void" access="private" output="false">
+	<cffunction name="setUp" returntype="void" access="public" output="false">
 		<cfscript>
 		//Setup ColdBox Mappings For this Test
 		setAppMapping("@APP_MAPPING@");
