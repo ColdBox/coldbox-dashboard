@@ -29,6 +29,8 @@
 		var unitTest1Contents = "";
 		var unitTest2 = "";
 		var unitTest2Contents = "";
+		var unitTestFramework = arguments.generatorBean.getunittesting_framework();
+		var removeUnitTestFramework = "cfcunit";
 		var FS = getColdbox().getSetting("OSFileSeparator",true);
 		var devURLS = "";
 		var bugEmails = "";
@@ -46,20 +48,27 @@
 		for ( i = 1; i lte listlen(arguments.generatorBean.getbugemails()); i=i+1){
 			bugEmails = bugEmails & chr(9) & chr(9) & "<BugEmail>#listgetAt(arguments.generatorBean.getbugemails(),i)#</BugEmail>#chr(13)#";
 		}
+		
+		/* Unit Test */
+		if( unitTestFramework eq "mxunit" ){
+			removeUnitTestFramework = "cfcunit";
+		}
+		else{
+			removeUnitTestFramework = "mxunit";
+		}
 
 		//Where are the files to manipulate.
 		ConfigFile = expandedAppLocation & "#fs#config#fs#coldbox.xml.cfm";
 		EclipseFile = expandedAppLocation & "#fs#.project";
-		unitTest1 = expandedAppLocation  & "#fs#handlers#fs#tests#fs#cases#fs#generalTest.cfc";
-		unitTest2 = expandedAppLocation  & "#fs#handlers#fs#tests#fs#cases#fs#mainTest.cfc";
-		
+		unitTest1 = expandedAppLocation  & "#fs#handlers#fs#tests#fs##unitTestFramework##fs#generalTest.cfc";
+		unitTest2 = expandedAppLocation  & "#fs#handlers#fs#tests#fs##unitTestFramework##fs#mainTest.cfc";
 		
 		//Read the templates
 		ConfigFileContents = readFile(ConfigFile);
 		EclipseProjectContents = readFile(EclipseFile);
 		unitTest1Contents = readFile(unitTest1);
 		unitTest2Contents = readFile(unitTest2);
-
+		
 		//Replace Tokens.
 		ConfigFileContents = replacenocase(ConfigFileContents,"@APPNAME@",arguments.generatorBean.getAppName());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@COLDFUSION_LOGGING@",arguments.generatorBean.getcoldfusionlogging());
@@ -110,6 +119,9 @@
 		writeFile(EclipseFile,EclipseProjectContents);
 		writeFile(unitTest1, unitTest1Contents);
 		writeFile(unitTest2, unitTest2Contents);
+		
+		/* Directory Removals */
+		removeDirectory(expandedAppLocation  & "#fs#handlers#fs#tests#fs##removeUnitTestFramework#");
 		</cfscript>
 	</cffunction>
 
@@ -136,6 +148,11 @@
 	</cffunction>
 
 <!------------------------------------------- PRIVATE ------------------------------------------->
+
+	<cffunction name="removeDirectory" access="private" returntype="void" hint="Remove a directory" output="false" >
+		<cfargument name="dirPath" required="true" type="string" hint="">
+		<cfdirectory action="delete" directory="#arguments.dirpath#" recurse="true">
+	</cffunction>
 
 	<cffunction name="readFile" access="private" hint="Facade to Read a file's content" returntype="Any" output="false">
 		<!--- ************************************************************* --->

@@ -10,6 +10,7 @@
         <rollover id="overview">Displays an overview of the framework's settings</rollover>
         <rollover id="logfilesettings">From here you can change the coldbox logging facility's parameters</rollover>
         <rollover id="generalsettings">From here you can change the general framework settings.</rollover>
+        <rollover id="debuggersettings">From here you can change the coldbox debugger settings.</rollover>
         <rollover id="passwordsettings">Change your dashboard password, securely!!</rollover>
         <rollover id="proxysettings">Change your proxy settings, if needed.</rollover>
         <rollover id="cachesettings">Change the caching configuration parameters.</rollover>

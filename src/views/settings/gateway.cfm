@@ -22,6 +22,8 @@ $(document).ready(function() {
 
 	<li><a href="javascript:doEvent('#Event.getValue("xehCacheSettings")#', 'content', {})" onMouseOver="getHint('cachesettings')" onMouseOut="resetHint()">Cache Settings</a></li>
 
+	<li><a href="javascript:doEvent('#Event.getValue("xehDebuggerSettings")#', 'content', {})" onMouseOver="getHint('debuggersettings')" onMouseOut="resetHint()">Debugger Settings</a></li>
+
 	<li><a href="javascript:doEvent('#Event.getValue("xehLogSettings")#', 'content', {})" onMouseOver="getHint('logfilesettings')" onMouseOut="resetHint()">Log File Settings</a></li>
 
 	<li><a href="javascript:doEvent('#Event.getValue("xehConventions")#', 'content', {})" onMouseOver="getHint('conventions')" onMouseOut="resetHint()">Framework Conventions</a></li>

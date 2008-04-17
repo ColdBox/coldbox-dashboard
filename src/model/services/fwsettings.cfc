@@ -70,6 +70,53 @@
 		saveSettings();
 		</cfscript>
 	</cffunction>
+	
+	<!--- Save Debugger Settings --->
+	<cffunction name="saveDebuggerSettings" access="public" returntype="void" output="false">
+		<!--- ************************************************************* --->
+		<cfargument name="rc" required="true" type="struct" hint="The request collection">
+		<!--- ************************************************************* --->
+		<cfscript>
+		var x = 1;
+		var settingArray = instance.xmlObj.xmlRoot.settings.xmlChildren;
+		for (x=1; x lte ArrayLen(settingArray); x=x+1){
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"PersistentRequestProfiler") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.PersistentRequestProfiler);
+			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"maxPersistentRequestProfilers") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.maxPersistentRequestProfilers);
+			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"maxRCPanelQueryRows") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.maxRCPanelQueryRows);
+			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"showTracerPanel") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.showTracerPanel);
+			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"expandedTracerPanel") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.expandedTracerPanel);
+			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"showInfoPanel") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.showInfoPanel);
+			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"expandedInfoPanel") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.expandedInfoPanel);
+			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"showCachePanel") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.showCachePanel);
+			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"expandedCachePanel") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.expandedCachePanel);
+			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"showRCPanel") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.showRCPanel);
+			}
+			if ( Comparenocase(settingArray[x].xmlAttributes.name,"expandedRCPanel") eq 0){
+				settingArray[x].xmlAttributes.value = trim(arguments.rc.expandedRCPanel);
+			}
+		}
+		saveSettings();
+		</cfscript>
+	</cffunction>
 
 	<!--- General Settings --->
 	<cffunction name="saveGeneralSettings" access="public" returntype="void" output="false">

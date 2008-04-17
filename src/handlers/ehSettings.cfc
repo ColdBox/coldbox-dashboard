@@ -29,6 +29,7 @@ This is the settings handler
 		<cfset rc.xehSettings = "ehSettings.dspOverview">
 		<cfset rc.xehLogSettings = "ehSettings.dspLogSettings">
 		<cfset rc.xehGeneralSettings = "ehSettings.dspGeneralSettings">
+		<cfset rc.xehDebuggerSettings = "ehSettings.dspDebuggerSettings">
 		<cfset rc.xehConventions = "ehSettings.dspConventions">
 		<cfset rc.xehPassword = "ehSettings.dspChangePassword">
 		<cfset rc.xehProxy = "ehSettings.dspProxySettings">
@@ -129,6 +130,49 @@ This is the settings handler
 				setNextEvent("ehSettings.dspConventions");
 			}			
 		</cfscript>		
+	</cffunction>
+	
+	<!--- Display debugger Settings --->
+	<cffunction name="dspDebuggerSettings" access="public" returntype="void" output="false">
+		<cfargument name="event" type="any" required="true">
+		<cfset var rc = event.getCollection()>
+		<!--- EXIT HANDLERS: --->
+		<cfset rc.xehDoSave = "ehSettings.doSaveDebuggerSettings">
+		
+		<!--- Get general Settings --->
+		<cfset rc.fwSettings = rc.dbservice.getService("fwsettings").getSettings()>
+		<cfset rc.help = renderView("settings/help/DebuggerSettings")>
+		
+		<!--- Set the View --->
+		<cfset Event.setView("settings/vwDebuggerSettings")>
+	</cffunction>
+	
+	<!--- Save the Debugger Settings --->	
+	<cffunction name="doSaveDebuggerSettings" access="public" returntype="void" output="false">
+		<cfargument name="event" type="any" required="true">
+		<cfscript>
+			var rc = event.getCollection();
+			var fwSettings = rc.dbservice.getService("fwsettings").getSettings();
+			var errors = "";
+			
+			//Error Checks
+			if( len(trim(rc.maxPersistentRequestProfilers)) eq 0 or 
+			    len(Trim(rc.maxRCPanelQueryRows)) eq 0){
+				getPlugin("messagebox").setMessage("error","Please enter all the required fields.");
+				setNextEvent("ehSettings.dspDebuggerSettings");
+			}
+			else if( not isNumeric(rc.maxPersistentRequestProfilers) or
+			         not isNumeric(rc.maxRCPanelQueryRows) ){
+					getPlugin("messagebox").setMessage("error","The maxPersistentRequestProfilers and maxRCPanelQueryRows settings must be numeric.");
+					setNextEvent("ehSettings.dspDebuggerSettings");
+			}
+			else{
+				rc.dbservice.getService("fwsettings").saveDebuggerSettings(rc);
+				getPlugin("messagebox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.");
+				setNextEvent("ehSettings.dspDebuggerSettings");
+			}
+			
+		</cfscript>
 	</cffunction>
 
 	<!--- Display log settings --->

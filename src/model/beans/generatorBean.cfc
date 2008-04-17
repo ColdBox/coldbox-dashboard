@@ -18,6 +18,7 @@
 		instance.exception_handler = false;
 		instance.eventname = "";
 		instance.defaultview = false;
+		instance.unittesting_framework = "mxunit";
 		//return
 		return this;
 		</cfscript>
@@ -167,5 +168,13 @@
 		<cfset instance.defaultView = arguments.defaultView/>
 	</cffunction>
 
+	<cffunction name="getunittesting_framework" access="public" output="false" returntype="string" hint="Get unittesting_framework">
+		<cfreturn instance.unittesting_framework/>
+	</cffunction>
+	
+	<cffunction name="setunittesting_framework" access="public" output="false" returntype="void" hint="Set unittesting_framework">
+		<cfargument name="unittesting_framework" type="string" required="true"/>
+		<cfset instance.unittesting_framework = arguments.unittesting_framework/>
+	</cffunction>
 
 </cfcomponent>
