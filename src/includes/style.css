@@ -338,21 +338,24 @@ input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover { b
 	left: 25%;
 }
 #FileBrowser input[type=button]{
- background: #D1EBFB;
- color: #222;
- border: 1px outset #ccc;
- padding: .1em .5em;
- font-size: 9px;
+	margin: 0; 
+	font-size: 100%; 
+	font-family: Arial, Sans-serif; 
+	border: 1px solid #CCC; 
+	background: #FFFFFF url(../images/headerbg.gif) repeat-x bottom left; 
+	padding: 3px; 
+	font-weight: bold; 
+	color: #333;
+	cursor: pointer;
 }
 #FileBrowser input[type=button]:hover {
- background: #FFD21D;
- border: 1px inset #ccc;
- cursor: hand;
+	 background: #FFFFF0;
+	 border: 1px inset #ccc;
 }
 #FileBrowser input[type=button][disabled]{
- background: #f6f6f6;
- border-style: solid;
- color: #999;
+	 background: #f6f6f6;
+	 border-style: solid;
+	 color: #999;
 }
 #FileBrowser .container{
     width: 550px;
@@ -372,7 +375,8 @@ input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover { b
     line-height:15px;
     font-weight:bold;
 	height: 275px;
-    overflow-y: scroll;
+	width: 545px;
+    overflow: auto;
 }
 #FileBrowser .selectedBar{
     font-size:9px;
