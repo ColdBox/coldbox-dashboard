@@ -19,7 +19,6 @@
 	<property name="dist.cf7"  						value="dist/cf7"/>
 	<property name="dist.cf8"  						value="dist/cf8"/>
 		
-	
 	<!--Engine Properties-->
 	<property name="jrun.path" 						value="/Applications/JRun4" />
 	<property name="cf7.path" 						value="${jrun.path}/servers/cf7" />
@@ -46,7 +45,6 @@
 	<property name="dir.cf8.export" 				value="/Users/lmajano/Documents/MyDocs/My Programs/exports/coldbox/dashboard/cf8" />
 	<property name="dir.cf7.export" 				value="/Users/lmajano/Documents/MyDocs/My Programs/exports/coldbox/dashboard/cf7" />
 		
-	
 	<!-- Init -->
 	<target name="init">		
 		<tstamp/>		
