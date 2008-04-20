@@ -20,8 +20,8 @@
 		<Setting name="MessageboxStyleOverride"	    value="false" />
 		<Setting name="HandlersIndexAutoReload"   	value="false" />
 		<Setting name="ConfigAutoReload"			value="false" />
-		<Setting name="HandlerCaching" 				value="true"/>
-		<Setting name="EventCaching" 				value="true"/>
+		<Setting name="HandlerCaching" 				value="false"/>
+		<Setting name="EventCaching" 				value="false"/>
 		<Setting name="onInvalidEvent"				value="main.dspFrameset" />
 	</Settings>
 	

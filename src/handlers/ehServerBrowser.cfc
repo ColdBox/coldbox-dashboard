@@ -19,7 +19,7 @@ This is the File Browser Handler
 	<cffunction name="dspBrowser" access="public" returntype="void" output="false">
 		<cfargument name="Event" type="any" required="true">
 		<cfset var rc = event.getCollection()>
-		<cfset var slash = getSetting("OSFileSeparator",1)>
+		<cfset var slash = "/">
 		<cfset var currentRootLen = 0>
 		
 		<!--- EXIT HANDLERS: --->
@@ -47,6 +47,10 @@ This is the File Browser Handler
 		<cfif not event.valueExists('computerRoot')>
 			<!--- Set Computer Root, from session storage --->
 			<cfset rc.computerRoot = rc.oSession.getVar('computerRoot')>
+		<cfelse>
+			<cfset rc.computerRoot = urlDecode(rc.computerRoot)>
+			<cfset rc.oSession.setVar("computerRoot", rc.computerRoot)>
+			<cfset rc.dir = rc.computerRoot>
 		</cfif>
 		
 		<!--- Test if incoming directory is blank --->

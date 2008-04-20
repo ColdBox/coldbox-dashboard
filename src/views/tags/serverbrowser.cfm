@@ -9,7 +9,7 @@
 			<strong>Volumes:</strong>
 			<select name="roots" id="roots" onChange="javascript:doEventNOUI('#rc.xehBrowser#','FileBrowser',{computerRoot:this.value})" style="width:50px">
 				<cfloop from="1" to="#arrayLen(rc.roots)#" index="i">
-				<option value="#rc.roots[i].getAbsolutePath()#" <cfif rc.roots[i].getAbsolutePath() eq rc.computerRoot>selected=selected</cfif>>#rc.roots[i].getAbsolutePath()#</option>
+				<option value="#urlEncodedFormat(rc.roots[i].getAbsolutePath())#" <cfif rc.roots[i].getAbsolutePath() eq rc.computerRoot>selected=selected</cfif>>#rc.roots[i].getAbsolutePath()#</option>
 				</cfloop>
 			</select>
 		</div>
@@ -26,7 +26,7 @@
 		    #getPlugin("messagebox").renderit()#
 		    
 		    <!--- Display back links --->
-			<cfif listlen(rc.currentroot,"/") gte 1>
+			<cfif rc.oSession.getVar('oldRoot') neq "">
 				<cfset tmpHREF = "javascript:doEventNOUI('#rc.xehBrowser#','FileBrowser',{dir:'#JSStringFormat(rc.oSession.getVar('oldRoot'))#'})">
 				<a href="#tmpHREF#"><img src="images/icons/folder.png" border="0" align="absmiddle" alt="Folder"></a>
 				<a href="#tmpHREF#">..</a><br>
@@ -50,6 +50,8 @@
 				</div>
 			</cfif>
 			</cfloop>
+			<cfelse>
+			<em>No directories found.</em>
 			</cfif>
 			
 		</div>
