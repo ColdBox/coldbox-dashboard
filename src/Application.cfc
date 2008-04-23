@@ -18,7 +18,7 @@ Description :
 	<!--- APPLICATION CFC PROPERTIES --->
 	<cfset this.name = "ColdboxDashboard-" & hash(getCurrentTemplatePath())> 
 	<cfset this.sessionManagement = true>
-	<cfset this.sessionTimeout = createTimeSpan(1,0,0,0)>
+	<cfset this.sessionTimeout = createTimeSpan(0,5,0,0)>
 	<cfset this.setClientCookies = true>
 	
 	<!--- COLDBOX STATIC PROPERTY, DO NOT CHANGE UNLESS THIS IS NOT THE ROOT OF YOUR COLDBOX APP --->

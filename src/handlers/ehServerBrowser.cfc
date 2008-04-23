@@ -98,12 +98,13 @@ This is the File Browser Handler
 		<cfargument name="Event" type="any" required="true">
 		<cfset var rc = event.getCollection()>
 		<cfset var newDir = "">
+		
 		<!--- Check for incoming params --->
 		<cfif len(trim(event.getValue("newFolder",""))) eq 0>
 			<cfset getPlugin("messagebox").setMessage("warning", "Please enter a valid folder name.")>
 		<cfelse>
 		    <cfset newDir = event.getValue("dir") & "/" & event.getValue("NewFolder")>
-			<cfdirectory action="create" directory="#ExpandPath(newDir)#">
+			<cfdirectory action="create" directory="#newDir#">
 			<cfset getPlugin("messagebox").setMessage("info", "Folder Created Successfully")>
 		</cfif>
 		
