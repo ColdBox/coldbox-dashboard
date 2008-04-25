@@ -36,16 +36,14 @@
 			<cfif rc.qryDir.recordcount>
 			<cfloop query="rc.qryDir">
 			<cfif rc.qryDir.type eq "Dir" and left(rc.qryDir.name,1) neq ".">
-				<cfif right(rc.currentroot,1) eq rc.slash>
-					<cfset thisSlash = "">
-				<cfelse>
-					<cfset thisSlash = rc.slash>
-				</cfif>
-				<cfset vURL = rc.currentroot & thisSlash & rc.qryDir.name>
-				<cfset plainURL = "#rc.currentroot##thisSlash##rc.qryDir.name#">
-				<cfset tmpHREF = "javascript:doEventNOUI('#rc.xehBrowser#','FileBrowser',{dir:'#urlEncodedFormat(vURL)#'})">
-				<cfset validIDName = JSStringFormat(replace(rc.qryDir.name,".","_","all")) >
 				
+				<!--- URL used for selection --->
+				<cfset plainURL = rc.currentroot & rc.thisSlash & rc.qryDir.name>
+				<!--- HREF to go into a directory --->
+				<cfset tmpHREF = "javascript:doEventNOUI('#rc.xehBrowser#','FileBrowser',{dir:'#JSStringFormat(plainURL)#'})">
+				<!--- ID Name of the div --->
+				<cfset validIDName = JSStringFormat(replace(rc.qryDir.name,".","_","all")) >
+				<!--- Display the DiV --->
 				<div id="#validIDName#" 
 					 onClick="selectdirectory('#validIDName#','#plainURL#')" 
 					 style="cursor: pointer;"
@@ -53,6 +51,7 @@
 					<a href="#tmpHREF#"><img src="images/icons/folder.png" border="0" align="absmiddle" alt="Folder"></a>
 					#rc.qryDir.name#
 				</div>
+			
 			</cfif>
 			</cfloop>
 			<cfelse>

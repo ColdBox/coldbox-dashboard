@@ -20,9 +20,7 @@ This is the File Browser Handler
 		<cfargument name="Event" type="any" required="true">
 		<cfset var rc = event.getCollection()>
 		<cfset var currentRootLen = 0>
-		
-		<!--- Slash --->
-		<cfset rc.slash = getSetting("OSFileSeparator",1)>
+		<cfset var slash = getSetting("OSFileSeparator",1)>
 		
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehBrowser = "ehServerBrowser.dspBrowser">
@@ -71,9 +69,9 @@ This is the File Browser Handler
 		<cfset rc.currentRoot = rc.dir>
 		
 		<!--- Setup the old root if unequal to current root. --->
-		<cfset currentRootLen = listlen(rc.currentRoot,rc.slash)>
+		<cfset currentRootLen = listlen(rc.currentRoot,slash)>
 		<cfif currentRootLen neq 0>
-			<cfset rc.oSession.setvar("oldRoot",listdeleteAt(rc.currentRoot, currentRootLen, rc.slash))>
+			<cfset rc.oSession.setvar("oldRoot",listdeleteAt(rc.currentRoot, currentRootLen, slash))>
 		</cfif>
 		
 		<cftry>
@@ -89,7 +87,14 @@ This is the File Browser Handler
 				<cfset getPlugin("messagebox").setMessage("warning", "An error occurred reading directory. #cfcatch.message# - #cfcatch.detail#")>	
 			</cfcatch>
 		</cftry>	
-				
+		
+		<!--- Set the slash we will use if the root has a slash already --->
+		<cfif right(rc.currentroot,1) eq slash>
+			<cfset rc.thisSlash = "">
+		<cfelse>
+			<cfset rc.thisSlash = slash>
+		</cfif>
+		
 		<!--- Set the view --->
 		<cfset event.setView("tags/serverbrowser")>
 	</cffunction>
