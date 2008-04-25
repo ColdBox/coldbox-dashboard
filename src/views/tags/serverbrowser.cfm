@@ -45,7 +45,7 @@
 				<cfset validIDName = JSStringFormat(replace(rc.qryDir.name,".","_","all")) >
 				<!--- Display the DiV --->
 				<div id="#validIDName#" 
-					 onClick="selectdirectory('#validIDName#','#plainURL#')" 
+					 onClick="selectdirectory('#validIDName#','#JSStringFormat(plainURL)#')" 
 					 style="cursor: pointer;"
 					 onDblclick="#tmpHREF#">
 					<a href="#tmpHREF#"><img src="images/icons/folder.png" border="0" align="absmiddle" alt="Folder"></a>
