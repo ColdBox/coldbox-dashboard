@@ -19,8 +19,10 @@ This is the File Browser Handler
 	<cffunction name="dspBrowser" access="public" returntype="void" output="false">
 		<cfargument name="Event" type="any" required="true">
 		<cfset var rc = event.getCollection()>
-		<cfset var slash = "/">
 		<cfset var currentRootLen = 0>
+		
+		<!--- Slash --->
+		<cfset rc.slash = getSetting("OSFileSeparator",1)>
 		
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehBrowser = "ehServerBrowser.dspBrowser">
@@ -69,9 +71,9 @@ This is the File Browser Handler
 		<cfset rc.currentRoot = rc.dir>
 		
 		<!--- Setup the old root if unequal to current root. --->
-		<cfset currentRootLen = listlen(rc.currentRoot,slash)>
+		<cfset currentRootLen = listlen(rc.currentRoot,rc.slash)>
 		<cfif currentRootLen neq 0>
-			<cfset rc.oSession.setvar("oldRoot",listdeleteAt(rc.currentRoot, currentRootLen, slash))>
+			<cfset rc.oSession.setvar("oldRoot",listdeleteAt(rc.currentRoot, currentRootLen, rc.slash))>
 		</cfif>
 		
 		<cftry>

@@ -36,8 +36,8 @@
 			<cfif rc.qryDir.recordcount>
 			<cfloop query="rc.qryDir">
 			<cfif rc.qryDir.type eq "Dir" and left(rc.qryDir.name,1) neq ".">
-				<cfset vURL = "#rc.currentroot##iif(rc.currentroot eq "/","''","'/'")##urlEncodedFormat(rc.qryDir.name)#">
-				<cfset plainURL = "#rc.currentroot##iif(rc.currentroot eq "/","''","'/'")##rc.qryDir.name#">
+				<cfset vURL = "#rc.currentroot##iif(rc.currentroot eq rc.slash,"''",rc.slash)##urlEncodedFormat(rc.qryDir.name)#">
+				<cfset plainURL = "#rc.currentroot##iif(rc.currentroot eq rc.slash,"''",rc.slash)##rc.qryDir.name#">
 				<cfset tmpHREF = "javascript:doEventNOUI('#rc.xehBrowser#','FileBrowser',{dir:'#vURL#'})">
 				<cfset validIDName = JSStringFormat(replace(rc.qryDir.name,".","_","all")) >
 				
