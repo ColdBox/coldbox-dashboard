@@ -35,7 +35,7 @@
 		var devURLS = "";
 		var bugEmails = "";
 		var i = 1;
-		var expandedAppLocation = expandPath(arguments.generatorBean.getapplocation());
+		var expandedAppLocation = arguments.generatorBean.getapplocation();
 
 		//First step is to unzip the template to the destination directory.
 		getColdbox().getPlugin("zip").extract(zipFilePath=getappTemplatePath(),extractPath=expandedAppLocation,overwriteFiles=true);

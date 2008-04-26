@@ -62,9 +62,25 @@ This is the app Builder handler.
 		<cfargument name="Event" type="any" required="true">
 		<cfscript>
 			var rc = event.getCollection();
+			var webroot = ExpandPath('/');
+			
 			rc.appRelocation = urlDecode(rc.appRelocation);
+			rc.appOutsideWebroot = true;
+			
+			/* Test App Location is in webroot */
+			if( findnocase(webroot,rc.appRelocation) ){
+				rc.appOutsideWebroot = false;
+				rc.webrootLocation = replacenocase(rc.appRelocation,webroot,'');
+				rc.webrootLocation = replace(rc.webrootLocation,"\","/","all");
+				if( left(rc.webrootLocation,1) neq "/"){
+					rc.webrootLocation = "/" & rc.webrootLocation;
+				}
+			}
+			
+			/* Get Directory Listing */
 			rc.qAppListing = getDirectoryListing(rc.appRelocation);
 			rc.qAppListing = getPlugin("queryHelper").sortQuery(rc.qAppListing,"directory");
+			
 			// Set the View
 			event.setView("tools/vwGeneratorSummary");
 		</cfscript>
@@ -77,7 +93,7 @@ This is the app Builder handler.
 	<cffunction name="getDirectoryListing" output="false" access="private" returntype="query" hint="Get Directory Listing of generated Application">
 		<cfargument name="appDirectory" type="string" required="true"/>
 		<cfset var qListing = "">
-		<cfdirectory action="list" directory="#expandPath(arguments.appDirectory)#" recurse="true" name="qListing">
+		<cfdirectory action="list" directory="#arguments.appDirectory#" recurse="true" name="qListing">
 		<cfreturn qListing>
 	</cffunction>
 
