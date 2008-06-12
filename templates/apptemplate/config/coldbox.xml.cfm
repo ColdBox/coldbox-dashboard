@@ -4,6 +4,21 @@
 	<Settings>
 		<!--The name of your application.-->
 		<Setting name="AppName"						value="@APPNAME@"/>
+		<!-- ColdBox set-up information for J2EE installation.
+			As context-root are actually virtual locations which does not correspond to physical location of files. for example 
+			/openbd   /var/www/html/tomcat/deploy/bluedragon
+			
+			AppMapping setting will adjust physical location of Project/App files and coldbox will load handlers,plugis,config file etc
+			Create a cf mapping and enable this value. 
+			/MyApp /var/www/html/tomcat/deploy/bluedragon/MyAppFolder
+			
+			If you are using a coldbox app to power flex/remote apps, you NEED to set the AppMapping also. In Summary,
+			the AppMapping is either a CF mapping or the path from the webroot to this application root. If this setting
+			is not set, then coldbox will try to auto-calculate it for you. Please read the docs.
+			
+			<Setting name="AppMapping"					value="/MyApp"/>      
+			
+		-->
 		<!--Default Debugmode boolean flag (Set to false in production environments)-->
 		<Setting name="DebugMode" 					value="true" />
 		<!--The Debug Password to use in order to activate/deactivate debugmode,activated by url actions -->
@@ -52,6 +67,10 @@
 		<Setting name="ConfigAutoReload"          	value="@CONFIG_AUTO_RELOAD@" />
 		<!-- Declare the custom plugins base invocation path, if used. You have to use dot notation.Example: mymapping.myplugins	-->
 		<Setting name="MyPluginsLocation"   		value="" />
+		<!-- Declare the external views location. It can be relative to this app or external. This in turn is used to do cfincludes. -->
+		<Setting name="ViewsExternalLocation" 		value=""/>
+		<!-- Declare the external handlers base invocation path, if used. You have to use dot notation.Example: mymapping.myhandlers	-->
+		<Setting name="HandlersExternalLocation"   	value="" />
 		<!--Flag to cache handlers. Default if left blank is true. -->
 		<Setting name="HandlerCaching" 				value="false"/>
 		<!--Flag to cache events if metadata declared. Default is true -->
@@ -70,18 +89,35 @@
 		<Setting name="FlashURLPersistScope" 		value="session"/>
 	</Settings>
 
-	<!--Your Settings can go here, if not needed, use <YourSettings />. You can use these for anything you like.
-		<YourSettings name="MySetting"  				value="WOW" />
-	 -->
+	<!-- Your Settings can go here, if not needed, use <YourSettings />. You can use these for anything you like.
+		<YourSettings>
+		<Setting name="MySetting" value="My Value"/>
+		
+		whether to encrypt the values or not
+		<Setting name="cookiestorage_encryption" value="true"/>
+		
+		The encryption seed to use. Else, use a default one (Not Recommened)
+		<Setting name="cookiestorage_encryption_seed" value="mykey"/>
+		
+		The encryption algorithm to use (According to CFML Engine)
+		<Setting name="cookiestorage_encryption_algorithm" value="CFMX_COMPAT or BD_DEFAULT"/>
+		
+		Messagebox Plugin (You can now override the storage scope without affecting all framework applications)
+		<Setting name="messagebox_storage_scope" value="session or client" />
+		
+		Complex Settings follow JSON Syntax. www.json.org.  
+		*IMPORTANT: use single quotes in this xml file for JSON notation, ColdBox will translate it to double quotes.
+		</YourSettings>
+	-->
 	<YourSettings></YourSettings>
 	
 	<!-- Custom Conventions : You can override the framework wide conventions
 		<Conventions>
-		<handlersLocation></handlersLocation>
-		<pluginsLocation></pluginsLocation>
-		<layoutsLocation></layoutsLocation>
-		<viewsLocation></viewsLocation>
-		<eventAction></eventAction>		
+			<handlersLocation></handlersLocation>
+			<pluginsLocation></pluginsLocation>
+			<layoutsLocation></layoutsLocation>
+			<viewsLocation></viewsLocation>
+			<eventAction></eventAction>		
 		</Conventions>	
 	-->
 	
@@ -146,6 +182,7 @@
 		<DefaultResourceBundle>includes/main</DefaultResourceBundle>
 		<DefaultLocale>en_US</DefaultLocale>
 		<LocaleStorage>session</LocaleStorage>
+		<UknownTranslation></UknownTranslation>
 	</i18N>
 	-->
 	<i18N />
