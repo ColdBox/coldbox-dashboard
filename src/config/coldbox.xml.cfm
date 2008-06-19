@@ -87,6 +87,11 @@
 		<EvictionPolicy>LRU</EvictionPolicy>
 	</Cache>
 	
-	<Interceptors />		
+	<Interceptors>
+		<Interceptor class="coldbox.system.interceptors.environmentControl">
+			<Property name="configFile">config/environments.xml.cfm</Property>
+			<Property name="fireOnInit">true</Property>
+		</Interceptor>		
+	</Interceptors>		
 		
 </Config>

@@ -21,6 +21,7 @@ This is the File Browser Handler
 		<cfset var rc = event.getCollection()>
 		<cfset var currentRootLen = 0>
 		<cfset var slash = getSetting("OSFileSeparator",1)>
+		<cfset var tmpOldDir = "">
 		
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehBrowser = "ehServerBrowser.dspBrowser">
@@ -39,17 +40,20 @@ This is the File Browser Handler
 		<!--- Get Computer Roots --->
 		<cfset rc.roots = createObject("java","java.io.File").listRoots()>
 		
-		<!--- Select Default Computer Root if not set. --->
+		<!--- Select Default Computer Root if not set in our perm storage. --->
 		<cfif not rc.oSession.exists("computerRoot")>
 			<cfset rc.oSession.setVar("computerRoot", rc.roots[1].getAbsolutePath())>
 		</cfif>
+		
 		<!--- Check if there is no incoming computer root change --->
 		<cfif not event.valueExists('computerRoot')>
 			<!--- Set Computer Root, from session storage --->
 			<cfset rc.computerRoot = rc.oSession.getVar('computerRoot')>
 		<cfelse>
+			<!--- This means we are changing the root --->
 			<cfset rc.computerRoot = urlDecode(rc.computerRoot)>
 			<cfset rc.oSession.setVar("computerRoot", rc.computerRoot)>
+			<!--- The current dir --->
 			<cfset rc.dir = rc.computerRoot>
 		</cfif>
 		
@@ -62,16 +66,20 @@ This is the File Browser Handler
 				<cfset event.setValue("dir",rc.computerRoot)>
 			</cfif>
 		<cfelse>
+			<!--- Decode the incoming directory --->
 			<cfset rc.dir = urlDecode(rc.dir)>
 		</cfif>
 		
-		<!--- Init The Current Root. --->
+		<!--- Init The Current Root we have asked or I am located in --->
 		<cfset rc.currentRoot = rc.dir>
 		
-		<!--- Setup the old root if unequal to current root. --->
-		<cfset currentRootLen = listlen(rc.currentRoot,slash)>
-		<cfif currentRootLen neq 0>
-			<cfset rc.oSession.setvar("oldRoot",listdeleteAt(rc.currentRoot, currentRootLen, slash))>
+		<!--- Setup the old root if unequal to compuer root eq to the old current root. --->
+		<cfif rc.currentRoot neq rc.computerRoot>
+			<cfset tmpOldDir = listdeleteAt(rc.currentRoot,listLen(rc.currentRoot,slash),slash)>
+			<cfif tmpOldDir.length() eq 0>
+				<cfset tmpOldDir = slash>
+			</cfif>
+			<cfset rc.oSession.setvar("oldRoot",tmpOldDir)>
 		</cfif>
 		
 		<cftry>

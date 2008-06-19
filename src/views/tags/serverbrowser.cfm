@@ -26,7 +26,7 @@
 		    #getPlugin("messagebox").renderit()#
 		    
 		    <!--- Display back links --->
-			<cfif rc.oSession.getVar('oldRoot') neq "">
+			<cfif rc.currentRoot neq rc.computerRoot>
 				<cfset tmpHREF = "javascript:doEventNOUI('#rc.xehBrowser#','FileBrowser',{dir:'#JSStringFormat(rc.oSession.getVar('oldRoot'))#'})">
 				<a href="#tmpHREF#"><img src="images/icons/folder.png" border="0" align="absmiddle" alt="Folder"></a>
 				<a href="#tmpHREF#">..</a><br>
