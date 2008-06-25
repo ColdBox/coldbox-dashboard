@@ -40,37 +40,5 @@ Help tips will be shown here. Just rollover certain areas or links and you will 
 	">
 	</form>
 	<br/>
-	
-	<!--- S:ADS --->
-	<cfif randrange(1,100) mod 2 eq 0>
-	<a href="http://www.tkqlhce.com/32100tenkem1429246B1325A85A6" target="_top" onmouseover="window.status='http://www.skype.com';return true;" onmouseout="window.status=' ';return true;">
-<img src="http://www.tqlkg.com/l4117wquiom7A8F8ACH798BGEBGC" alt="" border="0"/></a>
-	<cfelse>
-	<a href="http://www.kqzyfj.com/qf70vpyvpxCFDKDFHMCEDHGIJGJ" target="_top" onmouseover="window.status='http://www.prostores.com';return true;" onmouseout="window.status=' ';return true;">
-<img src="http://www.ftjcfx.com/41100c37w1-LOMTMOQVLNMQPRSPS" alt="ProStores Design Services" border="0"/></a>
-	</cfif>
-	<br />
-	
-	<cfif randrange(1,100) mod 2 eq 0>
-	<a href="http://www.anrdoezrs.net/bq98ox52x4KNLSLNPUKMLPLUUUL" target="_top" onmouseover="window.status='http://www.yahoo.com';return true;" onmouseout="window.status=' ';return true;">
-<img src="http://www.tqlkg.com/3b111tkocig1429246B13262BBB2" alt="" border="0"/></a>
-	<cfelse>
-	<a href="http://www.kqzyfj.com/bf106nmvsmu9CAHACEJ9BAEHGHGF" target="_top" onmouseover="window.status='http://www.yahoo.com';return true;" onmouseout="window.status=' ';return true;">
-<img src="http://www.lduhtrp.net/1s122fz2rxvGJHOHJLQGIHLONONM" alt="" border="0"/></a>
-	</cfif>	
-	
-	<br />
-	<cfif randrange(1,100) mod 2 eq 0>
-	<a href="http://www.tkqlhce.com/b274lnwtnvADBIBDFKACBEKFJCH" target="_top" onmouseover="window.status='http://www.cheapcaribbean.com/?&WT.mc_id=cap';return true;" onmouseout="window.status=' ';return true;">
-<img src="http://www.tqlkg.com/jc102y7B-53PSQXQSUZPRQTZUYRW" alt="Caribbean Travel Deals" border="0"/></a>
-	<cfelseif randrange(1,100) mod 2 eq 0>
-	<a href="http://www.kqzyfj.com/dn115zw41w3JMKRKMOTJLKNQNMLO" target="_top" onmouseover="window.status='http://www.sandals.com';return true;" onmouseout="window.status=' ';return true;">
-<img src="http://www.lduhtrp.net/bk102m-3sywHKIPIKMRHJILOLKJM" alt="Beaches All-Inclusive Family Resorts" border="0"/></a>
-	<cfelse>
-	<a href="http://www.anrdoezrs.net/qr114iqzwqyDGELEGINDFEHKHGFG" target="_top" onmouseover="window.status='http://www.sandals.com';return true;" onmouseout="window.status=' ';return true;">
-<img src="http://www.ftjcfx.com/f6102nswkqo9CAHACEJ9BADGDCBC" alt="Sandals All-Inclusive Resorts" border="0"/></a>
-	</cfif>
-	<!--- E:ADS --->
-	
 </div>
 </CFOUTPUT>

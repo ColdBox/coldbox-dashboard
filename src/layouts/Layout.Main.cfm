@@ -20,7 +20,7 @@
 	<tr>
 		<td valign="top" height="900" align="center">
 		<!--- S:ADS --->
-		<div align="center">
+		<!--- <div align="center">
 		<script type="text/javascript"><!--
 		google_ad_client = "pub-0884459722343463";
 		google_ad_width = 468;
@@ -39,7 +39,7 @@
 		<script type="text/javascript"
 		  src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
 		</script>
-		</div>
+		</div> --->
 		<!--- E:ADS --->
 		
 		<!--- Content --->
