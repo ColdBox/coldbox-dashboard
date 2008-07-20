@@ -84,7 +84,7 @@
 		
 		//Default View
 		if( arguments.generatorBean.getDefaultView() ){
-			ConfigFileContents = replacenocase(ConfigFileContents, "@DEFAULT_VIEW@", "#chr(9)##chr(9)#<DefaultView>home.cfm</DefaultView>");
+			ConfigFileContents = replacenocase(ConfigFileContents, "@DEFAULT_VIEW@", "#chr(9)##chr(9)#<DefaultView>home</DefaultView>");
 		}
 		else{
 		
