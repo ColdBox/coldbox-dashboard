@@ -8,7 +8,6 @@
 		instance.owneremail = "";
 		instance.configautoreload = true;
 		instance.handlersindexautoreload = true;
-		instance.devurls = "";
 		instance.coldboxlogging = true;
 		instance.coldboxlogslocation = "";
 		instance.coldfusionlogging = false;
@@ -17,7 +16,6 @@
 		instance.custom_error_template = false;
 		instance.exception_handler = false;
 		instance.eventname = "";
-		instance.defaultview = false;
 		instance.unittesting_framework = "mxunit";
 		//return
 		return this;
@@ -76,15 +74,6 @@
 	<cffunction name="sethandlersindexautoreload" access="public" output="false" returntype="void" hint="Set handlersindexautoreload">
 		<cfargument name="handlersindexautoreload" type="boolean" required="true"/>
 		<cfset instance.handlersindexautoreload = arguments.handlersindexautoreload/>
-	</cffunction>
-
-	<cffunction name="getdevurls" access="public" output="false" returntype="string" hint="Get devurls">
-		<cfreturn instance.devurls/>
-	</cffunction>
-
-	<cffunction name="setdevurls" access="public" output="false" returntype="void" hint="Set devurls">
-		<cfargument name="devurls" type="string" required="true"/>
-		<cfset instance.devurls = arguments.devurls/>
 	</cffunction>
 
 	<cffunction name="getcoldboxlogging" access="public" output="false" returntype="boolean" hint="Get coldboxlogging">
@@ -157,15 +146,6 @@
 	<cffunction name="seteventname" access="public" returntype="void" output="false">
 		<cfargument name="eventname" type="string" required="true">
 		<cfset instance.eventname = arguments.eventname>
-	</cffunction>
-	
-	<cffunction name="getdefaultView" access="public" output="false" returntype="string" hint="Get defaultView">
-		<cfreturn instance.defaultView/>
-	</cffunction>
-	
-	<cffunction name="setdefaultView" access="public" output="false" returntype="void" hint="Set defaultView">
-		<cfargument name="defaultView" type="string" required="true"/>
-		<cfset instance.defaultView = arguments.defaultView/>
 	</cffunction>
 
 	<cffunction name="getunittesting_framework" access="public" output="false" returntype="string" hint="Get unittesting_framework">

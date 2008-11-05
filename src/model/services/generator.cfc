@@ -40,10 +40,6 @@
 		//First step is to unzip the template to the destination directory.
 		getColdbox().getPlugin("zip").extract(zipFilePath=getappTemplatePath(),extractPath=expandedAppLocation,overwriteFiles=true);
 
-		//Tokenise the dev urls
-		for ( i = 1; i lte listlen(arguments.generatorBean.getDevurls()); i=i+1){
-			devURLS = devURLS & chr(9) & chr(9) &  "<url>#listgetAt(arguments.generatorBean.getDevURLS(),i)#</url>#chr(13)#";
-		}
 		//Tokenize the bug emails
 		for ( i = 1; i lte listlen(arguments.generatorBean.getbugemails()); i=i+1){
 			bugEmails = bugEmails & chr(9) & chr(9) & "<BugEmail>#listgetAt(arguments.generatorBean.getbugemails(),i)#</BugEmail>#chr(13)#";
@@ -60,8 +56,8 @@
 		//Where are the files to manipulate.
 		ConfigFile = expandedAppLocation & "#fs#config#fs#coldbox.xml.cfm";
 		EclipseFile = expandedAppLocation & "#fs#.project";
-		unitTest1 = expandedAppLocation  & "#fs#handlers#fs#tests#fs##unitTestFramework##fs#generalTest.cfc";
-		unitTest2 = expandedAppLocation  & "#fs#handlers#fs#tests#fs##unitTestFramework##fs#mainTest.cfc";
+		unitTest1 = expandedAppLocation  & "#fs#test#fs#integration#fs##unitTestFramework##fs#generalTest.cfc";
+		unitTest2 = expandedAppLocation  & "#fs#test#fs#integration#fs##unitTestFramework##fs#mainTest.cfc";
 		
 		//Read the templates
 		ConfigFileContents = readFile(ConfigFile);
@@ -80,24 +76,14 @@
 		ConfigFileContents = replacenocase(ConfigFileContents,"@CONFIG_AUTO_RELOAD@",arguments.generatorBean.getconfigautoreload());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@EVENT_NAME@",arguments.generatorBean.geteventname());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@BUG_EMAILS@",bugEmails);
-		ConfigFileContents = replacenocase(ConfigFileContents,"@DEV_URLS@",devURLS);
-		
-		//Default View
-		if( arguments.generatorBean.getDefaultView() ){
-			ConfigFileContents = replacenocase(ConfigFileContents, "@DEFAULT_VIEW@", "#chr(9)##chr(9)#<DefaultView>home</DefaultView>");
-		}
-		else{
-		
-			ConfigFileContents = replacenocase(ConfigFileContents, "@DEFAULT_VIEW@", "#chr(9)##chr(9)#<!--<DefaultView></DefaultView>-->");
-		}
-		
+				
 		//Create Generic error Template
 		if ( arguments.generatorBean.getCustom_error_template() ){
-			ConfigFileContents = replacenocase(ConfigFileContents,"@CUSTOM_ERROR_TEMPLATE@","includes/generic_error.cfm");
+			ConfigFileContents = replacenocase(ConfigFileContents,"@CUSTOM_ERROR_TEMPLATE@","includes/templates/generic_error.cfm");
 		}
 		else{
 			ConfigFileContents = replacenocase(ConfigFileContents,"@CUSTOM_ERROR_TEMPLATE@","");
-			removeFile(expandedAppLocation & "#fs#includes#fs#generic_error.cfm");
+			removeFile(expandedAppLocation & "#fs#includes#fs#templates#fs#generic_error.cfm");
 		}
 		//Create Exception Handler
 		if( arguments.generatorBean.getException_handler() ){
@@ -121,7 +107,7 @@
 		writeFile(unitTest2, unitTest2Contents);
 		
 		/* Directory Removals */
-		removeDirectory(expandedAppLocation  & "#fs#handlers#fs#tests#fs##removeUnitTestFramework#");
+		removeDirectory(expandedAppLocation  & "#fs#test#fs#integration#fs##removeUnitTestFramework#");
 		</cfscript>
 	</cffunction>
 

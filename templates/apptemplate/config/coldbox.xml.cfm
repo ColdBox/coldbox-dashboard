@@ -52,7 +52,7 @@
 		<!-- Enable Bug Reports to be emailed out, set to true by default if left blank -->
 		<Setting name="EnableBugReports" 			value="@BUG_REPORTS@"/>
 		<!--UDF Library To Load on every request for your views and handlers -->
-		<Setting name="UDFLibraryFile" 				value="" />
+		<Setting name="UDFLibraryFile" 				value="includes/helpers/ApplicationHelper.cfm" />
 		<!--The event handler to execute on all framework exceptions. Event Handler syntax required.-->
 		<Setting name="ExceptionHandler"			value="@EXCEPTION_HANDLER@" />
 		<!--What event to fire when an invalid event is detected-->
@@ -155,11 +155,6 @@
 @BUG_EMAILS@
 	</BugTracerReports>
 
-	<!--List url dev environments, this determines your dev/pro environment for the framework-->
-	<DevEnvironments>
-@DEV_URLS@
-	</DevEnvironments>
-
 	<!--Webservice declarations your use in your application, if not use, leave blank
 	Note that for the same webservice name you can have a development url and a production url.
 	<WebService name="TESTWS" URL="http://www.test.com/test.cfc?wsdl" DevURL="http://dev.test.com/test.cfc?wsdl" />
@@ -169,7 +164,6 @@
 	<Layouts>
 		<!--Declare the default layout, MANDATORY-->
 		<DefaultLayout>Layout.Main.cfm</DefaultLayout>
-@DEFAULT_VIEW@
 		
 		<!--Declare other layouts, with view assignments if needed, else do not write them
 		<Layout file="Layout.Popup.cfm" name="popup">
@@ -193,7 +187,9 @@
 	<!--Datasource Setup, you can then retreive a datasourceBean via the getDatasource("name") method: 
 	    <Datasource alias="MyDSNAlias" name="real_dsn_name"   dbtype="mysql"  username="" password="" />
 	-->
-	<Datasources />
+	<Datasources>
+		
+	</Datasources>
 	
 	<!--ColdBox Object Caching Settings Overrides the Framework-wide settings 
 	<Cache>
@@ -219,10 +215,15 @@
 	</Interceptors>
 	-->
 	<Interceptors>
-		<!-- config file is relative to app root -->
+		<!-- USE ENVIRONMENT CONTROL -->
+		<Interceptor class="coldbox.system.interceptors.environment">
+			<Property name='configFile'>config/environments.xml.cfm</Property>
+		</Interceptor>
+		<!-- USE SES -->
 		<Interceptor class="coldbox.system.interceptors.ses">
 			<Property name="configFile">config/routes.cfm</Property>
 		</Interceptor>
+		
 		<!-- Developer's ColdBox Sidebar -->
 		<Interceptor class="coldbox.system.interceptors.coldboxSideBar">
 			<!-- Y offset: number, else leave blank -->
