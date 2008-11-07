@@ -45,7 +45,7 @@
 			bugEmails = bugEmails & chr(9) & chr(9) & "<BugEmail>#listgetAt(arguments.generatorBean.getbugemails(),i)#</BugEmail>#chr(13)#";
 		}
 		
-		/* Unit Test */
+		/* Unit Test Verification */
 		if( unitTestFramework eq "mxunit" ){
 			removeUnitTestFramework = "cfcunit";
 		}
@@ -58,12 +58,16 @@
 		EclipseFile = expandedAppLocation & "#fs#.project";
 		unitTest1 = expandedAppLocation  & "#fs#test#fs#integration#fs##unitTestFramework##fs#generalTest.cfc";
 		unitTest2 = expandedAppLocation  & "#fs#test#fs#integration#fs##unitTestFramework##fs#mainTest.cfc";
+		unitTest1Output = expandedAppLocation  & "#fs#test#fs#integration#fs#generalTest.cfc";
+		unitTest2Output = expandedAppLocation  & "#fs#test#fs#integration#fs#mainTest.cfc";
+		routesFile = expandedApplocation & "#fs#config#fs#routes.cfm";
 		
 		//Read the templates
 		ConfigFileContents = readFile(ConfigFile);
 		EclipseProjectContents = readFile(EclipseFile);
 		unitTest1Contents = readFile(unitTest1);
 		unitTest2Contents = readFile(unitTest2);
+		routesContents = readFile(routesFile);
 		
 		//Replace Tokens.
 		ConfigFileContents = replacenocase(ConfigFileContents,"@APPNAME@",arguments.generatorBean.getAppName());
@@ -76,6 +80,7 @@
 		ConfigFileContents = replacenocase(ConfigFileContents,"@CONFIG_AUTO_RELOAD@",arguments.generatorBean.getconfigautoreload());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@EVENT_NAME@",arguments.generatorBean.geteventname());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@BUG_EMAILS@",bugEmails);
+		ConfigFileContents = replacenocase(ConfigFileContents,"@DEBUG_MODE@",arguments.generatorBean.getDebugMode());
 				
 		//Create Generic error Template
 		if ( arguments.generatorBean.getCustom_error_template() ){
@@ -100,14 +105,28 @@
 		unitTest1Contents = replacenocase(unitTest1Contents,"@APP_MAPPING@",arguments.generatorBean.getAppLocation());
 		unitTest2Contents = replacenocase(unitTest2Contents,"@APP_MAPPING@",arguments.generatorBean.getAppLocation());
 		
+		//Rewrite Eninge
+		if( arguments.generatorBean.getrewriteengine() eq "mod_rewrite"){
+			removeFile(expandedAppLocation & "#fs#IsapiRewrite4.ini");
+		}
+		else if( arguments.generatorBean.getrewriteengine() eq "isapi"){
+			removeFile(expandedAppLocation & "#fs#.htaccess");
+		}
+		else{
+			removeFile(expandedAppLocation & "#fs#.htaccess");
+			removeFile(expandedAppLocation & "#fs#IsapiRewrite4.ini");
+			routesContents = replacenocase(routesContents,"@REWRITE@","/index.cfm");
+		}
 		//ReWrite File
 		writeFile(ConfigFile,ConfigFileContents);
 		writeFile(EclipseFile,EclipseProjectContents);
-		writeFile(unitTest1, unitTest1Contents);
-		writeFile(unitTest2, unitTest2Contents);
+		writeFile(unitTest1Output, unitTest1Contents);
+		writeFile(unitTest2Output, unitTest2Contents);
+		writeFile(routesFile,routesContents);
 		
 		/* Directory Removals */
-		removeDirectory(expandedAppLocation  & "#fs#test#fs#integration#fs##removeUnitTestFramework#");
+		removeDirectory(expandedAppLocation  & "#fs#test#fs#integration#fs#mxunit");
+		removeDirectory(expandedAppLocation  & "#fs#test#fs#integration#fs#cfcunit");
 		</cfscript>
 	</cffunction>
 

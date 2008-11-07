@@ -5,7 +5,7 @@
 <div class="maincontentbox">
 
 	<div class="contentboxes_header">
-		<div class="contentboxes_title"><img src="images/icons/online_resources.gif" align="absbottom" />&nbsp; Online Resources</div>
+		<div class="contentboxes_title"><img src="includes/images/icons/online_resources.gif" align="absbottom" />&nbsp; Online Resources</div>
 	</div>
 
 	<div class="contentboxes">

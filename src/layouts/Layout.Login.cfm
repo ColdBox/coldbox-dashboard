@@ -3,10 +3,10 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 <title>ColdBox Dashboard Login</title>
-<link href="includes/style.css" rel="stylesheet" type="text/css" />
-<script language="javascript" src="includes/dashboard.js"></script>
-<script language="javascript" src="includes/jquery-latest.pack.js"></script>
-<script language="javascript" src="includes/plugins/jquery.block.js"></script>
+<link href="includes/styles/style.css" rel="stylesheet" type="text/css" />
+<script language="javascript" src="includes/javascript/dashboard.js"></script>
+<script language="javascript" src="includes/javascript/jquery-latest.pack.js"></script>
+<script language="javascript" src="includes/javascript/plugins/jquery.block.js"></script>
 </head>
 
 <body onload="framebuster()">
@@ -18,7 +18,7 @@
 <div class="statusbar">
 
 	<div id="myloader" style="display: none">
-		<div class="myloader"><img src="images/ajax-loader.gif" width="220" height="19" align="absmiddle" title="Loading..." /></div>
+		<div class="myloader"><img src="includes/images/ajax-loader.gif" width="220" height="19" align="absmiddle" title="Loading..." /></div>
 	</div>
 
 </div>

@@ -5,7 +5,7 @@
 <form name="updateform" id="updateform" action="javascript:doFormEvent('#Event.getValue("xehDoSave")#','content',document.updateform)" method="post">
 	<div class="maincontentbox">
 		<div class="contentboxes_header">
-		<div class="contentboxes_title"><img src="images/icons/bugreports_27.gif" align="absmiddle" />&nbsp; Submit A Bug</div>
+		<div class="contentboxes_title"><img src="includes/images/icons/bugreports_27.gif" align="absmiddle" />&nbsp; Submit A Bug</div>
 	</div>
 
 	<!--- Messagebox --->

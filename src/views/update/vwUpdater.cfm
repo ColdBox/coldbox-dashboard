@@ -7,7 +7,7 @@
 <div class="maincontentbox">
 
 	<div class="contentboxes_header">
-		<div class="contentboxes_title"><img src="images/icons/update_27.gif" align="absmiddle" />&nbsp; ColdBox Update Center</div>
+		<div class="contentboxes_title"><img src="includes/images/icons/update_27.gif" align="absmiddle" />&nbsp; ColdBox Update Center</div>
 	</div>
 
 	<div class="contentboxes">
@@ -35,7 +35,7 @@
 		<a class="action" href="javascript:document.updateform.submit()">
 			<span>Update Check</span>
 		</a>
-		<div id="checkloader" style="display:none;"><img src="images/ajax-loader.gif" width="220" height="19" align="absmiddle" title="Loading..." /></div>
+		<div id="checkloader" style="display:none;"><img src="includes/images/ajax-loader.gif" width="220" height="19" align="absmiddle" title="Loading..." /></div>
 	  </div>
 	</form>
 	</div>

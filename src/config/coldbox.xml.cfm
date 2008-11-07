@@ -16,6 +16,7 @@
 		<Setting name="ApplicationStartHandler" 	value="main.onAppStart"/>
 		<!-- Please fill your owner email here! -->
 		<Setting name="OwnerEmail" 					value="myemail@email.com"/>
+		<Setting name="UDFLibraryFile" 				value="includes/helpers/ApplicationHelper.cfm"/>
 		<Setting name="EnableBugReports" 			value="false"/>
 		<Setting name="MessageboxStyleOverride"	    value="false" />
 		<Setting name="HandlersIndexAutoReload"   	value="false" />
@@ -86,8 +87,8 @@
 	<Interceptors>
 		<Interceptor class="coldbox.system.interceptors.environmentControl">
 			<Property name="configFile">config/environments.xml.cfm</Property>
-			<Property name="fireOnInit">true</Property>
-		</Interceptor>		
+		</Interceptor>	
+		<Interceptor class="coldbox.system.interceptors.autowire" />			
 	</Interceptors>		
 		
 </Config>

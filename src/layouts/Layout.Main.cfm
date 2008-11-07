@@ -6,12 +6,12 @@
 	<meta name="keywords" lang="en" content="software,coldfusion,cfmx,cfc,java,spring,hibernate,open source,coldbox,adobe,railo,bluedragon,new atlanta,mac os, apple,ipod,amazon,games,blog,forums,ortus solutions,ortus,mac">
 	<meta name="description" lang="en" content="This is an open source software for the ColdBox Framework.">
 	<title>ColdBox Dashboard powered by the ColdBox Framework.</title>
-	<link href="includes/style.css" rel="stylesheet" type="text/css" />
-	<script language="javascript" src="includes/dashboard.js"></script>
-	<script language="javascript" src="includes/jquery-latest.pack.js"></script>
-	<script language="javascript" src="includes/plugins/jqModal.js"></script>
-	<script language="javascript" src="includes/plugins/jqDnR.js"></script>
-	<script language="javascript" src="includes/plugins/jquery.block.js"></script>
+	<link href="includes/styles/style.css" rel="stylesheet" type="text/css" />
+	<script language="javascript" src="includes/javascript/dashboard.js"></script>
+	<script language="javascript" src="includes/javascript/jquery-latest.pack.js"></script>
+	<script language="javascript" src="includes/javascript/plugins/jqModal.js"></script>
+	<script language="javascript" src="includes/javascript/plugins/jqDnR.js"></script>
+	<script language="javascript" src="includes/javascript/plugins/jquery.block.js"></script>
 </head>
 <body>
 	

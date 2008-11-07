@@ -15,7 +15,7 @@ $(document).ready(function() {
 
 <!--- Title Bar --->
 <div class="sidemenu_title">
-    <div class="sidemenu_title_img"  ><img src="images/icons/home_27.gif"></div>
+    <div class="sidemenu_title_img"  ><img src="includes/images/icons/home_27.gif"></div>
 	<div class="sidemenu_title_text" >Home</div>
 </div>
 

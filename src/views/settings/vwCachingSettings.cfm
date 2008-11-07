@@ -6,7 +6,7 @@
 <div class="maincontentbox">
 
 	<div class="contentboxes_header">
-		<div class="contentboxes_title"><img src="images/icons/settings_27.gif" align="absmiddle" />&nbsp; Caching Settings</div>
+		<div class="contentboxes_title"><img src="includes/images/icons/settings_27.gif" align="absmiddle" />&nbsp; Caching Settings</div>
 	</div>
 
 	<!--- Messagebox --->

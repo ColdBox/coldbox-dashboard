@@ -5,18 +5,20 @@
 		instance = structnew();
 		instance.appname = "";
 		instance.applocation = "";
+		instance.eventname = "";
 		instance.owneremail = "";
+		instance.unittesting_framework = "mxunit";
+		instance.custom_error_template = false;
+		instance.exception_handler = false;
 		instance.configautoreload = true;
 		instance.handlersindexautoreload = true;
+		instance.rewriteengine = "mod_rewrite";
+		instance.debugmode = "true";
 		instance.coldboxlogging = true;
 		instance.coldboxlogslocation = "";
 		instance.coldfusionlogging = false;
 		instance.enablebugreports = false;
 		instance.bugemails = "";
-		instance.custom_error_template = false;
-		instance.exception_handler = false;
-		instance.eventname = "";
-		instance.unittesting_framework = "mxunit";
 		//return
 		return this;
 		</cfscript>
@@ -155,6 +157,24 @@
 	<cffunction name="setunittesting_framework" access="public" output="false" returntype="void" hint="Set unittesting_framework">
 		<cfargument name="unittesting_framework" type="string" required="true"/>
 		<cfset instance.unittesting_framework = arguments.unittesting_framework/>
+	</cffunction>
+	
+	<cffunction name="getrewriteengine" access="public" output="false" returntype="string" hint="Get rewriteengine">
+		<cfreturn instance.rewriteengine/>
+	</cffunction>
+	
+	<cffunction name="setrewriteengine" access="public" output="false" returntype="void" hint="Set rewriteengine">
+		<cfargument name="rewriteengine" type="string" required="true"/>
+		<cfset instance.rewriteengine = arguments.rewriteengine/>
+	</cffunction>
+	
+	<cffunction name="getdebugMode" access="public" output="false" returntype="boolean" hint="Get debugMode">
+		<cfreturn instance.debugMode/>
+	</cffunction>
+	
+	<cffunction name="setdebugMode" access="public" output="false" returntype="void" hint="Set debugMode">
+		<cfargument name="debugMode" type="boolean" required="true"/>
+		<cfset instance.debugMode = arguments.debugMode/>
 	</cffunction>
 
 </cfcomponent>

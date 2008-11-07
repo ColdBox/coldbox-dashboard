@@ -7,7 +7,7 @@
 <div id="cbReadme" class="updatertext" style="display:none">
 	<div class="updatertext_header">
 		<div class="updatertext_header_text">Framework Changelog</div>
-		<div class="updatertext_header_close"><a href="javascript:closeReadme('cbReadme');" title="Close Window"><img src="images/close.gif" border="0" title="Close Window" align="absmiddle"></a></div>
+		<div class="updatertext_header_close"><a href="javascript:closeReadme('cbReadme');" title="Close Window"><img src="includes/images/close.gif" border="0" title="Close Window" align="absmiddle"></a></div>
 	</div>
 	<div class="updatertext_content">
 	#HTMLCODEFORMAT(rc.updateResults.ColdboxDistro.Description)#
@@ -20,7 +20,7 @@
 <div id="dbReadme" class="updatertext" style="display:none">
 	<div class="updatertext_header">
 		<div class="updatertext_header_text">Dashboard Changelog</div>
-		<div class="updatertext_header_close"><a href="javascript:closeReadme('dbReadme');" title="Close Window"><img src="images/close.gif" border="0" title="Close Window" align="absmiddle"></a></div>
+		<div class="updatertext_header_close"><a href="javascript:closeReadme('dbReadme');" title="Close Window"><img src="includes/images/close.gif" border="0" title="Close Window" align="absmiddle"></a></div>
 	</div>
 	<div class="updatertext_content">
 		#HTMLCODEFORMAT(rc.updateResults.dashboardDistro.Description)#
@@ -32,7 +32,7 @@
 <div class="maincontentbox">
 
 	<div class="contentboxes_header">
-		<div class="contentboxes_title"><img src="images/icons/update_27.gif" align="absmiddle" />&nbsp; ColdBox Update Center</div>
+		<div class="contentboxes_title"><img src="includes/images/icons/update_27.gif" align="absmiddle" />&nbsp; ColdBox Update Center</div>
 	</div>
 
 	<div class="contentboxes">
@@ -68,9 +68,9 @@
 		</td>
 		<td style="border-left:1px solid ##ddd" align="center">
 		<cfif rc.updateResults.coldboxavailableupdate>
-			<a href="javascript:showReadme('cbReadme')" title="View Changelog"><img src="images/edit.gif" align="absmiddle" border="0"></a>
+			<a href="javascript:showReadme('cbReadme')" title="View Changelog"><img src="includes/images/edit.gif" align="absmiddle" border="0"></a>
 			&nbsp;&nbsp;
-			<a href="##" onClick="window.open('#rc.updateResults.coldboxDistro.updateurl#')" title="Download Update"><img src="images/download_icon.gif" align="absmiddle" border="0"></a>
+			<a href="##" onClick="window.open('#rc.updateResults.coldboxDistro.updateurl#')" title="Download Update"><img src="includes/images/download_icon.gif" align="absmiddle" border="0"></a>
 		<cfelse>
 		<span class="redtext">Latest Installed</span>
 		</cfif>
@@ -91,9 +91,9 @@
 
 		<td style="border-left:1px solid ##ddd" align="center">
 		<cfif rc.updateResults.dashboardavailableupdate>
-			<a href="##" onClick="showReadme('dbReadme')" title="View Changelog"><img src="images/edit.gif" align="absmiddle" border="0"></a>
+			<a href="##" onClick="showReadme('dbReadme')" title="View Changelog"><img src="includes/images/edit.gif" align="absmiddle" border="0"></a>
 			&nbsp;&nbsp;
-			<a href="##" onClick="window.open('#rc.updateResults.dashboardDistro.updateurl#')" title="Download Update"><img src="images/download_icon.gif" align="absmiddle" border="0"></a>
+			<a href="##" onClick="window.open('#rc.updateResults.dashboardDistro.updateurl#')" title="Download Update"><img src="includes/images/download_icon.gif" align="absmiddle" border="0"></a>
 		<cfelse>
 		<span class="redtext">Latest Installed</span>
 		</cfif>
@@ -104,8 +104,8 @@
 
 	<div class="legend">
 	<b>Legend:</b>
-	<img src="images/edit.gif" align="absmiddle" border="0"> Read Changelog &nbsp;
-	<img src="images/download_icon.gif" align="absmiddle" border="0"> Download Update
+	<img src="includes/images/edit.gif" align="absmiddle" border="0"> Read Changelog &nbsp;
+	<img src="includes/images/download_icon.gif" align="absmiddle" border="0"> Download Update
 	</div>
 	</div>
 

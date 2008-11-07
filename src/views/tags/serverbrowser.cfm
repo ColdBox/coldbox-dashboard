@@ -16,7 +16,7 @@
 		
 		<!--- Your Current Location --->
 		<div class="browser_titlebar">
-		   <a href="javascript:doEventNOUI('#rc.xehBrowser#', 'FileBrowser',{dir:'#jsstringFormat(rc.currentroot)#'})" title="Refresh Listing"><img src="images/icons/arrow_refresh.png" align="absmiddle" border="0" title="Refresh Listing."></a>
+		   <a href="javascript:doEventNOUI('#rc.xehBrowser#', 'FileBrowser',{dir:'#jsstringFormat(rc.currentroot)#'})" title="Refresh Listing"><img src="includes/images/icons/arrow_refresh.png" align="absmiddle" border="0" title="Refresh Listing."></a>
 			You are Here: #rc.currentroot#
 		</div>
 		
@@ -28,7 +28,7 @@
 		    <!--- Display back links --->
 			<cfif rc.currentRoot neq rc.computerRoot>
 				<cfset tmpHREF = "javascript:doEventNOUI('#rc.xehBrowser#','FileBrowser',{dir:'#JSStringFormat(rc.oSession.getVar('oldRoot'))#'})">
-				<a href="#tmpHREF#"><img src="images/icons/folder.png" border="0" align="absmiddle" alt="Folder"></a>
+				<a href="#tmpHREF#"><img src="includes/images/icons/folder.png" border="0" align="absmiddle" alt="Folder"></a>
 				<a href="#tmpHREF#">..</a><br>
 			</cfif>
 			
@@ -48,7 +48,7 @@
 					 onClick="selectdirectory('#validIDName#','#JSStringFormat(plainURL)#')" 
 					 style="cursor: pointer;"
 					 onDblclick="#tmpHREF#">
-					<a href="#tmpHREF#"><img src="images/icons/folder.png" border="0" align="absmiddle" alt="Folder"></a>
+					<a href="#tmpHREF#"><img src="includes/images/icons/folder.png" border="0" align="absmiddle" alt="Folder"></a>
 					#rc.qryDir.name#
 				</div>
 			

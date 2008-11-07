@@ -58,9 +58,9 @@ NOTE: The interceptor will create a new setting called: sesBaseURL with this val
 	Else, htmlBaseURL and sesBaseURL should be the same.
 --->
 <cfif len(getSetting("AppMapping")) lte 1>
-	<cfset setBaseURL("http://#cgi.HTTP_HOST#/index.cfm")>
+	<cfset setBaseURL("http://#cgi.HTTP_HOST#@REWRITE@")>
 <cfelse>
-	<cfset setBaseURL("http://#cgi.HTTP_HOST#/#getSetting('AppMapping')#/index.cfm")>
+	<cfset setBaseURL("http://#cgi.HTTP_HOST#/#getSetting('AppMapping')#@REWRITE@")>
 </cfif>
 
 <!--- -------------------------------------------

@@ -20,7 +20,7 @@
 			
 		-->
 		<!--Default Debugmode boolean flag (Set to false in production environments)-->
-		<Setting name="DebugMode" 					value="true" />
+		<Setting name="DebugMode" 					value="@DEBUG_MODE@" />
 		<!--The Debug Password to use in order to activate/deactivate debugmode,activated by url actions -->
 		<Setting name="DebugPassword" 				value=""/>
 		<!--The fwreinit password to use in order to reinitialize the framework and application.Optional, else leave blank -->
@@ -40,13 +40,13 @@
 		<!--Event Handler to run on the start of a request, leave blank if not used. Emulates the Application.cfc onRequestStart method	-->
 		<Setting name="RequestStartHandler" 		value="main.onRequestStart"/>
 		<!--Event Handler to run at end of all requests, leave blank if not used. Emulates the Application.cfc onRequestEnd method-->
-		<Setting name="RequestEndHandler" 			value="main.onRequestEnd"/>
+		<Setting name="RequestEndHandler" 			value=""/>
 		<!--Event Handler to run at the start of an application, leave blank if not used. Emulates the Application.cfc onApplicationStart method	-->
 		<Setting name="ApplicationStartHandler" 	value="main.onAppInit"/>
 		<!--Event Handler to run at the start of a session, leave blank if not used.-->
-		<Setting name="SessionStartHandler" 		value="main.onSessionStart"/>
+		<Setting name="SessionStartHandler" 		value=""/>
 		<!--Event Handler to run at the end of a session, leave blank if not used.-->
-		<Setting name="SessionEndHandler" 			value="main.onSessionEnd"/>
+		<Setting name="SessionEndHandler" 			value=""/>
 		<!--The Email address from which all outgoing framework emails will be sent. -->
 		<Setting name="OwnerEmail" 					value="@OWNER_EMAIL@" />
 		<!-- Enable Bug Reports to be emailed out, set to true by default if left blank -->
@@ -110,8 +110,7 @@
 		</YourSettings>
 	-->
 	<YourSettings>
-		<!-- Show SideBar? true/false, else leave blank. -->
-		<Setting name="ColdBoxSideBar" value="true" />
+
 	</YourSettings>
 	
 	<!-- Custom Conventions : You can override the framework wide conventions
@@ -129,7 +128,7 @@
 		PersistentRequestProfiler : Activate the event profiler across multiple requests
 		maxPersistentRequestProfilers : Max records to keep in the profiler. Don't get gready.
 		maxRCPanelQueryRows : If a query is dumped in the RC panel, it will be truncated to this many rows.
-		
+	-->	
 		<DebuggerSettings>
 		<PersistentRequestProfiler>true</PersistentRequestProfiler>
 		<maxPersistentRequestProfilers>10</maxPersistentRequestProfilers>
@@ -140,7 +139,7 @@
 		<CachePanel 	show="true" expanded="false" />
 		<RCPanel		show="true" expanded="false" />
 		</DebuggerSettings>
-	-->
+	
 	
 	<!--Optional,if blank it will use the CFMX administrator settings.-->
 	<MailServerSettings>
@@ -191,7 +190,7 @@
 		
 	</Datasources>
 	
-	<!--ColdBox Object Caching Settings Overrides the Framework-wide settings 
+	<!--ColdBox Object Caching Settings Overrides the Framework-wide settings -->
 	<Cache>
 		<ObjectDefaultTimeout>45</ObjectDefaultTimeout>
 		<ObjectDefaultLastAccessTimeout>15</ObjectDefaultLastAccessTimeout>
@@ -201,7 +200,6 @@
 		<FreeMemoryPercentageThreshold>3</FreeMemoryPercentageThreshold>
 		<EvictionPolicy>LRU</EvictionPolicy>
 	</Cache>
-	-->
 	
 	<!-- Interceptor Declarations 
 	<Interceptors throwOnInvalidStates="true">
@@ -216,46 +214,16 @@
 	-->
 	<Interceptors>
 		<!-- USE ENVIRONMENT CONTROL -->
-		<Interceptor class="coldbox.system.interceptors.environment">
+		<Interceptor class="coldbox.system.interceptors.environmentControl">
 			<Property name='configFile'>config/environments.xml.cfm</Property>
+		</Interceptor>
+		<!-- USE AUTOWIRING -->
+		<Interceptor class="coldbox.system.interceptors.autowire">
+			<Property name='enableSetterInjection'>true</Property>
 		</Interceptor>
 		<!-- USE SES -->
 		<Interceptor class="coldbox.system.interceptors.ses">
 			<Property name="configFile">config/routes.cfm</Property>
-		</Interceptor>
-		
-		<!-- Developer's ColdBox Sidebar -->
-		<Interceptor class="coldbox.system.interceptors.coldboxSideBar">
-			<!-- Y offset: number, else leave blank -->
-			<Property name="yOffset"></Property>
-			<!-- Scroll: true/false, else leave blank -->
-			<Property name="isScroll"></Property>
-			<!-- Slide Speed: number, else leave blank -->
-			<Property name="slideSpeed"></Property>
-			<!-- Wait time before closing: number, else leave blank -->
-			<Property name="waitTimeBeforeClose"></Property>
-			<!-- Links (JSON array of objects), else leave blank
-				e.g. 
-				[
-				{"desc":"ColdBox API","href":"http:\/\/www.coldboxframework.com\/api\/"}
-				,{"desc":"ColdBox Credits","href":"http:\/\/ortus.svnrepository.com\/coldbox\/trac.cgi\/wiki\/cbCredits"}
-				,{"desc":"ColdBox SideBar Help","href":"http:\/\/ortus.svnrepository.com\/coldbox\/trac.cgi\/wiki\/cbSideBar"}
-				,{"desc":"Transfer Docs","href":"http:\/\/docs.transfer-orm.com\/"}
-				,{"desc":"My API","href":"http:\/\/localhost\/myApi/"}
-				,{"desc":"My Database Schema","href":"http:\/\/localhost\/myDatabaseSchema.pdf"}
-				]			
-			-->
-			<Property name="links"></Property>
-			<!-- Width of the sidebar including visible width, else leave blank -->
-			<Property name="width"></Property>
-			<!-- Visible width, else leave blank  -->
-			<Property name="visibleWidth"></Property>
-			<!--Full path from the application's root, else leave blank. -->
-			<Property name="imagePath"></Property>
-			<!-- Vertical alignment of the image: top,middle or bottom, else leave blank  -->
-			<Property name="imageVAlign"></Property>
-			<!--Full path from the application's root, else leave blank -->
-			<Property name="cssPath"></Property>
 		</Interceptor>
 	</Interceptors>
 	

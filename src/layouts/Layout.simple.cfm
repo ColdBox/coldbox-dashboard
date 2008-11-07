@@ -5,12 +5,12 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>ColdBox Dashboard</title>
-	<link href="includes/style.css" rel="stylesheet" type="text/css" />
-	<script language="javascript" src="includes/dashboard.js"></script>
-	<script language="javascript" src="includes/jquery-latest.pack.js"></script>
-	<script language="javascript" src="includes/plugins/jqModal.js"></script>
-	<script language="javascript" src="includes/plugins/jqDnR.js"></script>
-	<script language="javascript" src="includes/plugins/jquery.block.js"></script>
+	<link href="includes/styles/style.css" rel="stylesheet" type="text/css" />
+	<script language="javascript" src="includes/javascript/dashboard.js"></script>
+	<script language="javascript" src="includes/javascript/jquery-latest.pack.js"></script>
+	<script language="javascript" src="includes/javascript/plugins/jqModal.js"></script>
+	<script language="javascript" src="includes/javascript/plugins/jqDnR.js"></script>
+	<script language="javascript" src="includes/javascript/plugins/jquery.block.js"></script>
 </head>
 <body>
 <cfoutput>

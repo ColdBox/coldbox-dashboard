@@ -6,7 +6,7 @@
 <div class="maincontentbox">
 
 	<div class="contentboxes_header">
-		<div class="contentboxes_title"><img src="images/icons/cfcapi_icon.gif" align="absbottom" />&nbsp; CFC API Documentation</div>
+		<div class="contentboxes_title"><img src="includes/images/icons/cfcapi_icon.gif" align="absbottom" />&nbsp; CFC API Documentation</div>
 	</div>
 
 	<div class="contentboxes">

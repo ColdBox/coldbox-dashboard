@@ -2,7 +2,7 @@
 <div id="helpbox" class="helpbox" style="display: none">
 
 	<div class="helpbox_header">
-	  <div class="helpbox_header_title"><img src="images/icons/icon_guide_help.gif" align="absmiddle">Help Tip</div>
+	  <div class="helpbox_header_title"><img src="includes/images/icons/icon_guide_help.gif" align="absmiddle">Help Tip</div>
 	</div>
 
 	<div class="helpbox_message" >

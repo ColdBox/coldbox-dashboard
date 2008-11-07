@@ -3,7 +3,7 @@
 
 <!--- Title Bar --->
 <div class="sidemenu_title">
-    <div class="sidemenu_title_img"  ><img src="images/icons/bugreports_27.gif"></div>
+    <div class="sidemenu_title_img"  ><img src="includes/images/icons/bugreports_27.gif"></div>
 	<div class="sidemenu_title_text" >Submit Bugs</div>
 </div>
 
