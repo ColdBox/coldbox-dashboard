@@ -81,7 +81,17 @@
 		ConfigFileContents = replacenocase(ConfigFileContents,"@EVENT_NAME@",arguments.generatorBean.geteventname());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@BUG_EMAILS@",bugEmails);
 		ConfigFileContents = replacenocase(ConfigFileContents,"@DEBUG_MODE@",arguments.generatorBean.getDebugMode());
-				
+		
+		/* SideBar Setup */
+		if( arguments.generatorBean.getSideBar() ){
+			ConfigFileContents = replacenocase(ConfigFileContents,"@SIDEBAR_SETTING@",getSideBarSetting());
+			ConfigFileContents = replacenocase(ConfigFileContents,"@SIDEBAR_INTERCEPTOR@",getSideBarInterceptor());
+		}
+		else{
+			ConfigFileContents = replacenocase(ConfigFileContents,"@SIDEBAR_SETTING@",'');
+			ConfigFileContents = replacenocase(ConfigFileContents,"@SIDEBAR_INTERCEPTOR@",'');
+		}
+			
 		//Create Generic error Template
 		if ( arguments.generatorBean.getCustom_error_template() ){
 			ConfigFileContents = replacenocase(ConfigFileContents,"@CUSTOM_ERROR_TEMPLATE@","includes/templates/generic_error.cfm");
@@ -153,6 +163,39 @@
 	</cffunction>
 
 <!------------------------------------------- PRIVATE ------------------------------------------->
+
+	<cffunction name="getSidebarSetting" access="public" returntype="string" hint="Get the sidebar Setting" output="false" >
+		<cfset var setting = '<Setting name="ColdBoxSideBar" value="true" />'>
+		<cfreturn setting>
+	</cffunction>
+	
+	<cffunction name="getSideBarInterceptor" access="public" returntype="string" hint="Get the sidebar Interceptor" output="false" >
+		<cfset var sidebar = "">
+		<cfsavecontent variable="sidebar">
+		<!-- ColdBox SIDEBAR -->
+		<Interceptor class="coldbox.system.interceptors.coldboxSideBar">
+			<Property name="yOffset"></Property>
+			<Property name="isScroll"></Property>
+			<Property name="slideSpeed"></Property>
+			<Property name="waitTimeBeforeOpen"></Property>
+			<Property name="waitTimeBeforeClose"></Property>
+			<Property name="links">
+			[
+			{"desc":"ColdBox API","href":"http:\/\/www.coldboxframework.com\/api\/"}
+			,{"desc":"ColdBox SideBar Help","href":"http:\/\/ortus.svnrepository.com\/coldbox\/trac.cgi\/wiki\/cbSideBar"}
+			,{"desc":"ColdBox Credits","href":"http:\/\/ortus.svnrepository.com\/coldbox\/trac.cgi\/wiki\/cbCredits"}
+			]
+			</Property>
+			<!-- Used for Skinning -->
+			<Property name="width"></Property>
+			<Property name="visibleWidth"></Property>
+			<Property name="imagePath"></Property>
+			<Property name="imageVAlign"></Property>
+			<Property name="cssPath"></Property>
+		</Interceptor>
+		</cfsavecontent>
+		<cfreturn sidebar>
+	</cffunction>
 
 	<cffunction name="removeDirectory" access="private" returntype="void" hint="Remove a directory" output="false" >
 		<cfargument name="dirPath" required="true" type="string" hint="">

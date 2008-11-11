@@ -110,7 +110,7 @@
 		</YourSettings>
 	-->
 	<YourSettings>
-
+		@SIDEBAR_SETTING@
 	</YourSettings>
 	
 	<!-- Custom Conventions : You can override the framework wide conventions
@@ -225,6 +225,7 @@
 		<Interceptor class="coldbox.system.interceptors.ses">
 			<Property name="configFile">config/routes.cfm</Property>
 		</Interceptor>
+		@SIDEBAR_INTERCEPTOR@
 	</Interceptors>
 	
 </Config>

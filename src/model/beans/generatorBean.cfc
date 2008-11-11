@@ -19,6 +19,7 @@
 		instance.coldfusionlogging = false;
 		instance.enablebugreports = false;
 		instance.bugemails = "";
+		instance.sidebar = false;
 		//return
 		return this;
 		</cfscript>
@@ -175,6 +176,15 @@
 	<cffunction name="setdebugMode" access="public" output="false" returntype="void" hint="Set debugMode">
 		<cfargument name="debugMode" type="boolean" required="true"/>
 		<cfset instance.debugMode = arguments.debugMode/>
+	</cffunction>
+	
+	<cffunction name="getsidebar" access="public" output="false" returntype="boolean" hint="Get sidebar">
+		<cfreturn instance.sidebar/>
+	</cffunction>
+	
+	<cffunction name="setsidebar" access="public" output="false" returntype="void" hint="Set sidebar">
+		<cfargument name="sidebar" type="boolean" required="true"/>
+		<cfset instance.sidebar = arguments.sidebar/>
 	</cffunction>
 
 </cfcomponent>
