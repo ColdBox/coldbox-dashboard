@@ -7,7 +7,7 @@
                    
      lmajano                                                                
      ====================================================================== -->
-<project name="dashboard.build" default="deploy" basedir=".">
+<project name="dashboard.build" default="archive" basedir=".">
     <description>
             Compile and Build the dashboard.
     </description>
@@ -40,8 +40,9 @@
 	<property name="coldfusion.compiler.libpath"  	value="cfusion-ear/cfusion-war/WEB-INF/cfusion/lib"/>
 	
 	<!--Destination of dist at export -->
-	<property name="dir.export" 					value="/Users/lmajano/Documents/MyDocs/My Programs/exports/coldbox/dashboard/" />
-		
+	<property name="dir.zipexport"					value="/Users/lmajano/Documents/MyDocs/My Programs/exports/"/>
+	<property name="dir.export" 					value="${dir.zipexport}/coldbox/dashboard/" />
+			
 	<!-- Init -->
 	<target name="init" depends="cleanup">		
 		<tstamp/>		
@@ -113,10 +114,14 @@
 	
 	<!--Deploy to export -->
 	<target name="deploy.to.export" depends="deploy">
-		<move todir="${dir.export}">
-			<fileset dir="${dist}" />
-		</move>
-		<delete dir="${dist}" />
+		<copy todir="${dir.export}">
+			<fileset dir="${build}" />
+		</copy>
+		<!-- Zip Dashboard -->
+		<zip destfile="${dir.zipexport}/dashboard_${dashboard.version}.zip" basedir="${build}">								
+		</zip>
+		<!--Cleanup-->
+		<delete dir="${build}" />
 		<echo>Cleanup Complete.</echo>
 	</target>
 	
@@ -130,12 +135,13 @@
 			</fileset>
 		</copy>	
 		
+		<echo>Deployment complete</echo>
+	</target>
+	
+	<target name="archive" depends="deploy">
 		<!-- Zip Dashboard -->
 		<zip destfile="${dist}/dashboard_${dashboard.version}.zip" basedir="${build}">								
 		</zip>
-		
-		<!--Cleanup-->
-		<echo>Deployment complete. Performing cleanup</echo>
 		<!--Call Cleanup-->
 		<antcall target="cleanup"></antcall>
 	</target>
