@@ -1,10 +1,10 @@
-<cfcomponent name="generator" hint="The generator service">
+<cfcomponent name="GeneratorService" hint="The generator service">
 
 <!------------------------------------------- CONSTRUCTOR ------------------------------------------->
 
 	<!--- ************************************************************* --->
 
-	<cffunction name="init" access="public" returntype="generator" output="false">
+	<cffunction name="init" access="public" returntype="GeneratorService" output="false">
 		<cfargument name="coldbox" required="true" type="any" hint="The coldbox controller">
 		<cfscript>
 			instance = structnew();

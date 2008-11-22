@@ -23,7 +23,7 @@ extends = coldbox.system.eventhandler
 	</cffunction>
 
 <!------------------------------------------- GLOBAL IMPLICIT EVENTS ONLY ------------------------------------------>
-<!-- In order for these events to fire, you must declare them in the coldbox.xml.cfm --->
+<!--- In order for these events to fire, you must declare them in the coldbox.xml.cfm --->
 	
 	<cffunction name="onAppInit" access="public" returntype="void" output="false">
 		<cfargument name="Event" type="any">

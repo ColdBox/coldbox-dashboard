@@ -1,4 +1,4 @@
-<cfcomponent output="false" displayname="settings" hint="I am the Dashboard settings model.">
+<cfcomponent output="false" displayname="SettingsService" hint="I am the Dashboard settings model.">
 
 <!------------------------------------------- CONSTRUCTOR ------------------------------------------->
 
@@ -7,7 +7,7 @@
 		variables.instance = structnew();
 	</cfscript>
 	
-	<cffunction name="init" access="public" returntype="settings" output="false">
+	<cffunction name="init" access="public" returntype="SettingsService" output="false">
 		<cfargument name="coldbox" required="true" type="any" hint="The coldbox controller">
 		<cfscript>
 			instance.coldbox = arguments.coldbox;

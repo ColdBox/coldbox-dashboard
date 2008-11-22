@@ -1,6 +1,6 @@
 <cfcomponent hint="A conventions bean" output="false">
 
-	<cffunction name="init" access="public" output="false" returntype="conventionsBean">
+	<cffunction name="init" access="public" output="false" returntype="ConventionsBean">
 		<cfscript>
 			instance = structnew();
 			instance.configLocation = "";

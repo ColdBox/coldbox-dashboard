@@ -184,10 +184,9 @@
 	<i18N />
 	
 	<!--Datasource Setup, you can then retreive a datasourceBean via the getDatasource("name") method: 
-	    <Datasource alias="MyDSNAlias" name="real_dsn_name"   dbtype="mysql"  username="" password="" />
 	-->
 	<Datasources>
-		
+		<!-- <Datasource alias="MyDSNAlias" name="real_dsn_name"   dbtype="mysql"  username="" password="" /> -->
 	</Datasources>
 	
 	<!--ColdBox Object Caching Settings Overrides the Framework-wide settings -->
@@ -197,7 +196,7 @@
 		<UseLastAccessTimeouts>true</UseLastAccessTimeouts>
 		<ReapFrequency>1</ReapFrequency>
 		<MaxObjects>50</MaxObjects>
-		<FreeMemoryPercentageThreshold>3</FreeMemoryPercentageThreshold>
+		<FreeMemoryPercentageThreshold>0</FreeMemoryPercentageThreshold>
 		<EvictionPolicy>LRU</EvictionPolicy>
 	</Cache>
 	

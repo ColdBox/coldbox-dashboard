@@ -1,6 +1,6 @@
 <cfcomponent hint="A generator bean." output="false">
 
-	<cffunction name="init" access="public" returntype="generatorBean" hint="Constructor" output="false" >
+	<cffunction name="init" access="public" returntype="GeneratorBean" hint="Constructor" output="false" >
 		<cfscript>
 		instance = structnew();
 		instance.appname = "";

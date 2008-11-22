@@ -9,9 +9,9 @@
 			instance.coldbox = arguments.coldbox;
 
 			//Create Services
-			instance.settings = CreateObject("component","services.settings").init(coldbox);
-			instance.fwsettings = CreateObject("component","services.fwsettings").init(coldbox);
-			instance.generator = CreateObject("component","services.generator").init(coldbox);
+			instance.settings = CreateObject("component","settings.SettingsService").init(coldbox);
+			instance.fwsettings = CreateObject("component","settings.ColdBoxSettingsService").init(coldbox);
+			instance.generator = CreateObject("component","generator.GeneratorService").init(coldbox);
 
 			//Set generator dependency
 			instance.generator.setapptemplatePath(expandPath('model/templates/apptemplate.zip'));
@@ -40,10 +40,10 @@
 		switch (arguments.bean){
 
 			case "conventions":
-				oBean =  CreateObject("component","beans.conventionsBean").init();
+				oBean =  CreateObject("component","settings.ConventionsBean").init();
 				break;
 			case "generatorbean":
-				oBean =  CreateObject("component","beans.generatorBean").init();
+				oBean =  CreateObject("component","generator.GeneratorBean").init();
 				break;
 		}
 
