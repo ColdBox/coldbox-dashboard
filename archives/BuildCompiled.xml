@@ -7,7 +7,7 @@
                    
      lmajano                                                                
      ====================================================================== -->
-<project name="dashboard.build" default="deploy" basedir=".">
+<project name="dashboard.build" default="compile.checks" basedir=".">
     <description>
             Compile and Build the dashboard.
     </description>
@@ -16,6 +16,8 @@
 	<property name="src" 							value="src"/>
 	<property name="build" 							value="build"/>
 	<property name="dist"							value="dist" />
+	<property name="dist.cf7"  						value="dist/cf7"/>
+	<property name="dist.cf8"  						value="dist/cf8"/>
 		
 	<!--Engine Properties-->
 	<property name="jrun.path" 						value="/Applications/JRun4" />
@@ -40,15 +42,57 @@
 	<property name="coldfusion.compiler.libpath"  	value="cfusion-ear/cfusion-war/WEB-INF/cfusion/lib"/>
 	
 	<!--Destination of dist at export -->
-	<property name="dir.export" 					value="/Users/lmajano/Documents/MyDocs/My Programs/exports/coldbox/dashboard/" />
+	<property name="dir.cf8.export" 				value="/Users/lmajano/Documents/MyDocs/My Programs/exports/coldbox/dashboard/cf8" />
+	<property name="dir.cf7.export" 				value="/Users/lmajano/Documents/MyDocs/My Programs/exports/coldbox/dashboard/cf7" />
 		
 	<!-- Init -->
-	<target name="init" depends="cleanup">		
+	<target name="init">		
 		<tstamp/>		
-		<input addproperty="dashboard.version" message="Dashboard Version" />
 		<mkdir dir="${build}"/>		
-		<mkdir dir="${dist}"/>	
+		<mkdir dir="${dist.cf7}"/>	
+		<mkdir dir="${dist.cf8}"/>
+		<copy todir="${build}">
+			<fileset dir="${src}">
+				<exclude name="**/*.xml.cfm"/>
+				<exclude name="index.cfm" />
+				<exclude name="Application.cfc" />
+				<exclude name="handlers/baseHandler.cfc" />
+			</fileset>
+		</copy>		
 		<echo>Build setup complete.</echo>		
+	</target>
+	
+	<!--Deploy to export -->
+	<target name="deploy.to.export" depends="deploy">
+		<move todir="${dir.cf7.export}">
+			<fileset dir="${dist.cf7}" />
+		</move>
+		<move todir="${dir.cf8.export}">
+			<fileset dir="${dist.cf8}" />
+		</move>
+		<delete dir="${dist}" />
+		<echo>Cleanup Complete.</echo>
+	</target>
+	
+	<!--Move XML Files-->
+	<target name="movexmlfiles">
+		<echo>Deploying *.xml.cfm files to distribution.</echo>
+		<copy todir="${dist.cf7}">
+			<fileset dir="${src}">
+				<include name="**/*.xml.cfm"/>
+				<include name="index.cfm" />
+				<include name="Application.cfc" />
+				<include name="handlers/baseHandler.cfc" />
+			</fileset>
+		</copy>
+		<copy todir="${dist.cf8}">
+			<fileset dir="${src}">
+				<include name="**/*.xml.cfm"/>
+				<include name="index.cfm" />
+				<include name="Application.cfc" />
+				<include name="handlers/baseHandler.cfc" />
+			</fileset>
+		</copy>
 	</target>
 	
 	<!--Cleanup-->
@@ -111,29 +155,51 @@
 		<echo>Compilation checks complete.</echo>
 	</target>
 	
-	<!--Deploy to export -->
-	<target name="deploy.to.export" depends="deploy">
-		<move todir="${dir.export}">
-			<fileset dir="${dist}" />
-		</move>
-		<delete dir="${dist}" />
-		<echo>Cleanup Complete.</echo>
-	</target>
-	
 	<!--Deploy-->
 	<target name="deploy" depends="init">
-		<echo>Starting to deploy dashboard ....</echo>
+		<echo>Starting to deploy dashboard for cf7...</echo>
+		<!--cf7 deploy -->
+		<java classname="coldfusion.tools.CommandLineInvoker" failonerror="true" fork="true">
+			<classpath>
+				<pathelement location="${jrun.jar}"/>
+				<pathelement location="${cf7.path}/${coldfusion.bootstrap.jar}"/>
+				<pathelement location="${cf7.path}/${coldfusion.cfx.jar}"/>
+			</classpath>
+			
+			<sysproperty key=" coldfusion.classPath" value="${cf7.path}/${coldfusion.compiler.libpath},${cf7.path}/${coldfusion.compiler.libpath}/updates"/>
+			<sysproperty key=" coldfusion.libPath"   value="${cf7.path}/${coldfusion.compiler.libpath}"/>
+			
+			<arg line=" Compiler "/>
+			<arg line=" -deploy" />
+			<arg line=" -webinf ${cf7.path}/${coldfusion.instancepath} "/>
+			<arg line=" -webroot ${webroot} "/>
+			<arg line=" -cfroot ${cf7.path}/${coldfusion.home} "/>
+			<arg line=" -srcdir ${build}" />
+			<arg line=" -deploydir ${dist.cf7}" />
+		</java>
 		
-		<!-- Copy Source -->
-		<copy todir="${build}">
-			<fileset dir="${src}">
-			</fileset>
-		</copy>	
+		<!--cf8 deploy -->
+		<java classname="coldfusion.tools.CommandLineInvoker" failonerror="true" fork="true">
+			<classpath>
+				<pathelement location="${jrun.jar}"/>
+				<pathelement location="${cf8.path}/${coldfusion.bootstrap.jar}"/>
+				<pathelement location="${cf8.path}/${coldfusion.cfx.jar}"/>
+			</classpath>
+			
+			<sysproperty key=" coldfusion.classPath" value="${cf8.path}/${coldfusion.compiler.libpath},${cf8.path}/${coldfusion.compiler.libpath}/updates"/>
+			<sysproperty key=" coldfusion.libPath"   value="${cf8.path}/${coldfusion.compiler.libpath}"/>
+			
+			<arg line=" Compiler "/>
+			<arg line=" -deploy" />
+			<arg line=" -webinf ${cf8.path}/${coldfusion.instancepath} "/>
+			<arg line=" -webroot ${webroot} "/>
+			<arg line=" -cfroot ${cf8.path}/${coldfusion.home} "/>
+			<arg line=" -srcdir ${build}" />
+			<arg line=" -deploydir ${dist.cf8}" />
+		</java>
 		
-		<!-- Zip Dashboard -->
-		<zip destfile="${dist}/dashboard_${dashboard.version}.zip" basedir="${build}">								
-		</zip>
-		
+		<!--Move xml Files-->
+		<antcall target="movexmlfiles" />
 		<!--Cleanup-->
 		<echo>Deployment complete. Performing cleanup</echo>
 		<!--Call Cleanup-->
