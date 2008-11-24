@@ -80,6 +80,15 @@
 	     	<input type="text" name="eventAction" value="#rc.Conventions.eventAction#" size="30">
 			</td>
 	     </tr>
+	     
+	     <tr>
+	     	<td align="right" width="40%" style="border-right:1px solid ##ddd">
+	     	<strong>Models Location</strong>
+	     	</td>
+	     	<td>
+	     	<input type="text" name="modelsLocation" value="#rc.Conventions.modelsLocation#" size="30">
+			</td>
+	     </tr>
      
     </table>
 	</div>

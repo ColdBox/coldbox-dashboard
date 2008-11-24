@@ -9,6 +9,7 @@
 			instance.viewsLocation = "";
 			instance.pluginsLocation = "";
 			instance.eventAction = "";
+			instance.modelsLocation = "";
 		return this;
 		</cfscript>
 	</cffunction>
@@ -67,6 +68,14 @@
 	<cffunction name="seteventAction" access="public" output="false" returntype="void" hint="Set eventAction">
 		<cfargument name="eventAction" type="string" required="true"/>
 		<cfset instance.eventAction = arguments.eventAction/>
+	</cffunction>
+	
+	<cffunction name="getmodelsLocation" access="public" output="false" returntype="string" hint="Get modelsLocation">
+		<cfreturn instance.modelsLocation/>
+	</cffunction>
+	<cffunction name="setmodelsLocation" access="public" output="false" returntype="void" hint="Set modelsLocation">
+		<cfargument name="modelsLocation" type="string" required="true"/>
+		<cfset instance.modelsLocation = arguments.modelsLocation/>
 	</cffunction>
 	
 	<cffunction name="validate" access="public" returntype="boolean" hint="Validates its contents." output="false" >
