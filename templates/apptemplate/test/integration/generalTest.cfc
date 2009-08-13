@@ -5,17 +5,17 @@ Description :
 	Unit Tests integration for the ehGeneral Handler.
 
 ----------------------------------------------------------------------->
-<cfcomponent name="generalTest" extends="coldbox.system.extras.testing.baseMXUnitTest" output="false">
+<cfcomponent name="generalTest" extends="coldbox.system.testing.BaseTestCase" output="false">
 	
 	<cfscript>
 		//Uncomment the following if you dont' need the controller in application scope for testing.
 		//this.PERSIST_FRAMEWORK = false;
 	</cfscript>
 	
-	<cffunction name="setUp" returntype="void" access="public" output="false">
+	<cffunction name="setUp" returntype="void" output="false">
 		<cfscript>
 		//Setup ColdBox Mappings For this Test
-		setAppMapping("@APP_MAPPING@");
+		setAppMapping("/coldbox/ApplicationTemplate");
 		setConfigMapping(ExpandPath(instance.AppMapping & "/config/coldbox.xml.cfm"));
 			
 		//Call the super setup method to setup the app.
@@ -29,7 +29,7 @@ Description :
 		</cfscript>
 	</cffunction>
 	
-	<cffunction name="testindex" access="public" returntype="void" output="false">
+	<cffunction name="testindex" returntype="void" output="false">
 		<cfscript>
 		var event = "";
 		
@@ -45,7 +45,7 @@ Description :
 		</cfscript>
 	</cffunction>
 	
-	<cffunction name="testdoSomething" access="public" returntype="void" output="false">
+	<cffunction name="testdoSomething" returntype="void" output="false">
 		<cfscript>
 		var event = "";
 		
