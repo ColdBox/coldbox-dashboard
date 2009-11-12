@@ -20,8 +20,9 @@
 	<!--Engine Properties-->
 	<property name="jrun.path" 						value="/Applications/JRun4" />
 	<property name="cf7.path" 						value="${jrun.path}/servers/cf7" />
-	<property name="cf8.path" 						value="${jrun.path}/servers/cfusion" />
-	<property name="webroot"						value="/Users/lmajano/Documents/MyDevelopment/" />
+	<property name="cf8.path" 						value="${jrun.path}/servers/cf8" />
+	<property name="cf9.path" 						value="${jrun.path}/servers/cf9" />
+	<property name="webroot"						value="/Users/lmajano/sites/cboxdev/core" />
 	<property name="cfuser"		    				value="cfusion" />
 		
 	<!-- Temp Build Classes -->
@@ -40,7 +41,7 @@
 	<property name="coldfusion.compiler.libpath"  	value="cfusion-ear/cfusion-war/WEB-INF/cfusion/lib"/>
 	
 	<!--Destination of dist at export -->
-	<property name="dir.zipexport"					value="/Users/lmajano/Documents/MyDocs/My Programs/exports/"/>
+	<property name="dir.zipexport"					value="/Users/lmajano/exports/"/>
 	<property name="dir.export" 					value="${dir.zipexport}/coldbox/dashboard/" />
 			
 	<!-- Init -->
