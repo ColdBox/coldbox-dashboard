@@ -25,11 +25,6 @@
 		var EclipseProjectContents = "";
 		var ConfigFile = "";
 		var EclipseFile = "";
-		var unitTest1 = "";
-		var unitTest1Contents = "";
-		var unitTest2 = "";
-		var unitTest2Contents = "";
-		var unitTestFramework = arguments.generatorBean.getunittesting_framework();
 		var removeUnitTestFramework = "cfcunit";
 		var FS = "/";
 		var devURLS = "";
@@ -42,30 +37,18 @@
 		//Where are the files to manipulate.
 		ConfigFile = expandedAppLocation & "#fs#config#fs#coldbox.xml.cfm";
 		EclipseFile = expandedAppLocation & "#fs#.project";
-		unitTest1 = expandedAppLocation  & "#fs#test#fs#integration#fs##unitTestFramework##fs#generalTest.cfc";
-		unitTest2 = expandedAppLocation  & "#fs#test#fs#integration#fs##unitTestFramework##fs#mainTest.cfc";
-		unitTest1Output = expandedAppLocation  & "#fs#test#fs#integration#fs#generalTest.cfc";
-		unitTest2Output = expandedAppLocation  & "#fs#test#fs#integration#fs#mainTest.cfc";
-		routesFile = expandedApplocation & "#fs#config#fs#routes.cfm";
+		routesFile = expandedApplocation & "#fs#config#fs#Routes.cfm";
 		
 		//Read the templates
 		ConfigFileContents = readFile(ConfigFile);
 		EclipseProjectContents = readFile(EclipseFile);
-		unitTest1Contents = readFile(unitTest1);
-		unitTest2Contents = readFile(unitTest2);
 		routesContents = readFile(routesFile);
 		
 		//Replace Tokens.
 		ConfigFileContents = replacenocase(ConfigFileContents,"@APPNAME@",arguments.generatorBean.getAppName());
-		ConfigFileContents = replacenocase(ConfigFileContents,"@COLDFUSION_LOGGING@",arguments.generatorBean.getcoldfusionlogging());
-		ConfigFileContents = replacenocase(ConfigFileContents,"@COLDBOX_LOGGING@",arguments.generatorBean.getcoldboxlogging());
-		ConfigFileContents = replacenocase(ConfigFileContents,"@COLDBOX_LOGS_LOCATION@",arguments.generatorBean.getcoldboxlogslocation());
-		ConfigFileContents = replacenocase(ConfigFileContents,"@OWNER_EMAIL@",arguments.generatorBean.getowneremail());
-		ConfigFileContents = replacenocase(ConfigFileContents,"@BUG_REPORTS@",arguments.generatorBean.getenablebugreports());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@HANDLER_AUTO_RELOAD@",arguments.generatorBean.gethandlersindexautoreload());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@CONFIG_AUTO_RELOAD@",arguments.generatorBean.getconfigautoreload());
 		ConfigFileContents = replacenocase(ConfigFileContents,"@EVENT_NAME@",arguments.generatorBean.geteventname());
-		ConfigFileContents = replacenocase(ConfigFileContents,"@BUG_EMAILS@",bugEmails);
 		ConfigFileContents = replacenocase(ConfigFileContents,"@DEBUG_MODE@",arguments.generatorBean.getDebugMode());
 		
 		/* SideBar Setup */
@@ -97,10 +80,6 @@
 		//Replace eclipse project tokens
 		EclipseProjectContents = replacenocase(EclipseProjectContents,"@APPNAME@",arguments.generatorBean.getAppName());
 		
-		//Replace Unit Test Mappings
-		unitTest1Contents = replacenocase(unitTest1Contents,"@APP_MAPPING@",arguments.generatorBean.getAppLocation());
-		unitTest2Contents = replacenocase(unitTest2Contents,"@APP_MAPPING@",arguments.generatorBean.getAppLocation());
-		
 		//Rewrite Eninge
 		if( arguments.generatorBean.getrewriteengine() eq "mod_rewrite"){
 			removeFile(expandedAppLocation & "#fs#IsapiRewrite4.ini");
@@ -116,13 +95,8 @@
 		//ReWrite File
 		writeFile(ConfigFile,ConfigFileContents);
 		writeFile(EclipseFile,EclipseProjectContents);
-		writeFile(unitTest1Output, unitTest1Contents);
-		writeFile(unitTest2Output, unitTest2Contents);
 		writeFile(routesFile,routesContents);
 		
-		/* Directory Removals */
-		removeDirectory(expandedAppLocation  & "#fs#test#fs#integration#fs#mxunit");
-		removeDirectory(expandedAppLocation  & "#fs#test#fs#integration#fs#cfcunit");
 		</cfscript>
 	</cffunction>
 
@@ -159,26 +133,7 @@
 		<cfset var sidebar = "">
 		<cfsavecontent variable="sidebar">
 		<!-- ColdBox SIDEBAR -->
-		<Interceptor class="coldbox.system.interceptors.coldboxSideBar">
-			<Property name="yOffset"></Property>
-			<Property name="isScroll"></Property>
-			<Property name="slideSpeed"></Property>
-			<Property name="waitTimeBeforeOpen"></Property>
-			<Property name="waitTimeBeforeClose"></Property>
-			<Property name="links">
-			[
-			{"desc":"ColdBox API","href":"http:\/\/www.coldboxframework.com\/api\/"}
-			,{"desc":"ColdBox SideBar Help","href":"http:\/\/ortus.svnrepository.com\/coldbox\/trac.cgi\/wiki\/cbSideBar"}
-			,{"desc":"ColdBox Credits","href":"http:\/\/ortus.svnrepository.com\/coldbox\/trac.cgi\/wiki\/cbCredits"}
-			]
-			</Property>
-			<!-- Used for Skinning -->
-			<Property name="width"></Property>
-			<Property name="visibleWidth"></Property>
-			<Property name="imagePath"></Property>
-			<Property name="imageVAlign"></Property>
-			<Property name="cssPath"></Property>
-		</Interceptor>
+		<Interceptor class="coldbox.system.interceptors.coldboxSideBar" />
 		</cfsavecontent>
 		<cfreturn sidebar>
 	</cffunction>

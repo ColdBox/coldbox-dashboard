@@ -279,14 +279,6 @@ function validateGeneration(vEvent){
 	else{
 		//Confirm Generation
 		if ( confirm("Are you sure you wish to generate the application now?") ){
-			oBugEmails = document.getElementById("select_bugemails");
-			txtBugEmails = $("#bugemails");
-			
-			//Select all of bugEmails
-			for(i=0; i < oBugEmails.options.length; i++){
-				txtBugEmails.val(txtBugEmails.val() + oBugEmails.options[i].value + ",");
-			}
-	
 			//Generate Application
 			doFormEvent(vEvent,'content', document.updateform);
 		}//end confirm generation
