@@ -11,7 +11,7 @@ Description :
 Modification History:
 6/8/2007 - Created Template
 ---------------------------------------------------------------------->
-<cfcomponent name="baseHandler" extends="coldbox.system.eventhandler" output="false">
+<cfcomponent name="baseHandler" extends="coldbox.system.EventHandler" output="false">
 	
 	<!--- Blank for inheritance and modification purposes --->	
 	

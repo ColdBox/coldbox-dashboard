@@ -2,7 +2,7 @@
 <!-- Declare as many tiers as you like with a unique name -->
 <environmentcontrol>
 
-	<environment name="development" urls="localhost,jfetmac,apps.jfetmac">
+	<environment name="development" urls="localhost,railocboxdev.jfetmac">
 		<Setting name="HandlerCaching"			value="false" />
 		<Setting name="HandlersIndexAutoReload" value="true" />
 		<Setting name="DebugMode"	 			value="false" />

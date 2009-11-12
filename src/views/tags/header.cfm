@@ -21,17 +21,17 @@
 		</div>
 		
 		<!--- CFADMIN --->
-		<cfif controller.oCFMLENGINE.getEngine() eq "adobe">
+		<cfif controller.getCFMLEngine().getEngine() eq "adobe">
 		<div id="topbuttons" >
 			<a href="#getSetting("AdobeAdmin")#" target="_blank" onmouseover="rollover('btn_cfadmin')" onmouseout="rollout('btn_cfadmin')"><img  src="includes/images/icons/cfadmin.gif" border="0" id="btn_cfadmin" srcoff="includes/images/icons/cfadmin.gif" srcon="includes/images/icons/cfadmin_on.gif"><br>
 			CF Admin</a>
 		</div>
-		<cfelseif controller.oCFMLENGINE.getEngine() eq "bluedragon">
+		<cfelseif controller.getCFMLEngine().getEngine() eq "bluedragon">
 		<div id="topbuttons" >
 			<a href="#getSetting("BlueDragonAdmin")#" target="mainframe" onmouseover="rollover('btn_bd')" onmouseout="rollout('btn_bd')"><img  src="includes/images/icons/bluedragon.gif" border="0" id="btn_bd" srcoff="includes/images/icons/bluedragon.gif" srcon="includes/images/icons/bluedragon_on.gif"><br>
 			BlueDragon</a>
 		</div>
-		<cfelseif controller.oCFMLENGINE.getEngine() eq "railo">
+		<cfelseif controller.getCFMLEngine().getEngine() eq "railo">
 		<div id="topbuttons" >
 			<a href="#getSetting("RailoAdmin")#" target="mainframe" onmouseover="rollover('btn_bd')" onmouseout="rollout('btn_bd')"><img  src="includes/images/icons/railo_27.gif" border="0" id="btn_bd" srcoff="includes/images/icons/railo_27.gif" srcon="includes/images/icons/railo_on.gif"><br>
 			Admin</a>

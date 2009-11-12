@@ -25,7 +25,7 @@ $(document).ready(function() {
 
 	<li><a href="javascript:doEvent('#Event.getValue("xehResources")#', 'content', {})" onMouseOver="getHint('onlineresources')" onMouseOut="resetHint()">Online Resources</a></li>
 
-	<cfif controller.oCFMLEngine.isComponentData() or controller.oCFMLEngine.getEngine() eq "ADOBE">
+	<cfif controller.getCFMLEngine().isComponentData() or controller.getCFMLEngine().getEngine() eq "ADOBE">
 		<li><a href="javascript:doEvent('#Event.getValue("xehCFCDocs")#', 'content', {})" onMouseOver="getHint('cfcdocs')" onMouseOut="resetHint()">CFC API Documentation</a></li>
 	</cfif>
 </ul>

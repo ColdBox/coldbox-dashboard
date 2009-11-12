@@ -20,14 +20,14 @@ This is the File Browser Handler
 		<cfargument name="Event" type="any" required="true">
 		<cfset var rc = event.getCollection()>
 		<cfset var currentRootLen = 0>
-		<cfset var slash = getSetting("OSFileSeparator",1)>
+		<cfset var slash = "/">
 		<cfset var tmpOldDir = "">
 		
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehBrowser = "ehServerBrowser.dspBrowser">
 		<cfset rc.xehNewFolder = "ehServerBrowser.doNewFolder">
 		
-		<cfset rc.oSession = getPlugin("sessionstorage")>
+		<cfset rc.oSession = getPlugin("SessionStorage")>
 		
 		<!--- Check for callback. --->
 		<cfif event.valueExists("callbackItem")>
@@ -85,12 +85,14 @@ This is the File Browser Handler
 		<cftry>
 			<!--- Get Dir Listing --->
 			<cfdirectory action="list" directory="#rc.currentRoot#" name="rc.qryDir" sort="name">
+			
 			<!--- Sort --->
-			<cfset rc.qryDir = getPlugin("queryHelper").sortQuery(rc.qryDir,"Type,Name")>
+			<cfset rc.qryDir = getPlugin("QueryHelper").sortQuery(rc.qryDir,"Type,Name")>
 			<!--- Save the current root --->
 			<cfset rc.oSession.setVar("currentRoot", rc.currentRoot)>
 			
 			<cfcatch type="any">
+				<cfdump var="#cfcatch#"><cfabort>
 				<cfset rc.qryDir = QueryNew("")>
 				<cfset getPlugin("messagebox").setMessage("warning", "An error occurred reading directory. #cfcatch.message# - #cfcatch.detail#")>	
 			</cfcatch>

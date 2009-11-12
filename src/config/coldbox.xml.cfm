@@ -24,8 +24,8 @@
 		<Setting name="Version" 				value="2.2.5 Beta"/>
 		<!-- Special Links -->
 		<Setting name="TracSite"				value="http://ortus.svnrepository.com/coldbox/" />
-		<Setting name="OfficialSite"			value="http://www.coldboxframework.com" />
-		<Setting name="SchemaDocs" 				value="${OfficialSite}/documents/SchemaDocs/"/>
+		<Setting name="OfficialSite"			value="http://www.coldbox.org" />
+		<Setting name="SchemaDocs" 				value="${OfficialSite}/documents/SchemaDocs"/>
 		
 		<!-- Where ColdBox Framework is installed, or which one you would like to manage -->
 		<Setting name="Coldbox_Location" 		value="/coldbox/system"/>
@@ -53,15 +53,6 @@
 		<!-- ColdBox Package Logging -->
 		<Category name="coldbox.system" levelMax="INFO" />
 	</LogBox>
-	
-	<!-- Custom Conventions for this application -->
-	<Conventions>
-		<handlersLocation>handlers</handlersLocation>
-		<pluginsLocation>plugins</pluginsLocation>
-		<layoutsLocation>layouts</layoutsLocation>
-		<viewsLocation>views</viewsLocation>
-		<eventAction>index</eventAction>		
-	</Conventions>		
 	
 	<Layouts>
 		<DefaultLayout>Layout.simple.cfm</DefaultLayout>

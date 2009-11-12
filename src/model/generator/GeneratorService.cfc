@@ -31,27 +31,13 @@
 		var unitTest2Contents = "";
 		var unitTestFramework = arguments.generatorBean.getunittesting_framework();
 		var removeUnitTestFramework = "cfcunit";
-		var FS = getColdbox().getSetting("OSFileSeparator",true);
+		var FS = "/";
 		var devURLS = "";
-		var bugEmails = "";
 		var i = 1;
-		var expandedAppLocation = arguments.generatorBean.getapplocation();
+		var expandedAppLocation = arguments.generatorBean.getApplocation();
 
 		//First step is to unzip the template to the destination directory.
 		getColdbox().getPlugin("zip").extract(zipFilePath=getappTemplatePath(),extractPath=expandedAppLocation,overwriteFiles=true);
-
-		//Tokenize the bug emails
-		for ( i = 1; i lte listlen(arguments.generatorBean.getbugemails()); i=i+1){
-			bugEmails = bugEmails & chr(9) & chr(9) & "<BugEmail>#listgetAt(arguments.generatorBean.getbugemails(),i)#</BugEmail>#chr(13)#";
-		}
-		
-		/* Unit Test Verification */
-		if( unitTestFramework eq "mxunit" ){
-			removeUnitTestFramework = "cfcunit";
-		}
-		else{
-			removeUnitTestFramework = "mxunit";
-		}
 
 		//Where are the files to manipulate.
 		ConfigFile = expandedAppLocation & "#fs#config#fs#coldbox.xml.cfm";
