@@ -130,9 +130,6 @@
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"DefaultFileCharacterSet") eq 0){
 				settingArray[x].xmlAttributes.value = trim(arguments.rc.DefaultFileCharacterSet);
 			}
-			if ( Comparenocase(settingArray[x].xmlAttributes.name,"MessageBoxStorage") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.rc.MessageBoxStorage);
-			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"ColdspringBeanFactory") eq 0){
 				settingArray[x].xmlAttributes.value = trim(arguments.rc.ColdspringBeanFactory);
 			}
