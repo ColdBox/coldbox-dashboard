@@ -8,7 +8,7 @@
 //********************************************************************************
 function lon(){
 	try{
-		$("#myloader").fadeIn("slow");
+		//$("#myloader").fadeIn("slow");
 	}
 	catch(err){null;}
 }

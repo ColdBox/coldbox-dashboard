@@ -84,15 +84,6 @@
 				</a>
 			</td>
           </tr>
-		  <tr bgcolor="##f5f5f5">
-            <td align="right" valign="top"><strong>Latest Config Schema Docs:</strong>
-			</td>
-            <td valign="middle" style="border-left:1px solid ##ddd">
-				<a class="action silver" href="#getSetting("SchemaDocs")#">
-					<span>Open</span>
-				</a>
-			</td>
-          </tr>
 
         </table>
 		</div>
