@@ -32,7 +32,7 @@
 		var expandedAppLocation = arguments.generatorBean.getApplocation();
 
 		//First step is to unzip the template to the destination directory.
-		getColdbox().getPlugin("zip").extract(zipFilePath=getappTemplatePath(),extractPath=expandedAppLocation,overwriteFiles=true);
+		getColdbox().getPlugin("Zip").extract(zipFilePath=getappTemplatePath(),extractPath=expandedAppLocation,overwriteFiles=true);
 
 		//Where are the files to manipulate.
 		ConfigFile = expandedAppLocation & "#fs#config#fs#coldbox.xml.cfm";

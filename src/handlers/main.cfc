@@ -37,7 +37,7 @@ This is the main event handler for the ColdBox dashboard.
 	<cffunction name="onRequestStart" access="public" returntype="void" output="false">
 		<cfargument name="Event" type="any">
 		<!--- Get Session Plugin --->
-		<cfset var storage = getPlugin("sessionstorage")>
+		<cfset var storage = getPlugin("SessionStorage")>
 		
 		<!--- Check if the dbservice is set, else set it in cache --->
 		<cfif not getColdboxOCM().lookup("dbservice")>
@@ -52,7 +52,7 @@ This is the main event handler for the ColdBox dashboard.
 		
 		<!--- Authorization --->
 		<cfif (not storage.exists("authorized") or storage.getvar("authorized") eq false) and Event.getCurrentEvent() neq "ehSecurity.doLogin">
-			<cfset getPlugin("logger").logEntry("information", "Login not authorized #session.toString()#", "")>
+			<cfset getPlugin("Logger").logEntry("information", "Login not authorized #session.toString()#", "")>
 			<cfset Event.overrideEvent("ehSecurity.dspLogin")>
 		</cfif>
 	</cffunction>

@@ -27,7 +27,7 @@ This is the tools main handler.
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehGenerator = "ehGenerator.dspGenerator">
 		<!--- Set the Rollovers For This Section --->
-		<cfset rc.qRollovers = getPlugin("queryHelper").filterQuery(rc.dbService.getService("settings").getRollovers(),"pagesection","tools")>
+		<cfset rc.qRollovers = getPlugin("QueryHelper").filterQuery(rc.dbService.getService("settings").getRollovers(),"pagesection","tools")>
 		<!--- Set the View --->
 		<cfset Event.setView("tools/gateway")>
 	</cffunction>

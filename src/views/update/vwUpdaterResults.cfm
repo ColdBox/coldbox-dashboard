@@ -39,7 +39,7 @@
 	<p>Below you can see the results of the distribution checks. If there is an update available, you will be able to download the update or view the changelog file.
 	</p>
 	<br /><br />
-	#getPlugin("messagebox").renderit()#
+	#getPlugin("MessageBox").renderit()#
 	<form id="updateform" name="updateform" method="post" action="index.cfm?event=#Event.getValue("xehdoUpdate")#">
 	<input type="hidden" name="updatetype" id="updatetype" value="">
 

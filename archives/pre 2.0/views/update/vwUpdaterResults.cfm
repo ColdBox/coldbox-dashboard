@@ -36,7 +36,7 @@
 	<br>
 	<p align="center" class="redtext">When you do an auto-update, make sure there are no running applications.</p>
 	<br /><br />
-	#getPlugin("messagebox").renderit()#
+	#getPlugin("MessageBox").renderit()#
 	<form id="updateform" name="updateform" method="post" action="index.cfm?event=#requestContext.getValue("xehdoUpdate")#">
 	<input type="hidden" name="updatetype" id="updatetype" value="">
 	

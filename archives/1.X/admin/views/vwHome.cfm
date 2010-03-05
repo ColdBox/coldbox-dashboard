@@ -35,7 +35,7 @@
 <div class="dashboardTitles">#getresource("onlineupdates")# </div>
 
 <cfif getPlugin("clientstorage").exists("updateResults")>
-	#getPlugin("messagebox").render()#
+	#getPlugin("MessageBox").render()#
 	<cfset updateStruct = getPlugin("clientstorage").getVar("UpdateResults")>
 	<cfif updateStruct.AvailableUpdate>
 	<p>#getresource("udpatemessage")#</p>
@@ -79,7 +79,7 @@
 
 <form id="updateInfoForm" name="updateInfoForm" method="post" action="#cgi.SCRIPT_NAME#" onSubmit="checkupdate()">
   <div align="center">
-    <textarea type="text" name="distrourl" cols="70" class="textboxes" rows=2 readonly="true">#getPlugin("webservices").getws("DistributionWS")#</textarea>
+    <textarea type="text" name="distrourl" cols="70" class="textboxes" rows=2 readonly="true">#getPlugin("Webservices").getws("DistributionWS")#</textarea>
     <br>
     <input type="hidden" name="event" value="ehColdbox.doCheckUpdates" />
 	<input type="submit" name="button_check" id="button_check" value="#getresource("checkforupdates_button")#" class="buttons" />

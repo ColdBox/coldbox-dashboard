@@ -10,7 +10,7 @@
 	</div>
 
 	<!--- Messagebox --->
-	#getPlugin("messagebox").renderit()#
+	#getPlugin("MessageBox").renderit()#
 	<div class="contentboxes">
 
 	<p>Below are the configuration settings for the ColdBox Cache Manager. Please note that all entries are in minutes.

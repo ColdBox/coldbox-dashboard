@@ -23,7 +23,7 @@
 		<!--- Show the File Listing --->
 		<div class="filelisting">
 		    <!--- Messagebox --->
-		    #getPlugin("messagebox").renderit()#
+		    #getPlugin("MessageBox").renderit()#
 		    
 		    <!--- Display back links --->
 			<cfif rc.currentRoot neq rc.computerRoot>

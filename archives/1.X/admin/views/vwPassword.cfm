@@ -4,7 +4,7 @@
 <p>#getresource("changepassword_message")#  </p>
 
 <form name="form_passchange" method="post" action="#cgi.SCRIPT_NAME#">
-#getPlugin("messagebox").render()#
+#getPlugin("MessageBox").render()#
   <table width="95%" border="0" align="center" cellpadding="0" cellspacing="2">
     <tr>
       <td width="29%" align="right"><strong>#getresource("current_password")#: </strong></td>

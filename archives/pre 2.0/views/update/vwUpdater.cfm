@@ -34,7 +34,7 @@
 	<br>
 	<p align="center" class="redtext">When you do an auto-update, make sure there are no running applications.</p>
 	<br /><br />
-	#getPlugin("messagebox").renderit()#
+	#getPlugin("MessageBox").renderit()#
 	<form id="updateform" name="updateform" method="post" action="javascript:doFormEvent('#requestContext.getValue("xehCheck")#','content',document.updateform)" onSubmit="document.updateform.button_check.disabled=true">
 	  <div align="center">
 		<table width="100%" border="0" cellspacing="0" cellpadding="5" class="tablelisting">

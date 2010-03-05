@@ -13,7 +13,7 @@
 	This is your current ColdBox Framework CFC Documentation.<br><br>
 
 	<!--- Render Simple CFC Viewer API --->
-	#Event.getValue("cfcViewer").renderit()#
+	#Event.getValue("CFCViewer").renderit()#
 	
 	</div>
 

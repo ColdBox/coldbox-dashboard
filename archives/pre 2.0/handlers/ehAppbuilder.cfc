@@ -35,9 +35,9 @@ This is the app Builder handler.
 		<cfset generatorResults = application.dbservice.get("appGeneratorService").generate(getCollection())>
 		<!--- Check for Errors --->
 		<cfif generatorResults.error >
-			<cfset getPlugin("messagebox").setMessage("error", "An error ocurred during generation")>
+			<cfset getPlugin("MessageBox").setMessage("error", "An error ocurred during generation")>
 		<cfelse>
-			<cfset getPlugin("messagebox").setMessage("info", "Your application has been successfully generated.")>
+			<cfset getPlugin("MessageBox").setMessage("info", "Your application has been successfully generated.")>
 		</cfif>
 		
 		<!--- Set the View --->

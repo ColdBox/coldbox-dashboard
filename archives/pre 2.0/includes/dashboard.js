@@ -185,11 +185,11 @@ function addWebservice(){
 		return;
 	}
 	
-	var oldLength = $("webservices").options.length;
+	var oldLength = $("Webservices").options.length;
 	if ( oldLength == 0 )
 		newLength = 0;
-	$("webservices").options.length = oldLength + 1;
-	$("webservices").options[oldLength] = new Option(vname,valueString);
+	$("Webservices").options.length = oldLength + 1;
+	$("Webservices").options[oldLength] = new Option(vname,valueString);
 	//Clean
 	$("wsname").value = "";
 	$("wsdlpro").value = "";
@@ -197,13 +197,13 @@ function addWebservice(){
 }
 
 function removeWebservice(){
- var lgth = $("webservices").options.length - 1;
- var sel = $("webservices").selectedIndex;
+ var lgth = $("Webservices").options.length - 1;
+ var sel = $("Webservices").selectedIndex;
  
  if ( sel < 0 )
  	alert ("Please select a valid Web Service to remove");
  else
- 	$("webservices").options[sel] = null;
+ 	$("Webservices").options[sel] = null;
 }
 
 function toggleHandlers( vchecked, vtextboxID, vmethod ){

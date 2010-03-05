@@ -43,7 +43,7 @@ This is the updater handler
 		<cftry>
 			<!--- Check for URL --->
 			<cfif requestContext.getValue("distribution_site") eq "">
-				<cfset getPlugin("messagebox").setMessage("warning", "The distribution site to query seems to be invalid. Please check again")>
+				<cfset getPlugin("MessageBox").setMessage("warning", "The distribution site to query seems to be invalid. Please check again")>
 				<cfset setnextEvent("ehUpdater.dspUpdater")>
 			</cfif>
 			<!--- Get a WS Object --->
@@ -53,7 +53,7 @@ This is the updater handler
 			<!--- CHeck for WS Errors --->
 			<cfif updateResults.error>
 				<cfset getPlugin("logger").logError(errorString,structnew(),updateResults.errorMessage)>
-				<cfset getPlugin("messagebox").setMessage("error", errorString & updateResults.errorMessage)>
+				<cfset getPlugin("MessageBox").setMessage("error", errorString & updateResults.errorMessage)>
 			<cfelse>
 				<!--- Save Update Results --->
 				<cfset getPlugin("clientstorage").setVar("updateResults", updateResults)>
@@ -63,7 +63,7 @@ This is the updater handler
 			<!--- Catch --->
 			<cfcatch type="any">
 				<cfset getPlugin("logger").logError(errorString, cfcatch)>
-				<cfset getPlugin("messagebox").setMessage("error","#errorString##cfcatch.Detail#<br><br>#cfcatch.Message#")>
+				<cfset getPlugin("MessageBox").setMessage("error","#errorString##cfcatch.Detail#<br><br>#cfcatch.Message#")>
 			</cfcatch>
 		</cftry>
 		<cfset setnextEvent("ehUpdater.dspUpdater")>
@@ -94,7 +94,7 @@ This is the updater handler
 		
 		//type Check
 		if ( rc.updatetype eq ""){
-			getPlugin("messagebox").setMessage("error", "Invalid update type detected: #rc.updatetype#");
+			getPlugin("MessageBox").setMessage("error", "Invalid update type detected: #rc.updatetype#");
 			setNextEvent("ehUpdater.dspUpdateSection");
 			return;
 		}
@@ -106,7 +106,7 @@ This is the updater handler
 		catch(Any e){
 			dump(e);abort();
 			getPlugin("logger").logError("The update service failed.", e);
-			getPlugin("messagebox").setMessage("error", "Error executing the update service: #e.detail# #e.message#");
+			getPlugin("MessageBox").setMessage("error", "Error executing the update service: #e.detail# #e.message#");
 			setNextEvent("ehUpdater.dspUpdateSection");
 		}
 		</cfscript>
@@ -123,7 +123,7 @@ This is the updater handler
 			<!--- Remove Temp Install Dir --->
 			<cfdirectory action="delete" directory="#UpdateTempDir#" recurse="yes">
 		</cfif>
-		<cfset getPlugin("messagebox").setMessage("info","Your ColdBox installation has been updated successfully!")>
+		<cfset getPlugin("MessageBox").setMessage("info","Your ColdBox installation has been updated successfully!")>
 		<cfset setNextEvent("ehColdbox.dspLogin")>
 	</cffunction>
 	
@@ -135,7 +135,7 @@ This is the updater handler
 			<!--- Remove Temp Install Dir --->
 			<cfdirectory action="delete" directory="#UpdateTempDir#" recurse="yes">
 		</cfif>
-		<cfset getPlugin("messagebox").setMessage("error","There was an error while updating your system. Please look at the error below:<br><br>#URLDecode(requestContext.getValue("installerror"))#")>
+		<cfset getPlugin("MessageBox").setMessage("error","There was an error while updating your system. Please look at the error below:<br><br>#URLDecode(requestContext.getValue("installerror"))#")>
 		<cfset setNextEvent("ehColdbox.dspHome")>
 	</cffunction>
 	
@@ -158,7 +158,7 @@ This is the updater handler
 		<cfset requestContext.setValue("dirListing",dirListing)>
 		<!--- grab if backup --->
 		<cfif requestContext.getValue("finished","") eq "ok">
-			<cfset getPlugin("messagebox").setMessage("info","Your data has been backed up successfully. Please look below in your backups directory for the zip file.")>
+			<cfset getPlugin("MessageBox").setMessage("info","Your data has been backed up successfully. Please look below in your backups directory for the zip file.")>
 		</cfif>
 		<cfset requestContext.setView("vwBackups")>
 	</cffunction>
@@ -172,10 +172,10 @@ This is the updater handler
 			<cffile action="delete"
 					file="#filepath##getSetting('OSFileSeparator',1)##filename#">
 			<!--- Set Message --->
-			<cfset getPlugin("messagebox").setMessage("info", "The file: <strong>#filename#</strong> was deleted successfully")>
+			<cfset getPlugin("MessageBox").setMessage("info", "The file: <strong>#filename#</strong> was deleted successfully")>
 			<cfset setNextEvent("ehColdbox.dspBackups")>
 			<cfcatch type="any">
-				<cfset getPlugin("messagebox").setMessage("error", "Error removing file: #cfcatch.detail# #cfcatch.message#")>
+				<cfset getPlugin("MessageBox").setMessage("error", "Error removing file: #cfcatch.detail# #cfcatch.message#")>
 				<cfset setNextEvent("ehColdbox.dspBackups")>
 			</cfcatch>
 		</cftry>

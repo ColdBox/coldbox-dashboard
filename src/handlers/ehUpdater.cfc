@@ -26,7 +26,7 @@ This is the updater handler
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehUpdater = "ehUpdater.dspUpdater">
 		<!--- Set the Rollovers For This Section --->
-		<cfset rc.qRollovers = getPlugin("queryHelper").filterQuery(rc.dbService.getService("settings").getRollovers(),"pagesection","update")>
+		<cfset rc.qRollovers = getPlugin("QueryHelper").filterQuery(rc.dbService.getService("settings").getRollovers(),"pagesection","update")>
 		<!--- Set the View --->
 		<cfset Event.setView("update/gateway")>
 	</cffunction>
@@ -58,7 +58,7 @@ This is the updater handler
 		<cftry>
 			<!--- Check for URL --->
 			<cfif Event.getValue("distribution_site") eq "">
-				<cfset getPlugin("messagebox").setMessage("warning", "The distribution site to query seems to be invalid. Please check again")>
+				<cfset getPlugin("MessageBox").setMessage("warning", "The distribution site to query seems to be invalid. Please check again")>
 				<cfset setnextEvent("ehUpdater.dspUpdater")>
 			</cfif>
 			<!--- Get a WS Object --->
@@ -67,18 +67,18 @@ This is the updater handler
 			<cfset updateResults = updateWS.getUpdateInfo('#getSetting("Version",1)#',"#getSetting("Version")#")>
 			<!--- CHeck for WS Errors --->
 			<cfif updateResults.error>
-				<cfset getPlugin("logger").logError(errorString,structnew(),updateResults.errorMessage)>
-				<cfset getPlugin("messagebox").setMessage("error", errorString & updateResults.errorMessage)>
+				<cfset getPlugin("Logger").logError(errorString,structnew(),updateResults.errorMessage)>
+				<cfset getPlugin("MessageBox").setMessage("error", errorString & updateResults.errorMessage)>
 			<cfelse>
 				<!--- Save Update Results --->
-				<cfset getPlugin("sessionstorage").setVar("updateResults", updateResults)>
+				<cfset getPlugin("SessionStorage").setVar("updateResults", updateResults)>
 				<!--- set next event --->
 				<cfset setNextEvent("ehUpdater.dspUpdaterResults")>
 			</cfif>
 			<!--- Catch --->
 			<cfcatch type="any">
-				<cfset getPlugin("logger").logError(errorString, cfcatch)>
-				<cfset getPlugin("messagebox").setMessage("error","#errorString##cfcatch.Detail#<br><br>#cfcatch.Message#")>
+				<cfset getPlugin("Logger").logError(errorString, cfcatch)>
+				<cfset getPlugin("MessageBox").setMessage("error","#errorString##cfcatch.Detail#<br><br>#cfcatch.Message#")>
 			</cfcatch>
 		</cftry>
 		<cfset setnextEvent("ehUpdater.dspUpdater")>
@@ -91,7 +91,7 @@ This is the updater handler
 		<cfset var rc = event.getCollection()>
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehdoUpdate = "ehUpdater.doGetUpdate">
-		<cfset rc.UpdateResults = getPlugin("sessionstorage").getVar("updateResults")>
+		<cfset rc.UpdateResults = getPlugin("SessionStorage").getVar("updateResults")>
 		<!--- Help --->
 		<cfset rc.help = renderView("update/help/UpdaterResults")>
 		<!--- Set the View --->

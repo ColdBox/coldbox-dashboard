@@ -37,20 +37,20 @@ This is the app Builder handler.
 			var oGeneratorService = rc.dbService.getService("generator");
 			var appRelocation = "";
 			//Populate bean with form data
-			getPlugin("beanFactory").populateBean(oGeneratorBean);
+			getPlugin("BeanFactory").populateBean(oGeneratorBean);
 			//Set appRelocation
 			appRelocation = oGeneratorBean.getAppLocation();
 			try{
 				//Generate Application
 				oGeneratorService.generate(oGeneratorBean);
 				//Set message
-				getPlugin("messagebox").setMessage("info", "Generation completed with no errors.");
+				getPlugin("MessageBox").setMessage("info", "Generation completed with no errors.");
 				//Relocate
 				setNextEvent("ehGenerator.dspGeneratedSummary","appRelocation=#urlEncodedFormat(appRelocation)#");
 			}
 			Catch(Any e){
-				getPlugin("messagebox").setMessage("error", "An error occurred generating your application. Please look at the logs for more information. Diagnostic: #e.detail# #e.message#");
-				getPlugin("logger").logError("Error generating application",e);
+				getPlugin("MessageBox").setMessage("error", "An error occurred generating your application. Please look at the logs for more information. Diagnostic: #e.detail# #e.message#");
+				getPlugin("Logger").logError("Error generating application",e);
 				setNextEvent("ehGenerator.dspGenerator");
 			}
 		</cfscript>
@@ -79,7 +79,7 @@ This is the app Builder handler.
 			
 			/* Get Directory Listing */
 			rc.qAppListing = getDirectoryListing(rc.appRelocation);
-			rc.qAppListing = getPlugin("queryHelper").sortQuery(rc.qAppListing,"directory");
+			rc.qAppListing = getPlugin("QueryHelper").sortQuery(rc.qAppListing,"directory");
 			
 			// Set the View
 			event.setView("tools/vwGeneratorSummary");

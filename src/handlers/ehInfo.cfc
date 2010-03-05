@@ -29,7 +29,7 @@ Informative handler.
 		<cfset rc.xehResources = "ehInfo.dspOnlineResources">
 		<cfset rc.xehCFCDocs = "ehInfo.dspCFCDocs">
 		<!--- Set the Rollovers --->
-		<cfset rc.qRollovers = getPlugin("queryHelper").filterQuery(rc.dbService.getService("settings").getRollovers(),"pagesection","home")>
+		<cfset rc.qRollovers = getPlugin("QueryHelper").filterQuery(rc.dbService.getService("settings").getRollovers(),"pagesection","home")>
 		<!--- Set the View --->
 		<cfset Event.setView("home/gateway")>
 	</cffunction>
@@ -63,7 +63,7 @@ Informative handler.
 
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehCFCDocs = "ehInfo.dspCFCDocs">
-		<cfset rc.cfcViewer = getPlugin("cfcViewer")>
+		<cfset rc.cfcViewer = getPlugin("CFCViewer")>
 		
 		<!---Help --->
 		<cfset rc.help = renderView("home/help/CFCDocs")>

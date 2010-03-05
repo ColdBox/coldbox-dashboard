@@ -36,7 +36,7 @@ This is the main event handler for the ColdBox dashboard.
 		</cfif>
 		<!--- Web Service Refresh, if needed. --->
 		<cfif getValue("refreshWS","") neq "">
-			<cfset getPlugin("webservices").refreshWS("DistributionWS")>
+			<cfset getPlugin("Webservices").refreshWS("DistributionWS")>
 		</cfif>
 	</cffunction>
 	<!--- ************************************************************* --->
@@ -94,7 +94,7 @@ This is the main event handler for the ColdBox dashboard.
 		<cfset setValue("dirListing",dirListing)>
 		<!--- grab if backup --->
 		<cfif getValue("finished","") eq "ok">
-			<cfset getPlugin("messagebox").setMessage("info","Your data has been backed up successfully. Please look below in your backups directory for the zip file.")>
+			<cfset getPlugin("MessageBox").setMessage("info","Your data has been backed up successfully. Please look below in your backups directory for the zip file.")>
 		</cfif>
 		<cfset setView("vwBackups")>
 	</cffunction>
@@ -190,7 +190,7 @@ This is the main event handler for the ColdBox dashboard.
 			<cfset setNextEvent("ehColdbox.dspHome")>
 		<cfelse>
 			<!--- Invalid --->
-			<cfset getPlugin("messagebox").setMessage("warning","The password you entered is incorrect")>
+			<cfset getPlugin("MessageBox").setMessage("warning","The password you entered is incorrect")>
 			<cfset setNextEvent("ehColdbox.dspLogin")>
 		</cfif>
 	</cffunction>
@@ -203,18 +203,18 @@ This is the main event handler for the ColdBox dashboard.
 		<cfset var updateResults = "">
 		<cftry>
 			<!--- Get a WS Object --->
-			<cfset updateWS = getPlugin("webservices").getWSObj("DistributionWS")>
+			<cfset updateWS = getPlugin("Webservices").getWSObj("DistributionWS")>
 			<!--- Check for Updates --->
 			<cfset updateResults = updateWS.getUpdateInfo('#getSetting("Version",1)#')>
 			<!--- CHeck for WS Errors --->
 			<cfif updateResults.error>
-				<cfset getPlugin("messagebox").setMessage("error", "#errorString##updateResults.errorMessage#")>
+				<cfset getPlugin("MessageBox").setMessage("error", "#errorString##updateResults.errorMessage#")>
 			<cfelse>
 				<!--- Test versions --->
 				<cfif updateResults.AvailableUpdate>
-					<cfset getPlugin("messagebox").setMessage("warning","There is a new version of ColdBox available.")>
+					<cfset getPlugin("MessageBox").setMessage("warning","There is a new version of ColdBox available.")>
 				<cfelse>
-					<cfset getPlugin("messagebox").setMessage("warning","You have the latest version of ColdBox installed.")>
+					<cfset getPlugin("MessageBox").setMessage("warning","You have the latest version of ColdBox installed.")>
 				</cfif>
 				<!--- Format Readme for display --->
 				<cfset updateResults.updateStruct.ReadmeFile = replace(updateResults.updateStruct.ReadmeFile, chr(13), "<br>", "all")>
@@ -224,7 +224,7 @@ This is the main event handler for the ColdBox dashboard.
 			</cfif>
 			<!--- Catch --->
 			<cfcatch type="any">
-				<cfset getPlugin("messagebox").setMessage("warning","#errorString##cfcatch.Detail#<br><br>#cfcatch.Message#")>
+				<cfset getPlugin("MessageBox").setMessage("warning","#errorString##cfcatch.Detail#<br><br>#cfcatch.Message#")>
 			</cfcatch>
 		</cftry>
 		<!--- set next event --->
@@ -255,13 +255,13 @@ This is the main event handler for the ColdBox dashboard.
 			<cfset errors = errors & "- The current password you entered is incorrect.<br>">
 		</cfif>
 		<cfif len(errors) neq 0>
-			<cfset getPlugin("messagebox").setMessage("warning",errors)>
+			<cfset getPlugin("MessageBox").setMessage("warning",errors)>
 			<cfset setNextEvent("ehColdbox.dspPassword")>
 		</cfif>
 
 		<!--- Change Password --->
 		<cfset getPlugin("settings").changePassword(trim(getValue("current_password")),trim(getValue("new_password")))>
-		<cfset getPlugin("messagebox").setMessage("info","Your Dashboard password has been changed.")>
+		<cfset getPlugin("MessageBox").setMessage("info","Your Dashboard password has been changed.")>
 		<cfset setNextEvent("ehColdbox.dspPassword")>
 
 	</cffunction>
@@ -279,7 +279,7 @@ This is the main event handler for the ColdBox dashboard.
 		
 		<!--- XML Verification --->
 		<cfif not isXML(fileContents)>
-			<cfset getPlugin("messagebox").setMessage("error", "The contents of the xml file are invalid. This is not a valid XML file. Please check your syntax. The file has been reverted to the original config.xml")>
+			<cfset getPlugin("MessageBox").setMessage("error", "The contents of the xml file are invalid. This is not a valid XML file. Please check your syntax. The file has been reverted to the original config.xml")>
 			<cfset setNextEvent("ehColdbox.dspConfigEditor")>
 		</cfif>
 
@@ -287,7 +287,7 @@ This is the main event handler for the ColdBox dashboard.
 		<cfset validationResults = XMLValidate(fileContents,getSetting("ConfigFileSchemaLocation",1))>
 
 		<cfif not validationResults.status>
-			<cfset getPlugin("messagebox").setMessage("error", "The contents of the xml file does not validate with the config schema file.  The file has been reverted to the original config.xml.")>
+			<cfset getPlugin("MessageBox").setMessage("error", "The contents of the xml file does not validate with the config schema file.  The file has been reverted to the original config.xml.")>
 			<cfset setNextEvent("ehColdbox.dspConfigEditor")>
 		</cfif>
 
@@ -309,10 +309,10 @@ This is the main event handler for the ColdBox dashboard.
 					mode="777">
 
 			<!--- Message --->
-			<cfset getPlugin("messagebox").setMessage("info","The Config.xml file was saved successfully. A backup copy has been placed in the backups directory of the dashboard.")>
+			<cfset getPlugin("MessageBox").setMessage("info","The Config.xml file was saved successfully. A backup copy has been placed in the backups directory of the dashboard.")>
 			<cfset setNextEvent("ehColdbox.dspConfigEditor")>
 			<cfcatch type="any">
-				<cfset getPlugin("messagebox").setMessage("error", "Error Saving File: #cfcatch.detail# #cfcatch.message#")>
+				<cfset getPlugin("MessageBox").setMessage("error", "Error Saving File: #cfcatch.detail# #cfcatch.message#")>
 				<cfset setNextEvent("ehColdbox.dspConfigEditor")>
 			</cfcatch>
 		</cftry>
@@ -329,10 +329,10 @@ This is the main event handler for the ColdBox dashboard.
 			<cffile action="delete"
 					file="#filepath##getSetting('OSFileSeparator',1)##filename#">
 			<!--- Set Message --->
-			<cfset getPlugin("messagebox").setMessage("info", "The file: <strong>#filename#</strong> was deleted successfully")>
+			<cfset getPlugin("MessageBox").setMessage("info", "The file: <strong>#filename#</strong> was deleted successfully")>
 			<cfset setNextEvent("ehColdbox.dspBackups")>
 			<cfcatch type="any">
-				<cfset getPlugin("messagebox").setMessage("error", "Error removing file: #cfcatch.detail# #cfcatch.message#")>
+				<cfset getPlugin("MessageBox").setMessage("error", "Error removing file: #cfcatch.detail# #cfcatch.message#")>
 				<cfset setNextEvent("ehColdbox.dspBackups")>
 			</cfcatch>
 		</cftry>
@@ -438,7 +438,7 @@ This is the main event handler for the ColdBox dashboard.
 					<cfdirectory action="delete" recurse="true" directory="#setupSettings.updateTempDir#">
 				</cfif>
 				<!--- Message --->
-				<cfset getPlugin("messagebox").setMessage("error","Error initiating installer. Please see the diagnostics message below:<br><br>#cfcatch.Detail#<br>#cfcatch.Message#")>
+				<cfset getPlugin("MessageBox").setMessage("error","Error initiating installer. Please see the diagnostics message below:<br><br>#cfcatch.Detail#<br>#cfcatch.Message#")>
 				<cfset setNextEvent("ehColdbox.dspHome")>
 			</cfcatch>
 		</cftry>
@@ -452,7 +452,7 @@ This is the main event handler for the ColdBox dashboard.
 			<!--- Remove Temp Install Dir --->
 			<cfdirectory action="delete" directory="#UpdateTempDir#" recurse="yes">
 		</cfif>
-		<cfset getPlugin("messagebox").setMessage("info","Your ColdBox installation has been updated successfully!")>
+		<cfset getPlugin("MessageBox").setMessage("info","Your ColdBox installation has been updated successfully!")>
 		<cfset setNextEvent("ehColdbox.dspLogin")>
 	</cffunction>
 	<!--- ************************************************************* --->
@@ -464,7 +464,7 @@ This is the main event handler for the ColdBox dashboard.
 			<!--- Remove Temp Install Dir --->
 			<cfdirectory action="delete" directory="#UpdateTempDir#" recurse="yes">
 		</cfif>
-		<cfset getPlugin("messagebox").setMessage("error","There was an error while updating your system. Please look at the error below:<br><br>#URLDecode(getValue("installerror"))#")>
+		<cfset getPlugin("MessageBox").setMessage("error","There was an error while updating your system. Please look at the error below:<br><br>#URLDecode(getValue("installerror"))#")>
 		<cfset setNextEvent("ehColdbox.dspHome")>
 	</cffunction>
 	<!--- ************************************************************* --->

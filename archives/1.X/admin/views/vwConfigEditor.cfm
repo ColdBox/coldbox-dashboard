@@ -6,7 +6,7 @@
 #getresource("configeditor_title")#</span><br /><br>
 #getresource("configeditor_text")# <br />
 <br />
-#getPlugin("messagebox").render()#
+#getPlugin("MessageBox").render()#
 <form id="form_xmleditor" name="form1" method="post" action="#cgi.SCRIPT_NAME#">
   <div align="center">
     <textarea name="xmlcontent" cols="40" rows="10" wrap="physical" class="filecontents"

@@ -94,7 +94,7 @@ This is the File Browser Handler
 			<cfcatch type="any">
 				<cfdump var="#cfcatch#"><cfabort>
 				<cfset rc.qryDir = QueryNew("")>
-				<cfset getPlugin("messagebox").setMessage("warning", "An error occurred reading directory. #cfcatch.message# - #cfcatch.detail#")>	
+				<cfset getPlugin("MessageBox").setMessage("warning", "An error occurred reading directory. #cfcatch.message# - #cfcatch.detail#")>	
 			</cfcatch>
 		</cftry>	
 		
@@ -118,11 +118,11 @@ This is the File Browser Handler
 		
 		<!--- Check for incoming params --->
 		<cfif len(trim(event.getValue("newFolder",""))) eq 0>
-			<cfset getPlugin("messagebox").setMessage("warning", "Please enter a valid folder name.")>
+			<cfset getPlugin("MessageBox").setMessage("warning", "Please enter a valid folder name.")>
 		<cfelse>
 		    <cfset newDir = event.getValue("dir") & "/" & event.getValue("NewFolder")>
 			<cfdirectory action="create" directory="#newDir#">
-			<cfset getPlugin("messagebox").setMessage("info", "Folder Created Successfully")>
+			<cfset getPlugin("MessageBox").setMessage("info", "Folder Created Successfully")>
 		</cfif>
 		
 		<!--- Set the next event --->

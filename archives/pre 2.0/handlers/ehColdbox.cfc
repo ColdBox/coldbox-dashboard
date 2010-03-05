@@ -47,7 +47,7 @@ This is the main event handler for the ColdBox dashboard.
 		<cfargument name="requestContext" type="coldbox.system.beans.requestContext">
 		<!--- Do Login --->
 		<cfif len(trim(requestContext.getValue("password",""))) eq 0>
-			<cfset getPlugin("messagebox").setMessage("error", "Please fill out the password field.")>
+			<cfset getPlugin("MessageBox").setMessage("error", "Please fill out the password field.")>
 			<cfset setNextEvent()>
 		</cfif>
 		<cfif application.dbservice.get("settings").validatePassword(requestContext.getValue("password"))>
@@ -55,7 +55,7 @@ This is the main event handler for the ColdBox dashboard.
 			<cfset session.authorized = true>
 			<cfset setNextEvent()>
 		<cfelse>
-			<cfset getPlugin("messagebox").setMessage("error", "The password you entered is not correct. Please try again.")>
+			<cfset getPlugin("MessageBox").setMessage("error", "The password you entered is not correct. Please try again.")>
 			<cfset setNextEvent()>
 		</cfif>
 	</cffunction>

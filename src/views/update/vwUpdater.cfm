@@ -15,7 +15,7 @@
 	running the latest version of the framework and dashboard.  You can then decide to download the update.
 	</p>
 	<br /><br />
-	#getPlugin("messagebox").renderit()#
+	#getPlugin("MessageBox").renderit()#
 	<form id="updateform" name="updateform" method="post" action="javascript:doFormEvent('#Event.getValue("xehCheck")#','content',document.updateform)" onSubmit="doUpdater()">
 	  <div align="center">
 		<table width="100%" border="0" cellspacing="0" cellpadding="5" class="tablelisting">

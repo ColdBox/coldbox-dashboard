@@ -35,7 +35,7 @@ This is the settings handler
 		<cfset rc.xehProxy = "ehSettings.dspProxySettings">
 		<cfset rc.xehCacheSettings = "ehSettings.dspCachesettings">
 		<!--- Set the Rollovers For This Section --->
-		<cfset rc.qRollovers = getPlugin("queryHelper").filterQuery(rc.dbService.getService("settings").getRollovers(),"pagesection","settings")>
+		<cfset rc.qRollovers = getPlugin("QueryHelper").filterQuery(rc.dbService.getService("settings").getRollovers(),"pagesection","settings")>
 		<!--- Set the View --->
 		<cfset Event.setView("settings/gateway")>
 	</cffunction>
@@ -79,12 +79,12 @@ This is the settings handler
 			if( len(trim(rc.ColdspringBeanFactory)) eq 0 or 
 			    len(Trim(rc.EventName)) eq 0 or
 			    len(trim(rc.LightWireBeanFactory)) eq 0){
-				getPlugin("messagebox").setMessage("error","Please enter all the required fields.");
+				getPlugin("MessageBox").setMessage("error","Please enter all the required fields.");
 				setNextEvent("ehSettings.dspGeneralSettings");
 			}
 			else{
 				rc.dbservice.getService("fwsettings").saveGeneralSettings(rc);
-				getPlugin("messagebox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.");
+				getPlugin("MessageBox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.");
 				setNextEvent("ehSettings.dspGeneralSettings");
 			}
 			
@@ -114,19 +114,19 @@ This is the settings handler
 			var oConventions = rc.dbservice.getBean("conventions");
 			
 			//Populate bean with form data
-			getPlugin("beanFactory").populateBean(oConventions);
+			getPlugin("BeanFactory").populateBean(oConventions);
 			
 			//Validate Bean.
 			if ( oConventions.validate() ){
 				//Save results
 				rc.dbService.getService("fwsettings").saveConventions(oConventions);
 				//messagebox
-				getPlugin("messagebox").setMessage("warning", "Changes made sucessfully.Please make sure you change your conventions appropiately.");
+				getPlugin("MessageBox").setMessage("warning", "Changes made sucessfully.Please make sure you change your conventions appropiately.");
 				//Relocate
 				setNextEvent("ehSettings.dspConventions");
 			}
 			else{
-				getPlugin("messagebox").setMessage("info","Please fill out all the values");
+				getPlugin("MessageBox").setMessage("info","Please fill out all the values");
 				setNextEvent("ehSettings.dspConventions");
 			}			
 		</cfscript>		
@@ -158,17 +158,17 @@ This is the settings handler
 			//Error Checks
 			if( len(trim(rc.maxPersistentRequestProfilers)) eq 0 or 
 			    len(Trim(rc.maxRCPanelQueryRows)) eq 0){
-				getPlugin("messagebox").setMessage("error","Please enter all the required fields.");
+				getPlugin("MessageBox").setMessage("error","Please enter all the required fields.");
 				setNextEvent("ehSettings.dspDebuggerSettings");
 			}
 			else if( not isNumeric(rc.maxPersistentRequestProfilers) or
 			         not isNumeric(rc.maxRCPanelQueryRows) ){
-					getPlugin("messagebox").setMessage("error","The maxPersistentRequestProfilers and maxRCPanelQueryRows settings must be numeric.");
+					getPlugin("MessageBox").setMessage("error","The maxPersistentRequestProfilers and maxRCPanelQueryRows settings must be numeric.");
 					setNextEvent("ehSettings.dspDebuggerSettings");
 			}
 			else{
 				rc.dbservice.getService("fwsettings").saveDebuggerSettings(rc);
-				getPlugin("messagebox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.");
+				getPlugin("MessageBox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.");
 				setNextEvent("ehSettings.dspDebuggerSettings");
 			}
 			
@@ -199,17 +199,17 @@ This is the settings handler
 		
 		<!--- Validate blanks --->
 		<cfif len(trim(rc.DefaultLogDirectory)) eq 0 or len(trim(rc.LogFileEncoding)) eq 0 or len(trim(rc.LogFileMaxArchives)) eq 0 or len(trim(rc.LogFileMaxSize)) eq 0>
-			<cfset getPlugin("messagebox").setMessage("error","Please make sure you fill out all the values.")>
+			<cfset getPlugin("MessageBox").setMessage("error","Please make sure you fill out all the values.")>
 			<cfset errors = true>
 		</cfif>
 		<!--- ValidateMax Size ---->
 		<cfif not isNumeric(rc.LogFileMaxSize)>
-			<cfset getPlugin("messagebox").setMessage("error","The Log File Max Size you sent in is not numeric. Please try again")>
+			<cfset getPlugin("MessageBox").setMessage("error","The Log File Max Size you sent in is not numeric. Please try again")>
 			<cfset errors = true>
 		</cfif>
 		<!--- LogFileMaxArchives Size ---->
 		<cfif not isNumeric(rc.LogFileMaxArchives) or rc.LogFileMaxArchives lte 0>
-			<cfset getPlugin("messagebox").setMessage("error","The Log File Max Archives you sent in is not numeric or valid. Please try again")>
+			<cfset getPlugin("MessageBox").setMessage("error","The Log File Max Archives you sent in is not numeric or valid. Please try again")>
 			<cfset errors = true>
 		</cfif>
 		
@@ -217,7 +217,7 @@ This is the settings handler
 		<cfif not errors>
 			<!--- Update the settings --->
 			<cfset rc.dbservice.getService("fwsettings").saveLogFileSettings(rc)>
-			<cfset getPlugin("messagebox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.")>
+			<cfset getPlugin("MessageBox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.")>
 		</cfif>
 		
 		<!--- Relocate --->
@@ -244,15 +244,15 @@ This is the settings handler
 		<cfset var rtnStruct = "">
 		<!--- Validate Passwords --->
 		<cfif len(trim(rc.oldpassword)) eq 0 or len(trim(rc.newpassword)) eq 0 or len(trim(rc.newpassword2)) eq 0>
-			<cfset getPlugin("messagebox").setMessage("error", "Please fill out all the necessary fields.")>
+			<cfset getPlugin("MessageBox").setMessage("error", "Please fill out all the necessary fields.")>
 		<cfelse>
 			<!--- Save the new password --->
 			<cfset rtnStruct = rc.dbservice.getService("settings").changePassword(rc.oldpassword,rc.newpassword,rc.newpassword2)>
 			<!--- Validate --->
 			<cfif not rtnStruct.results>
-				<cfset getPlugin("messagebox").setMessage("error", "#rtnStruct.message#")>
+				<cfset getPlugin("MessageBox").setMessage("error", "#rtnStruct.message#")>
 			<cfelse>
-				<cfset getPlugin("messagebox").setMessage("info", "Your new password has been updated successfully.")>
+				<cfset getPlugin("MessageBox").setMessage("info", "Your new password has been updated successfully.")>
 			</cfif>
 		</cfif>
 		<!--- Move to new event --->
@@ -286,18 +286,18 @@ This is the settings handler
 		      len(Trim(rc.CacheReapFrequency)) eq 0 or
 		      len(trim(rc.CacheMaxObjects)) eq 0 or
 		      len(trim(rc.CacheFreeMemoryPercentageThreshold)) eq 0>
-			<cfset getPlugin("messagebox").setMessage("error","You cannot leave any empty configurations.")>
+			<cfset getPlugin("MessageBox").setMessage("error","You cannot leave any empty configurations.")>
 			<cfset setNextEvent("ehSettings.dspCacheSettings")>
 		<cfelseif not isNumeric(rc.CacheObjectDefaultTimeout) or
 				  not isNumeric(rc.CacheObjectDefaultLastAccessTimeout) or
 				  not isNumeric(rc.CacheReapFrequency) or
 				  not isNumeric(rc.CacheMaxObjects) or
 				  not isNumeric(rc.CacheFreeMemoryPercentageThreshold)>
-			<cfset getPlugin("messagebox").setMessage("error","Only numerical values are allowed.")>
+			<cfset getPlugin("MessageBox").setMessage("error","Only numerical values are allowed.")>
 			<cfset setNextEvent("ehSettings.dspCacheSettings")>
 		<cfelse>
 			<cfset rc.dbservice.getService("fwsettings").saveCacheSettings(rc)>
-			<cfset getPlugin("messagebox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.")>
+			<cfset getPlugin("MessageBox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.")>
 			<!--- Relocate --->
 			<cfset setNextEvent("ehSettings.dspCacheSettings")>
 		</cfif>

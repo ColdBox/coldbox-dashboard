@@ -27,7 +27,7 @@
 	</div>
 	
 	<!--- Messagebox --->
-	#getPlugin("messagebox").renderit()#
+	#getPlugin("MessageBox").renderit()#
 	
 	<div class="contentboxes">
 	
