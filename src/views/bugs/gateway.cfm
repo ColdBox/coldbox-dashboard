@@ -11,7 +11,7 @@
 <ul>
 	<li><a href="javascript:doEvent('#Event.getValue("xehSubmitBug")#', 'content', {})" onMouseOver="getHint('submitbug')" onMouseOut="resetHint()">Submit Bugs</a></li>
 	
-	<li><a href="#getSetting("TracSite")#/trac.cgi/report" onMouseOver="getHint('tracdatabase')" onMouseOut="resetHint()">Official Bug Database</a></li>
+	<li><a href="#getSetting("trackerSite")#/trac.cgi/report" onMouseOver="getHint('tracdatabase')" onMouseOut="resetHint()">Official Bug Database</a></li>
 	
 </ul>
 

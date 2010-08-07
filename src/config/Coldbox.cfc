@@ -49,12 +49,11 @@
 	
 		// custom settings
 		settings = {
-			version = "2.2.5 Beta",
-			tracSite = "http://ortus.svnrepository.com/coldbox/",
+			version = "2.2.6",
+			trackerSite = "http://coldbox.assembla.com/",
 			officialSite = "http://www.coldbox.org",
 			
 			coldbox_location = "/coldbox/system",
-			coldboxSamples_location = "/coldbox/samples",
 			
 			adobeAdmin = "/CFIDE/administrator/login.cfm",
 			blueDragonAdmin = "/bluedragon",
@@ -68,15 +67,21 @@
 			development = "^cf8.,^railo.,^cf9."
 		};
 		
-		//LogBox
-		logBoxConfig.appender(name="coldboxTracer",class="coldbox.system.logging.appenders.ColdboxTracerAppender");
-		logBoxConfig.root(levelMax=logBoxConfig.logLevels.INFO,appenders="*");
-		logBoxConfig.info("coldbox.system");
+		//LogBox DSL
+		logBox = {
+			// Define Appenders
+			appenders = {
+				coldboxTracer = { class="coldbox.system.logging.appenders.ColdboxTracerAppender" }
+			},
+			// Root Logger
+			root = { levelmax="INFO", appenders="*" },
+			// Implicit Level Categories
+			info = [ "coldbox.system" ] 
+		};
 		
 		//Layout Settings
 		layoutSettings = {
-			defaultLayout = "Layout.simple.cfm",
-			defaultView   = ""
+			defaultLayout = "Layout.simple.cfm"
 		};
 		
 		//Register Layouts
@@ -100,9 +105,7 @@
 		//Register interceptors as an array, we need order
 		interceptors = [
 			//Autowire
-			{class="coldbox.system.interceptors.Autowire",
-			 properties={}
-			}
+			{class="coldbox.system.interceptors.Autowire"}
 		];
 		
 

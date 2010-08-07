@@ -23,15 +23,7 @@
 		  <tr>
             <td width="40%" align="right" valign="top"><strong>Official Wiki, Guides, etc:</strong></td>
             <td valign="top" style="border-left:1px solid ##ddd">
-				<a class="action silver" href="#getSetting("TracSite")#">
-					<span>Open</span>
-				</a>
-			</td>
-          </tr>
-          <tr bgcolor="##f5f5f5">
-            <td align="right" valign="top"><strong>Official FAQ:</strong></td>
-            <td valign="middle" style="border-left:1px solid ##ddd">
-				<a class="action silver" href="#getSetting("TracSite")#trac.cgi/wiki/cbFAQ">
+				<a class="action silver" href="#getSetting("trackerSite")#">
 					<span>Open</span>
 				</a>
 			</td>
@@ -39,7 +31,7 @@
           <tr>
             <td align="right" valign="top"><strong>Online Forums:</strong></td>
             <td valign="middle" style="border-left:1px solid ##ddd">
-				<a class="action silver" href="#getSetting("FrameworkForums",1)#">
+				<a class="action silver" href="http://groups.google.com/group/coldbox?pli=1">
 					<span>Open</span>
 				</a>
 			</td>
@@ -56,22 +48,6 @@
             <td align="right" valign="top"><strong>Official Website:</strong></td>
             <td valign="middle" style="border-left:1px solid ##ddd">
 				<a class="action silver" href="#getSetting("OfficialSite")#">
-					<span>Open</span>
-				</a>
-			</td>
-          </tr>
-		   <tr>
-            <td align="right" valign="top"><strong>Framework Roadmap:</strong></td>
-            <td valign="middle" style="border-left:1px solid ##ddd">
-				<a class="action silver" href="#getSetting("TracSite")#/trac.cgi/roadmap">
-					<span>Open</span>
-				</a>
-			</td>
-          </tr>
-		  <tr bgcolor="##f5f5f5">
-            <td align="right" valign="top"><strong>Framework Bug Reports:</strong></td>
-            <td valign="middle" style="border-left:1px solid ##ddd">
-				<a class="action silver" href="#getSetting("TracSite")#/trac.cgi/report">
 					<span>Open</span>
 				</a>
 			</td>

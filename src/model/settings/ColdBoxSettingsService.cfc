@@ -10,7 +10,7 @@
 		<cfargument name="coldbox" required="true" type="any" hint="The coldbox controller">
 		<cfscript>
 			instance.coldbox = arguments.coldbox;
-			instance.settingsFilePath = ExpandPath("#getColdbox().getSetting("coldbox_location")#/config/settings.xml");
+			instance.settingsFilePath = ExpandPath("#getColdbox().getSetting("coldbox_location")#/web/config/settings.xml");
 			instance.qSettings = queryNew("");
 			instance.Conventions = structnew();
 			instance.xmlObj = "";
