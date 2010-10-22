@@ -53,8 +53,8 @@
 
 <div class="statusbar">
 	<form id="searchdocs" name="searchdocs" action="http://www.google.com/custom" method="get" target="mainframe">
-		<input type="hidden" name="domains" value="ortus.svnrepository.com" />
-		<input type="hidden" name="sitesearch" value="ortus.svnrepository.com/coldbox" />
+		<input type="hidden" name="domains" value="wiki.coldbox.org" />
+		<input type="hidden" name="sitesearch" value="wiki.coldbox.org" />
 		<input type="hidden" name="client" value="pub-0884459722343463"></input>
 		<input type="hidden" name="forid" value="1"></input>
 		<input type="hidden" name="channel" value="1066704285"></input>

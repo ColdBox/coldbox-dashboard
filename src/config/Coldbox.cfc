@@ -49,20 +49,15 @@
 	
 		// custom settings
 		settings = {
-			version = "2.2.6",
+			version = "2.2.7",
 			trackerSite = "http://coldbox.assembla.com/",
 			officialSite = "http://www.coldbox.org",
-			
 			coldbox_location = "/coldbox/system",
-			
 			adobeAdmin = "/CFIDE/administrator/login.cfm",
 			blueDragonAdmin = "/bluedragon",
 			railoAdmin = "/railo-context/admin/index.cfm"
 		};
 		
-		// environment settings, create a detectEnvironment() method to detect it yourself.
-		// create a function with the name of the environment so it can be executed if that environment is detected
-		// the value of the environment is a list of regex patterns to match the cgi.http_host.
 		environments = {
 			development = "^cf8.,^railo.,^cf9."
 		};
@@ -94,12 +89,6 @@
 				file = "Layout.Main.cfm",
 				views = "home/gateway,settings/gateway,bugs/gateway,tools/gateway,update/gateway"
 			}
-		};
-		
-		//Interceptor Settings
-		interceptorSettings = {
-			throwOnInvalidStates = false,
-			customInterceptors = ""
 		};
 		
 		//Register interceptors as an array, we need order
