@@ -1,4 +1,4 @@
-<cfcomponent output="false" displayname="ColdBoxSettingsService" hint="I am the Coldb ox Settings model.">
+<cfcomponent output="false" hint="I am the Coldb ox Settings model." singleton>
 
 <!------------------------------------------- CONSTRUCTOR ------------------------------------------->
 	
@@ -7,14 +7,15 @@
 	</cfscript>
 
 	<cffunction name="init" access="public" returntype="ColdBoxSettingsService" output="false">
-		<cfargument name="coldbox" required="true" type="any" hint="The coldbox controller">
+		<cfargument name="coldbox" required="true" type="any" inject="coldbox">
 		<cfscript>
-			instance.coldbox = arguments.coldbox;
-			instance.settingsFilePath = ExpandPath("#getColdbox().getSetting("coldbox_location")#/web/config/settings.xml");
-			instance.qSettings = queryNew("");
-			instance.Conventions = structnew();
-			instance.xmlObj = "";
-			/* parse coldbox settings. */
+			instance.coldbox 		  	= arguments.coldbox;
+			instance.settingsFilePath 	= ExpandPath("#arguments.coldbox.getSetting("coldbox_location")#/web/config/settings.xml");
+			instance.qSettings 			= queryNew("");
+			instance.Conventions 		= structnew();
+			instance.xmlObj 			= "";
+			
+			// parse coldbox settings.
 			parseSettings();
 			return this;
 		</cfscript>
@@ -127,15 +128,6 @@
 		var x = 1;
 		var settingArray = instance.xmlObj.xmlRoot.settings.xmlChildren;
 		for (x=1; x lte ArrayLen(settingArray); x=x+1){
-			if ( Comparenocase(settingArray[x].xmlAttributes.name,"DefaultFileCharacterSet") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.rc.DefaultFileCharacterSet);
-			}
-			if ( Comparenocase(settingArray[x].xmlAttributes.name,"ColdspringBeanFactory") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.rc.ColdspringBeanFactory);
-			}
-			if ( Comparenocase(settingArray[x].xmlAttributes.name,"LightWireBeanFactory") eq 0){
-				settingArray[x].xmlAttributes.value = trim(arguments.rc.LightWireBeanFactory);
-			}
 			if ( Comparenocase(settingArray[x].xmlAttributes.name,"EventName") eq 0){
 				settingArray[x].xmlAttributes.value = trim(arguments.rc.EventName);
 			}

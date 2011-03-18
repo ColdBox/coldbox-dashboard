@@ -89,6 +89,15 @@
 	     	<input type="text" name="modelsLocation" value="#rc.Conventions.modelsLocation#" size="30">
 			</td>
 	     </tr>
+		 
+		 <tr>
+	     	<td align="right" width="40%" style="border-right:1px solid ##ddd">
+	     	<strong>Modules Location</strong>
+	     	</td>
+	     	<td>
+	     	<input type="text" name="modulesLocation" value="#rc.Conventions.modulesLocation#" size="30">
+			</td>
+	     </tr>
      
     </table>
 	</div>

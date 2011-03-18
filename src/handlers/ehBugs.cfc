@@ -9,6 +9,9 @@ Bug handler
 --->
 <cfcomponent name="ehBugs" extends="baseHandler" output="false">
 	
+	<cfproperty name="settingsService" 	inject="id:SettingsService">
+	<cfproperty name="dashboardService" inject="id:dashboardService">
+	
 	<!--- preHandler --->
 	<cffunction name="preHandler" access="public" returntype="void" output="false" hint="">
 		<cfargument name="Event" type="any" required="yes">
@@ -26,7 +29,7 @@ Bug handler
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehSubmitBug = "ehBugs.dspSubmitBug">
 		<!--- Set the Rollovers For This Section --->
-		<cfset rc.qRollovers = getPlugin("QueryHelper").filterQuery(rc.dbservice.getService("settings").getRollovers(),"pagesection","bugs")>
+		<cfset rc.qRollovers = getPlugin("QueryHelper").filterQuery(settingsService.getRollovers(),"pagesection","bugs")>
 		<!--- Set the View --->
 		<cfset Event.setView("bugs/gateway")>
 	</cffunction>
@@ -48,12 +51,10 @@ Bug handler
 		<!--- Validate --->
 		<cfif len(trim(rc.email)) eq 0 or len(trim(rc.bugreport)) eq 0 or len(trim(rc.name)) eq 0>
 			<cfset getPlugin("MessageBox").setMessage("warning", "Please fill out all the mandatory fields.")>
-		<cfelseif not getPlugin("Utilities").isEmail(rc.email) >
-			<cfset getPlugin("MessageBox").setMessage("warning","The email you entered is not a valid email address.")>
 		<cfelse>
 			<cftry>
 				<!--- Send report --->
-				<cfset rc.dbservice.sendBugReport(rc,getSettingStructure(true),getPlugin("Utilities").getOSName())>
+				<cfset dashboardService.sendBugReport(rc,getSettingStructure(true))>
 				<cfset getPlugin("MessageBox").setMessage("info", "You have successfully sent your bug report to the ColdBox bug email address.")>
 				<cfcatch type="any">
 					<cfset getPlugin("Logger").logError("Error sending bug report.", cfcatch)>

@@ -1,17 +1,16 @@
-<cfcomponent output="false" displayname="SettingsService" hint="I am the Dashboard settings model.">
+<cfcomponent output="false" hint="I am the Dashboard settings model." singleton>
 
 <!------------------------------------------- CONSTRUCTOR ------------------------------------------->
 
-	<!--- Constructor --->
-	<cfscript>
-		variables.instance = structnew();
-	</cfscript>
-	
 	<cffunction name="init" access="public" returntype="SettingsService" output="false">
-		<cfargument name="coldbox" required="true" type="any" hint="The coldbox controller">
+		<cfargument name="coldbox" required="true" type="any" inject="coldbox">
 		<cfscript>
+			instance = structnew();
+			
+			// setup coldbox
 			instance.coldbox = arguments.coldbox;
-			/* Prepare Instance */
+			
+			// Prepare Instance
 			instance.hashAlg = "SHA-384";
 			instance.settingsFilePath = ExpandPath("config/settings.xml.cfm");
 			instance.rolloversFilePath = ExpandPath("config/rollovers.xml");
@@ -19,7 +18,8 @@
 			instance.qDistributionURLS = queryNew("url", "varchar");
 			instance.qRollovers = queryNew("pagesection,rolloverid, text","varchar,varchar,varchar");
 			instance.xmlObj = "";
-			/* Parse */
+			
+			// Parse
 			parseSettings();
 			parseRollovers();
 			

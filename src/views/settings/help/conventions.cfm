@@ -30,6 +30,10 @@ The location of where your views will reside in the root of your application. Th
 The location of where your model objects reside in the root of your application.  The default is <strong>model</strong>
 </p>
 
+<h3>modules location</h3>
+<p>
+The location of where your modules reside in the root of your application.  The default is <strong>modules</strong>
+</p>
 
 <h3>default event action</h3>
 <p>

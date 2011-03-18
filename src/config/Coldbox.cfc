@@ -49,7 +49,7 @@
 	
 		// custom settings
 		settings = {
-			version = "2.2.7",
+			version = "2.3.0",
 			trackerSite = "http://coldbox.assembla.com/",
 			officialSite = "http://www.coldbox.org",
 			coldbox_location = "/coldbox/system",
@@ -58,6 +58,12 @@
 			railoAdmin = "/railo-context/admin/index.cfm"
 		};
 		
+		//wirebox
+		wirebox = { 
+			enabled = true 
+		};
+		
+		// environments
 		environments = {
 			development = "^cf8.,^railo.,^cf9."
 		};
@@ -66,12 +72,16 @@
 		logBox = {
 			// Define Appenders
 			appenders = {
-				coldboxTracer = { class="coldbox.system.logging.appenders.ColdboxTracerAppender" }
+				coldboxTracer = { class="coldbox.system.logging.appenders.ColdboxTracerAppender" },
+				fileAppender = {class="coldbox.system.logging.appenders.RollingFileAppender",
+							    properties={filePath="logs", fileName="Dashboard"}
+							    }
 			},
 			// Root Logger
 			root = { levelmax="INFO", appenders="*" },
 			// Implicit Level Categories
-			info = [ "coldbox.system" ] 
+			info = [ "coldbox.system" ],
+			debug = ["coldbox.system.ioc"]
 		};
 		
 		//Layout Settings
@@ -103,6 +113,7 @@
 	function development(){
 		coldbox.handlerCaching = false;
 		coldbox.handlersIndexAutoReload = true;
+		wirebox.singletonReload = true;
 	}
 	
 </cfscript>

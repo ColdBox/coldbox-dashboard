@@ -16,10 +16,11 @@
 	<property name="src" 							value="src"/>
 	<property name="build" 							value="build"/>
 	<property name="dist"							value="dist" />
-		
+	<tstamp prefix="start"/>
+	<property name="build.label" 					value="dashboard-buildID-${start.DSTAMP}${start.TSTAMP}"/>
+				
 	<!--Engine Properties-->
 	<property name="jrun.path" 						value="/Applications/JRun4" />
-	<property name="cf7.path" 						value="${jrun.path}/servers/cf7" />
 	<property name="cf8.path" 						value="${jrun.path}/servers/cf8" />
 	<property name="cf9.path" 						value="${jrun.path}/servers/cf9" />
 	<property name="webroot"						value="/Users/lmajano/sites/cboxdev/core" />
@@ -46,19 +47,17 @@
 			
 	<!-- Init -->
 	<target name="init" depends="cleanup">		
-		<tstamp/>		
 		<input addproperty="dashboard.version" message="Dashboard Version" />
 		<mkdir dir="${build}"/>		
 		<mkdir dir="${dist}"/>	
+		<!-- Copy build ID -->
+		<concat destfile="${build}/${build.label}">Built on ${start.TODAY}</concat>
 		<echo>Build setup complete.</echo>		
 	</target>
 	
 	<!--Cleanup-->
 	<target name="cleanup">
 		<!-- Delete compileclasses destination -->
-		<delete includeemptydirs="true">
-			<fileset dir="${cf7.path}/${cfcompile.tmpClasses}" includes="**/*"/>
-		</delete>
 		<delete includeemptydirs="true">
 			<fileset dir="${cf8.path}/${cfcompile.tmpClasses}" includes="**/*"/>
 		</delete>
@@ -67,31 +66,11 @@
 	</target>
 	
 	<!---Compile checks only-->
-	<target name="compile.checks" depends="compile.cf7,compile.cf8">
+	<target name="compile.checks" depends="compile.cf8">
 		<antcall target="cleanup" />
 	</target>
 	
 	<!--Compiler-->
-	<target name="compile.cf7">
-		<echo>Starting to compile dashboard...</echo>
-		<java classname="coldfusion.tools.CommandLineInvoker" failonerror="true" fork="true">
-			<classpath>
-				<pathelement location="${jrun.jar}"/>
-				<pathelement location="${cf7.path}/${coldfusion.bootstrap.jar}"/>
-				<pathelement location="${cf7.path}/${coldfusion.cfx.jar}"/>
-			</classpath>
-			
-			<sysproperty key=" coldfusion.classPath" value="${cf7.path}/${coldfusion.compiler.libpath},${cf7.path}/${coldfusion.compiler.libpath}/updates"/>
-			<sysproperty key=" coldfusion.libPath"   value="${cf7.path}/${coldfusion.compiler.libpath}"/>
-			
-			<arg line=" Compiler "/>
-			<arg line=" -cfroot ${cf7.path}/${coldfusion.home} "/>
-			<arg line=" -webinf ${cf7.path}/${coldfusion.instancepath} "/>
-			<arg line=" -webroot ${webroot} "/>
-			<arg line=" ${src}" />
-		</java>
-		<echo>Compilation checks complete.</echo>
-	</target>
 	<target name="compile.cf8">
 		<echo>Starting to compile dashboard...</echo>
 		<java classname="coldfusion.tools.CommandLineInvoker" failonerror="true" fork="true">

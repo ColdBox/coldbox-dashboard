@@ -9,6 +9,9 @@ This is the settings handler
 --->
 <cfcomponent name="ehSettings" extends="baseHandler" output="false">
 
+	<cfproperty name="settingsService" 			inject="id:SettingsService">
+	<cfproperty name="coldBoxSettingsService" 	inject="id:ColdBoxSettingsService">
+	
 	<!--- preHandler --->
 	<cffunction name="preHandler" access="public" returntype="void" output="false" hint="">
 		<cfargument name="Event" type="any" required="yes">
@@ -35,7 +38,7 @@ This is the settings handler
 		<cfset rc.xehProxy = "ehSettings.dspProxySettings">
 		<cfset rc.xehCacheSettings = "ehSettings.dspCachesettings">
 		<!--- Set the Rollovers For This Section --->
-		<cfset rc.qRollovers = getPlugin("QueryHelper").filterQuery(rc.dbService.getService("settings").getRollovers(),"pagesection","settings")>
+		<cfset rc.qRollovers = getPlugin("QueryHelper").filterQuery(settingsService.getRollovers(),"pagesection","settings")>
 		<!--- Set the View --->
 		<cfset Event.setView("settings/gateway")>
 	</cffunction>
@@ -44,9 +47,12 @@ This is the settings handler
 	<cffunction name="dspOverview" access="public" returntype="void" output="false">
 		<cfargument name="event" type="any" required="true">
 		<cfset var rc = event.getCollection()>
-		<cfset rc.fwSettings = rc.dbService.getService("fwsettings").getSettings()>
+		
+		<cfset rc.fwSettings = coldBoxSettingsService.getSettings()>
+		
 		<!--- Help --->
 		<cfset rc.help = renderView("settings/help/Overview")>
+		
 		<!--- Set the View --->
 		<cfset Event.setView("settings/vwOverview")>
 	</cffunction>
@@ -59,7 +65,7 @@ This is the settings handler
 		<cfset rc.xehDoSave = "ehSettings.doSaveGeneralSettings">
 		
 		<!--- Get general Settings --->
-		<cfset rc.fwSettings = rc.dbservice.getService("fwsettings").getSettings()>
+		<cfset rc.fwSettings = coldBoxSettingsService.getSettings()>
 		<cfset rc.help = renderView("settings/help/GeneralSettings")>
 		
 		<!--- Set the View --->
@@ -71,19 +77,16 @@ This is the settings handler
 		<cfargument name="event" type="any" required="true">
 		<cfscript>
 			var rc = event.getCollection();
-			var fwSettings = rc.dbservice.getService("fwsettings").getSettings();
-			var setCharacterSet = fwSettings["DefaultFileCharacterSet"];
+			var fwSettings = coldBoxSettingsService.getSettings();
 			var errors = "";
 			
 			//Error Checks
-			if( len(trim(rc.ColdspringBeanFactory)) eq 0 or 
-			    len(Trim(rc.EventName)) eq 0 or
-			    len(trim(rc.LightWireBeanFactory)) eq 0){
+			if( len(Trim(rc.EventName)) eq 0 ){
 				getPlugin("MessageBox").setMessage("error","Please enter all the required fields.");
 				setNextEvent("ehSettings.dspGeneralSettings");
 			}
 			else{
-				rc.dbservice.getService("fwsettings").saveGeneralSettings(rc);
+				coldBoxSettingsService.saveGeneralSettings(rc);
 				getPlugin("MessageBox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.");
 				setNextEvent("ehSettings.dspGeneralSettings");
 			}
@@ -98,7 +101,7 @@ This is the settings handler
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehDoSave = "ehSettings.doSaveConventions">
 		
-		<cfset rc.Conventions = rc.dbservice.getService("fwsettings").getConventions()>
+		<cfset rc.Conventions = coldBoxSettingsService.getConventions()>
 		<cfset rc.help = renderView("settings/help/conventions")>
 				
 		<!--- Set the View --->
@@ -111,7 +114,7 @@ This is the settings handler
 		<cfscript>
 			var rc = event.getCollection();
 			//var Get Bean
-			var oConventions = rc.dbservice.getBean("conventions");
+			var oConventions = getModel("ConventionsBean");
 			
 			//Populate bean with form data
 			getPlugin("BeanFactory").populateBean(oConventions);
@@ -119,7 +122,7 @@ This is the settings handler
 			//Validate Bean.
 			if ( oConventions.validate() ){
 				//Save results
-				rc.dbService.getService("fwsettings").saveConventions(oConventions);
+				coldBoxSettingsService.saveConventions(oConventions);
 				//messagebox
 				getPlugin("MessageBox").setMessage("warning", "Changes made sucessfully.Please make sure you change your conventions appropiately.");
 				//Relocate
@@ -140,7 +143,7 @@ This is the settings handler
 		<cfset rc.xehDoSave = "ehSettings.doSaveDebuggerSettings">
 		
 		<!--- Get general Settings --->
-		<cfset rc.fwSettings = rc.dbservice.getService("fwsettings").getSettings()>
+		<cfset rc.fwSettings = coldBoxSettingsService.getSettings()>
 		<cfset rc.help = renderView("settings/help/DebuggerSettings")>
 		
 		<!--- Set the View --->
@@ -152,7 +155,7 @@ This is the settings handler
 		<cfargument name="event" type="any" required="true">
 		<cfscript>
 			var rc = event.getCollection();
-			var fwSettings = rc.dbservice.getService("fwsettings").getSettings();
+			var fwSettings = coldBoxSettingsService.getSettings();
 			var errors = "";
 			
 			//Error Checks
@@ -167,7 +170,7 @@ This is the settings handler
 					setNextEvent("ehSettings.dspDebuggerSettings");
 			}
 			else{
-				rc.dbservice.getService("fwsettings").saveDebuggerSettings(rc);
+				coldBoxSettingsService.saveDebuggerSettings(rc);
 				getPlugin("MessageBox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.");
 				setNextEvent("ehSettings.dspDebuggerSettings");
 			}
@@ -183,7 +186,7 @@ This is the settings handler
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehDoSave = "ehSettings.doSaveLogFileSettings">
 		
-		<cfset rc.fwSettings = rc.dbservice.getService("fwsettings").getSettings()>
+		<cfset rc.fwSettings = coldBoxSettingsService.getSettings()>
 		<cfset rc.help = renderView("settings/help/LogFileSettings")>
 		
 		<!--- Set the View --->
@@ -194,7 +197,7 @@ This is the settings handler
 	<cffunction name="doSaveLogFileSettings" access="public" returntype="void" output="false">
 		<cfargument name="event" type="any" required="true">
 		<cfset var rc = event.getCollection()>
-		<cfset var fwSettings = rc.dbservice.getService("fwsettings").getSettings()>
+		<cfset var fwSettings = coldBoxSettingsService.getSettings()>
 		<cfset var errors = false>
 		
 		<!--- Validate blanks --->
@@ -216,7 +219,7 @@ This is the settings handler
 		<!--- Check for Errors --->
 		<cfif not errors>
 			<!--- Update the settings --->
-			<cfset rc.dbservice.getService("fwsettings").saveLogFileSettings(rc)>
+			<cfset coldBoxSettingsService.saveLogFileSettings(rc)>
 			<cfset getPlugin("MessageBox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.")>
 		</cfif>
 		
@@ -247,7 +250,7 @@ This is the settings handler
 			<cfset getPlugin("MessageBox").setMessage("error", "Please fill out all the necessary fields.")>
 		<cfelse>
 			<!--- Save the new password --->
-			<cfset rtnStruct = rc.dbservice.getService("settings").changePassword(rc.oldpassword,rc.newpassword,rc.newpassword2)>
+			<cfset rtnStruct = settingsService.changePassword(rc.oldpassword,rc.newpassword,rc.newpassword2)>
 			<!--- Validate --->
 			<cfif not rtnStruct.results>
 				<cfset getPlugin("MessageBox").setMessage("error", "#rtnStruct.message#")>
@@ -266,7 +269,7 @@ This is the settings handler
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehDoSave = "ehSettings.doSaveCacheSettings">
 		
-		<cfset rc.fwSettings = rc.dbservice.getService("fwsettings").getSettings()>
+		<cfset rc.fwSettings = coldBoxSettingsService.getSettings()>
 		<cfset rc.help = renderView("settings/help/CachingSettings")>
 		
 		<!--- Set the View --->
@@ -277,7 +280,7 @@ This is the settings handler
 	<cffunction name="doSaveCacheSettings" access="public" returntype="void" output="false">
 		<cfargument name="event" type="any" required="true">
 		<cfset var rc = event.getCollection()>
-		<cfset var fwSettings = rc.dbservice.getService("fwsettings").getSettings()>
+		<cfset var fwSettings = coldBoxSettingsService.getSettings()>
 		<cfset var errors = false>
 		
 		<!--- Validate blanks --->
@@ -296,7 +299,7 @@ This is the settings handler
 			<cfset getPlugin("MessageBox").setMessage("error","Only numerical values are allowed.")>
 			<cfset setNextEvent("ehSettings.dspCacheSettings")>
 		<cfelse>
-			<cfset rc.dbservice.getService("fwsettings").saveCacheSettings(rc)>
+			<cfset coldBoxSettingsService.saveCacheSettings(rc)>
 			<cfset getPlugin("MessageBox").setMessage("info","Settings have been updated successfully. Please remember to reinitialize the framework on your applications for the changes to take effect.")>
 			<!--- Relocate --->
 			<cfset setNextEvent("ehSettings.dspCacheSettings")>

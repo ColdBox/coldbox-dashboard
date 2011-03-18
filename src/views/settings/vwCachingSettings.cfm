@@ -13,7 +13,9 @@
 	#getPlugin("MessageBox").renderit()#
 	<div class="contentboxes">
 
-	<p>Below are the configuration settings for the ColdBox Cache Manager. Please note that all entries are in minutes.
+	<p>Below are the configuration settings for the ColdBox Cache Manager.  This version is for cf7 or compatiblity engines ONLY!
+	   New 3.0 applications will use the CacheBox engine and configuration found here:
+	   <em>/coldbox/system/web/config/CacheBox.cfc</em>
 	</p>
 	<br>
 		<div style="margin: 5px">

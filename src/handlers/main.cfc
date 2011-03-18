@@ -13,23 +13,6 @@ This is the main event handler for the ColdBox dashboard.
 
 	<cffunction name="onAppStart" access="public" returntype="void" output="false">
 		<cfargument name="Event" type="any">
-		<cfscript>
-			var MyService = "";
-			var dbService = "";
-			
-			//Setup My Service
-			if ( getSetting("AppMapping") eq "")
-				MyService = "model.dbservice";
-			else
-				MyService = getSetting("AppMapping") & ".model.dbservice";
-			
-			//Setup the Service
-			dbService = CreateObject("component",MyService).init(getController());
-			
-			//place dashboard service factory in cache
-			getColdboxOCM().set("dbservice",dbService,0);
-		
-		</cfscript>
 	</cffunction>
 	
 	<!--- ************************************************************* --->
@@ -39,20 +22,12 @@ This is the main event handler for the ColdBox dashboard.
 		<!--- Get Session Plugin --->
 		<cfset var storage = getPlugin("SessionStorage")>
 		
-		<!--- Check if the dbservice is set, else set it in cache --->
-		<cfif not getColdboxOCM().lookup("dbservice")>
-			<cfset onAppStart()>
-		</cfif>
-		
 		<!--- GLOBAL EXIT HANDLERS: --->
 		<cfset Event.setValue("xehLogout","ehSecurity.doLogout")>
 		
-		<!--- Inject dbservice to Eventon every request for usage --->
-		<cfset Event.setValue("dbService",getColdBoxOCM().get("dbservice"))>
-		
 		<!--- Authorization --->
 		<cfif (not storage.exists("authorized") or storage.getvar("authorized") eq false) and Event.getCurrentEvent() neq "ehSecurity.doLogin">
-			<cfset getPlugin("Logger").logEntry("information", "Login not authorized #session.toString()#", "")>
+			<cfset log.info("Login not authorized, redirecting to login")>
 			<cfset Event.overrideEvent("ehSecurity.dspLogin")>
 		</cfif>
 	</cffunction>

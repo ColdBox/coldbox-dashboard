@@ -8,14 +8,17 @@ This is the security handler
 --->
 <cfcomponent name="ehSecurity" extends="baseHandler" output="false">
 
+	<cfproperty name="settingsService" inject="id:SettingsService">
+
 	<!--- ************************************************************* --->
 	<!--- LOGIN SECTION													--->
 	<!--- ************************************************************* --->
 	
 	<cffunction name="dspLogin" access="public" returntype="void" output="false">
 		<cfargument name="Event" type="any">
-		<!--- EVENT HANDLERS: --->
-		<cfset Event.getCollection().xehLogin = "ehSecurity.doLogin">
+		<cfset var rc = event.getCollection()>
+		<cfset rc.xehLogin = "ehSecurity.doLogin">
+		
 		<!--- Set the View --->
 		<cfset Event.setView("vwLogin")>
 	</cffunction>
@@ -27,7 +30,7 @@ This is the security handler
 			<cfset getPlugin("MessageBox").setMessage("error", "Please fill out the password field.")>
 			<cfset setNextEvent()>
 		</cfif>
-		<cfif getColdboxOCM().get("dbservice").getService("settings").validatePassword(Event.getValue("password"))>
+		<cfif settingsService.validatePassword(Event.getValue("password"))>
 			<!--- Validate user --->
 			<cfset getPlugin("SessionStorage").setVar("authorized",true)>
 			<cfset setNextEvent()>

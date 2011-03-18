@@ -9,6 +9,8 @@ Informative handler.
 --->
 <cfcomponent name="ehInfo" extends="baseHandler" output="false">
 	
+	<cfproperty name="settingsService" inject="id:SettingsService">
+	
 	<!--- preHandler --->
 	<cffunction name="preHandler" access="public" returntype="void" output="false" hint="">
 		<cfargument name="Event" type="any" required="yes">
@@ -29,7 +31,7 @@ Informative handler.
 		<cfset rc.xehResources = "ehInfo.dspOnlineResources">
 		<cfset rc.xehCFCDocs = "ehInfo.dspCFCDocs">
 		<!--- Set the Rollovers --->
-		<cfset rc.qRollovers = getPlugin("QueryHelper").filterQuery(rc.dbService.getService("settings").getRollovers(),"pagesection","home")>
+		<cfset rc.qRollovers = getPlugin("QueryHelper").filterQuery( settingsService.getRollovers(),"pagesection","home")>
 		<!--- Set the View --->
 		<cfset Event.setView("home/gateway")>
 	</cffunction>
