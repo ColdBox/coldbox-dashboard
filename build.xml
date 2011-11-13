@@ -20,7 +20,7 @@
 	<property name="build.label" 					value="dashboard-buildID-${start.DSTAMP}${start.TSTAMP}"/>
 				
 	<!--Engine Properties-->
-	<property name="jrun.path" 						value="/Applications/JRun4" />
+	<property name="jrun.path" 						value="/Applications/ColdFusion9" />
 	<property name="cf8.path" 						value="${jrun.path}/servers/cf8" />
 	<property name="cf9.path" 						value="${jrun.path}/servers/cf9" />
 	<property name="webroot"						value="/Users/lmajano/sites/cboxdev/core" />
@@ -57,10 +57,6 @@
 	
 	<!--Cleanup-->
 	<target name="cleanup">
-		<!-- Delete compileclasses destination -->
-		<delete includeemptydirs="true">
-			<fileset dir="${cf8.path}/${cfcompile.tmpClasses}" includes="**/*"/>
-		</delete>
 		<delete dir="${build}" />
 		<echo>Cleanup Complete.</echo>
 	</target>
