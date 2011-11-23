@@ -65,7 +65,7 @@ Informative handler.
 
 		<!--- EXIT HANDLERS: --->
 		<cfset rc.xehCFCDocs = "ehInfo.dspCFCDocs">
-		<cfset rc.cfcViewer = getPlugin("CFCViewer")>
+		<cfset rc.cfcViewer = getMyPlugin("CFCViewer")>
 		
 		<!---Help --->
 		<cfset rc.help = renderView("home/help/CFCDocs")>

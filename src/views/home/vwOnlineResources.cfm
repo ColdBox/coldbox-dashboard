@@ -39,7 +39,7 @@
           <tr bgcolor="##f5f5f5">
             <td align="right" valign="top"><strong>Blog:</strong></td>
             <td valign="middle" style="border-left:1px solid ##ddd">
-				<a class="action silver" href="#getSetting("FrameworkBlog",1)#">
+				<a class="action silver" href="http://blog.coldbox.org">
 					<span>Open</span>
 				</a>
 			</td>
@@ -47,7 +47,7 @@
           <tr>
             <td align="right" valign="top"><strong>Official Website:</strong></td>
             <td valign="middle" style="border-left:1px solid ##ddd">
-				<a class="action silver" href="#getSetting("OfficialSite")#">
+				<a class="action silver" href="http://www.coldbox.org">
 					<span>Open</span>
 				</a>
 			</td>
@@ -55,7 +55,7 @@
 		  <tr>
             <td align="right" valign="top"><strong>Latest CFC API Docs:</strong></td>
             <td valign="middle" style="border-left:1px solid ##ddd">
-				<a class="action silver" href="#getSetting("FrameworkAPI",1)#">
+				<a class="action silver" href="http://apidocs.coldbox.org">
 					<span>Open</span>
 				</a>
 			</td>

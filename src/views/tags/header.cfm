@@ -9,11 +9,12 @@
 			<a href="?event=#Event.getValue("xehHome")#" target="mainframe" onmouseover="rollover('btn_home')" onmouseout="rollout('btn_home')"><img  src="includes/images/icons/home.gif" border="0" id="btn_home" srcoff="includes/images/icons/home.gif" srcon="includes/images/icons/home_on.gif"><br>
 			Home</a>
 		</div>
-		<!--- SETTINGS --->
+		<!--- SETTINGS 
 		<div id="topbuttons" >
 			<a href="?event=#Event.getValue("xehSettings")#" target="mainframe" onmouseover="rollover('btn_settings')" onmouseout="rollout('btn_settings')"><img  src="includes/images/icons/settings.gif" border="0" id="btn_settings" srcoff="includes/images/icons/settings.gif" srcon="includes/images/icons/settings_on.gif"><br>
 			Settings</a>
 		</div>
+		--->
 		<!--- TOOLS--->
 		<div id="topbuttons" >
 			<a href="?event=#Event.getValue("xehTools")#" target="mainframe" onmouseover="rollover('btn_tools')" onmouseout="rollout('btn_tools')"><img  src="includes/images/icons/tools.gif" border="0" id="btn_tools" srcoff="includes/images/icons/tools.gif" srcon="includes/images/icons/tools_on.gif"><br>

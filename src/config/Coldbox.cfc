@@ -14,7 +14,6 @@
 			debugPassword			= "",
 			reinitPassword			= "",
 			handlersIndexAutoReload = false,
-			configAutoReload		= false,
 			
 			//Implicit Events
 			defaultEvent			= "main.dspFrameset",
@@ -43,13 +42,12 @@
 			//Application Aspects
 			handlerCaching 			= true,
 			eventCaching			= true,
-			proxyReturnCollection 	= false,
-			flashURLPersistScope	= "session"	
+			proxyReturnCollection 	= false
 		};
 	
 		// custom settings
 		settings = {
-			version = "2.3.0",
+			version = "2.4.0",
 			trackerSite = "http://coldbox.assembla.com/",
 			officialSite = "http://www.coldbox.org",
 			coldbox_location = "/coldbox/system",
@@ -80,8 +78,7 @@
 			// Root Logger
 			root = { levelmax="INFO", appenders="*" },
 			// Implicit Level Categories
-			info = [ "coldbox.system" ],
-			debug = ["coldbox.system.ioc"]
+			info = [ "coldbox.system" ]
 		};
 		
 		//Layout Settings
@@ -102,10 +99,7 @@
 		};
 		
 		//Register interceptors as an array, we need order
-		interceptors = [
-			//Autowire
-			{class="coldbox.system.interceptors.Autowire"}
-		];
+		interceptors = [];
 		
 
 	}// end configure()
